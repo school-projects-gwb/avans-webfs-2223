@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\News;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,7 +26,9 @@ Route::get('/menu', function () {
 });
 
 Route::get('/news', function () {
-    return Inertia::render('News');
+    return Inertia::render('News', [
+        'news_articles' => News::all()
+    ]);
 });
 
 Route::get('/contact', function () {
