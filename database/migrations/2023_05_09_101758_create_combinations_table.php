@@ -18,6 +18,9 @@ return new class extends Migration
                 ->on('categories');
             $table->decimal('price', 4, 2);
             $table->string('name');
+            $table->string('comment')->nullable();
+            $table->boolean('is_discount')->default(0)->change();
+            $table->integer('dish_limit')->nullable();
             $table->timestamps();
         });
     }
