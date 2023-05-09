@@ -10,11 +10,11 @@
 >
     <div class="w-11/12 mt-16 p-4 relative z-10 bg-primary flex flex-col items-center">
         <!-- Header -->
-        <div class="flex w-full justify-between">
+        <div class="flex w-full flex-col lg:flex-row justify-center lg:justify-between">
             <Link href="/" class="w-2/8">
                 <ApplicationLogo classes="w-20 h-20 fill-current text-gray-500" />
             </Link>
-            <div class="w-1/2 text-secondary text-center">
+            <div class="w-full lg:w-1/2 text-secondary text-center">
                 Welkom bij De Gouden Draak! Klik op deze tekst om de aanbiedingen van deze week te zien!
             </div>
             <Link href="/" class="w-2/8">
@@ -35,9 +35,11 @@
                 </div>
                 <img src="{DragonFacingLeft}" class="w-44 h-44">
             </div>
-            <slot />
+            <div class="mt-12 w-11/12 p-8 m-auto bg-content border border-black">
+                <slot />
+            </div>
         </div>
-        <div class="w-full h-full absolute top-0 left-0 -z-10 bg-primary mt-24 p-2">
+        <div class="w-full h-full absolute top-0 left-0 -z-10 bg-primary mt-48 lg:mt-24 p-2">
             <div class="flex flex-col h-full">
                 <div>
                     <div class="flex">

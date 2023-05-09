@@ -12,7 +12,7 @@
     <title>The Golden Dragon</title>
 </svelte:head>
 
-Page content
+Inhoud van de pagina
 
 <style>
     .bg-dots-darker {
