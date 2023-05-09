@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('comment')->nullable();
             $table->boolean('is_discount')->default(0)->change();
-            $table->integer('dish_limit')->nullable();
+            $table->integer('optional_dish_limit')->nullable();
             $table->timestamps();
         });
     }

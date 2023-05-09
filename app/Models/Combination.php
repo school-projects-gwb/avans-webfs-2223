@@ -15,7 +15,7 @@ class Combination extends Model
         'menu_number',
         'comment',
         'is_discount',
-        'dish_limit'
+        'optional_dish_limit'
     ];
 
     public function dishes()
