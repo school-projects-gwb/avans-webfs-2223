@@ -6,4 +6,4 @@
     <title>The Golden Dragon</title>
 </svelte:head>
 
-Inhoud homepagina
+Inhoud nieuwspagina

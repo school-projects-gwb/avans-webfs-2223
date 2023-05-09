@@ -5,7 +5,7 @@
 </script>
 
 <div class="flex items-center">
-    <img class="h-16" src="{DragonFacingRight}">
-    <h1 class="mx-2 text-3xl tracking-tight text-secondary font-chinese">DE GOUDEN DRAAK</h1>
-    <img class="h-16" src="{DragonFacingLeft}">
+    <img class="h-12" src="{DragonFacingRight}">
+    <h1 class="mx-1 text-3xl tracking-tight text-secondary">DE GOUDEN DRAAK</h1>
+    <img class="h-12" src="{DragonFacingLeft}">
 </div>

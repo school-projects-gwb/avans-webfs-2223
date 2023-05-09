@@ -11,13 +11,13 @@
     <div class="w-11/12 mt-16 p-4 relative z-10 bg-primary flex flex-col items-center">
         <!-- Header -->
         <div class="flex w-full flex-col lg:flex-row justify-center lg:justify-between">
-            <Link href="/" class="w-2/8">
+            <Link href="/" class="w-full lg:w-4/12">
                 <ApplicationLogo classes="w-20 h-20 fill-current text-gray-500" />
             </Link>
-            <div class="w-full lg:w-1/2 text-secondary text-center">
+            <div class="w-full lg:w-4/12 text-secondary text-center">
                 Welkom bij De Gouden Draak! Klik op deze tekst om de aanbiedingen van deze week te zien!
             </div>
-            <Link href="/" class="w-2/8">
+            <Link href="/" class="w-full lg:w-4/12 flex lg:justify-end">
                 <ApplicationLogo classes="w-20 h-20 fill-current text-gray-500" />
             </Link>
         </div>
@@ -28,9 +28,9 @@
                     <h1 class="text-4xl font-semibold text-secondary">Chinees Indische Specialiteiten</h1>
                     <h1 class="text-5xl font-bold text-secondary mt-2">De Gouden Draak</h1>
                     <div class="mt-6 border border-white w-fit m-auto">
-                        <a href="#" class="text-white text-xl px-8 bg-menu-item">Menukaart</a>
-                        <a href="#" class="text-white text-xl px-8 bg-menu-item">Nieuws</a>
-                        <a href="#" class="text-white text-xl px-8 bg-menu-item">Contact</a>
+                        <a href="/menu" class="text-white text-xl px-8 bg-menu-item">Menukaart</a>
+                        <a href="/news" class="text-white text-xl px-8 bg-menu-item">Nieuws</a>
+                        <a href="/contact" class="text-white text-xl px-8 bg-menu-item">Contact</a>
                     </div>
                 </div>
                 <img src="{DragonFacingLeft}" class="w-44 h-44">
