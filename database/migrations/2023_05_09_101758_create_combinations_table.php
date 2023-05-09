@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId("category_id")
                 ->references('id')
                 ->on('categories');
+            $table->integer('menu_number');
             $table->decimal('price', 4, 2);
             $table->string('name');
             $table->string('comment')->nullable();

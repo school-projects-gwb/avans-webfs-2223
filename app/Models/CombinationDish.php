@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class CombinationDish extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'is_optional'
+    ];
 }

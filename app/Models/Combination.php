@@ -12,6 +12,7 @@ class Combination extends Model
     protected $fillable = [
         'price',
         'name',
+        'menu_number',
         'comment',
         'is_discount',
         'dish_limit'

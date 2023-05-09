@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('combination_id');
             $table->unsignedBigInteger('dish_id');
+            $table->boolean('is_optional')->default(0)->change();
             $table->timestamps();
 
             $table->foreign('combination_id')->references('id')->on('combinations');
