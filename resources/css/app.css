@@ -19,6 +19,15 @@
     }
 }
 
+* {
+    font-family: "Times New Roman"
+}
+
+.bg-menu-item {
+    background: rgb(0,251,255);
+    background: linear-gradient(180deg, rgba(0,251,255,1) 0%, rgba(0,149,255,1) 50%, rgba(78,81,255,1) 100%);
+}
+
 .border-corner-top-left {
     @apply border-l-4 border-t-4 border-secondary;
 }
