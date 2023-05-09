@@ -13,6 +13,13 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
+                chinese: ["chinese_takeawayregular"]
+            },
+            colors: {
+                'primary': 'rgb(var(--color-primary) / <alpha-value>)',
+                'primary-dark': 'rgb(var(--color-primary-dark) / <alpha-value>)',
+                'secondary': 'rgb(var(--color-secondary) / <alpha-value>)',
+                'content': 'rgb(var(--color-content) / <alpha-value>)'
             },
         },
     },

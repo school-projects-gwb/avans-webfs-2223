@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'chinese_takeawayregular';
+    src: url('/fonts/chinesetakeaway-webfont.woff2') format('woff2'),
+    url('public/fonts/chinesetakeaway-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@layer base {
+    :root {
+        --color-primary: 255 0 0;
+        --color-primary-dark: 139 0 0;
+        --color-secondary: 255 255 0;
+        --color-content: 255 250 240;
+    }
+}
+
+.border-corner-top-left {
+    @apply border-l-4 border-t-4 border-secondary;
+}
+
+.border-corner-top-right {
+    @apply border-r-4 border-t-4 border-secondary;
+}
+
+.border-corner-bottom-left {
+    @apply border-b-4 border-l-4 border-secondary;
+}
+
+.border-corner-bottom-right {
+    @apply border-b-4 border-r-4 border-secondary;
+}
+
+.border-corner-all {
+    @apply border-4 border-secondary;
+}
+
+.border-fill-horizontal {
+    @apply border-b-4 border-t-4 border-secondary;
+}
