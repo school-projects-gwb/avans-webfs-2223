@@ -5,22 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dish extends Model
+class Combination extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'menu_number',
-        'menu_addition',
-        'display_on_menu',
         'price',
-        'description',
-        'name'
+        'name',
+        'comment'
     ];
 
-    public function combinations()
+    public function dishes()
     {
-        return $this->belongsToMany(Combination::class);
+        return $this->belongsToMany(Dish::class);
     }
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
