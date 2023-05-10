@@ -19,9 +19,4 @@ class Option extends Model
     {
         return $this->belongsToMany(Dish::class);
     }
-
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
 }
