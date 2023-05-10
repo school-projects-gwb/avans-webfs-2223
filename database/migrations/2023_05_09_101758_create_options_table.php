@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 75);
             $table->decimal('price', 4, 2)->nullable();
-            $table->string('condition_text')->nullable();
+            $table->string('condition_text', 75)->nullable();
             $table->timestamps();
         });
     }

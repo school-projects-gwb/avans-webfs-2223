@@ -18,7 +18,7 @@ return new class extends Migration
                 ->on('categories');
             $table->integer('menu_number')->nullable();
             $table->char('menu_addition', 2)->nullable();
-            $table->string('name');
+            $table->string('name', 75);
             $table->decimal('price', 4, 2);
             $table->text('description')->nullable();
             $table->boolean('is_discount')->nullable();
