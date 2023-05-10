@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Combination extends Model
+class Option extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'price',
         'name',
-        'menu_number',
-        'comment',
-        'is_discount',
-        'optional_dish_limit'
+        'condition_text'
     ];
 
     public function dishes()

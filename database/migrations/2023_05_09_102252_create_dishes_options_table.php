@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('combinations_dishes', function (Blueprint $table) {
+        Schema::create('dishes_options', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('combination_id');
+            $table->unsignedBigInteger('option_id');
             $table->unsignedBigInteger('dish_id');
-            $table->boolean('is_optional')->default(0)->change();
             $table->timestamps();
 
-            $table->foreign('combination_id')->references('id')->on('combinations');
+            $table->foreign('option_id')->references('id')->on('options');
             $table->foreign('dish_id')->references('id')->on('dishes');
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('combinations_dishes');
+        Schema::dropIfExists('dishes_options');
     }
 };

@@ -20,6 +20,6 @@ class OrderLine extends Model
 
     public function combination(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Combination::class, 'combination_id', 'id');
+        return $this->belongsTo(Option::class, 'combination_id', 'id');
     }
 }

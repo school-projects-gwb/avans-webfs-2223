@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_lines', function (Blueprint $table) {
+        Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->integer('amount');
+            $table->string('name');
+            $table->decimal('price', 4, 2);
+            $table->string('condition_text')->nullable();
             $table->timestamps();
-
-            $table->foreignId('order_id')->unsigned()->constrained('orders');
-            $table->foreignId('dish_id')->unsigned()->nullable()->constrained('dishes');
-            $table->foreignId('option_id')->unsigned()->nullable()->constrained('options');
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_lines');
+        Schema::dropIfExists('options');
     }
 };

@@ -15,12 +15,14 @@ class Dish extends Model
         'display_on_menu',
         'price',
         'description',
-        'name'
+        'name',
+        'is_discount',
+        'optional_dish_limit'
     ];
 
-    public function combinations()
+    public function options()
     {
-        return $this->belongsToMany(Combination::class);
+        return $this->belongsToMany(Option::class);
     }
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
