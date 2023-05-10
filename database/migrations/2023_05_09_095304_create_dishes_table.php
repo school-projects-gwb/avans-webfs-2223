@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price', 4, 2);
             $table->text('description')->nullable();
-            $table->boolean('display_on_menu');
             $table->boolean('is_discount')->default(0)->change();
             $table->integer('optional_dish_limit')->nullable();
             $table->timestamps();

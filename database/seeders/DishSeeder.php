@@ -29,7 +29,6 @@ class DishSeeder extends Seeder
                 var_dump($record['soortgerecht']);
             }
             $dish->category_id = Category::where('name', $record['soortgerecht'])->first()->id;
-            $dish->display_on_menu = true;
             $dish->save();
         }
     }
