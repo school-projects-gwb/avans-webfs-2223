@@ -21,6 +21,7 @@ class DishSeeder extends Seeder
 
         $bamiNasiOptions = Option::whereIn('name', ['Bami', 'Nasi'])->get();
         $soupOptions = Option::whereIn('name', ['Kippensoep', 'Tomatensoep'])->get();
+        $extraOptions = Option::whereIn('name', ['Bami Goreng', 'Nasi Goreng', 'Mihoen goreng', 'Chinese bami'])->get();
 
         foreach ($csv->getRecords() as $record) {
             $dish = new Dish();
@@ -34,12 +35,24 @@ class DishSeeder extends Seeder
 
             // Check whether Dish has options
             if (str_contains($record['naam'], 'Bami of Nasi') && !str_contains($record['naam'], 'ipv')) {
+                $dish->option_required = true;
+                $dish->option_amount = 1;
                 $dish->options()->attach($bamiNasiOptions);
             }
 
             if (str_contains($record['naam'], 'Kippen- of Tomatensoep')) {
+                $dish->option_required = true;
+                $dish->option_amount = 1;
                 $dish->options()->attach($soupOptions);
             }
+
+            if (str_contains($record['soortgerecht'], '(met witte rijst)')) {
+                $dish->option_required = false;
+                $dish->option_amount = 1;
+                $dish->options()->attach($extraOptions);
+            }
+
+            $dish->save();
         }
     }
 }

@@ -16,7 +16,8 @@ class Dish extends Model
         'description',
         'name',
         'is_discount',
-        'optional_dish_limit'
+        'option_required',
+        'option_amount'
     ];
 
     public function options()
