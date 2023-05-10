@@ -19,7 +19,8 @@ module.exports = {
                 'primary': 'rgb(var(--color-primary) / <alpha-value>)',
                 'primary-dark': 'rgb(var(--color-primary-dark) / <alpha-value>)',
                 'secondary': 'rgb(var(--color-secondary) / <alpha-value>)',
-                'content': 'rgb(var(--color-content) / <alpha-value>)'
+                'content': 'rgb(var(--color-content) / <alpha-value>)',
+                'menu': 'rgb(var(--color-menu) / <alpha-value>)',
             },
         },
     },

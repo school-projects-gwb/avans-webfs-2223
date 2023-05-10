@@ -18,9 +18,9 @@
 "17","16",NULL,"Pangsit Goreng","3.9","VOORGERECHT","7 st."
 "18","17",NULL,"Pisang Goreng","3.4","VOORGERECHT","5 st."
 "19","18",NULL,"Chinese Dim Sum","5.4","VOORGERECHT","mini loempia, kerry ko, pangsit goreng, garnalenpasteitje"
-"20","19",NULL,"Sat&eacute; Babi","5.4","VOORGERECHT","4 st."
-"21","20",NULL,"Sat&eacute; Ajam","5.4","VOORGERECHT","4 st."
-"22","20","A","Sat&eacute; Garnalen","9.9","VOORGERECHT","3 st."
+"20","19",NULL,"Saté; Babi","5.4","VOORGERECHT","4 st."
+"21","20",NULL,"Saté; Ajam","5.4","VOORGERECHT","4 st."
+"22","20","A","Saté; Garnalen","9.9","VOORGERECHT","3 st."
 "23","21",NULL,"Fong Mei Ha","8.1","VOORGERECHT","krokant gepaneerd garnalen. 4 st."
 "24","22",NULL,"Patat","2.3","VOORGERECHT",NULL
 "25","23",NULL,"Tsa Siu Mai","3.5","VOORGERECHT","gebakken vleespasteitje. 4 st."
@@ -33,10 +33,10 @@
 "32","29","H","Kroket","1.4","VOORGERECHT",NULL
 "33","29","G","Frikandel","1.4","VOORGERECHT",NULL
 "34","180","H","Kleine Sambal","2.5","VOORGERECHT",NULL
-"35","30",NULL,"Bami of Nasi Goreng Ling Fa","14.3","BAMI EN NASI GERECHTEN","Foe Yong Hai, Babi Pangang, sat&eacute; en kippenpootje"
+"35","30",NULL,"Bami of Nasi Goreng Ling Fa","14.3","BAMI EN NASI GERECHTEN","Foe Yong Hai, Babi Pangang, saté; en kippenpootje"
 "36","31",NULL,"Bami of Nasi Goreng met ei","5","BAMI EN NASI GERECHTEN",NULL
 "37","32",NULL,"Bami of Nasi Goreng speciaal","8.5","BAMI EN NASI GERECHTEN",NULL
-"38","33",NULL,"Bami of Nasi Goreng met sat&eacute;","8.5","BAMI EN NASI GERECHTEN","3 st."
+"38","33",NULL,"Bami of Nasi Goreng met saté;","8.5","BAMI EN NASI GERECHTEN","3 st."
 "39","34",NULL,"Nasi Yeung Chow","10.9","BAMI EN NASI GERECHTEN",NULL
 "40","34","A","Nasi Yeung Chow","13","BAMI EN NASI GERECHTEN","met garnaaltjes en Cha Sieuw-vlees"
 "41","35",NULL,"Bami of Nasi Malay","9.3","BAMI EN NASI GERECHTEN",NULL
@@ -44,22 +44,22 @@
 "43","37",NULL,"Bami of Nasi met varkensvlees","9.3","BAMI EN NASI GERECHTEN",NULL
 "44","38",NULL,"Bami of Nasi met garnalen","14.3","BAMI EN NASI GERECHTEN",NULL
 "45","39",NULL,"Bami of Nasi met ossenhaas","15.3","BAMI EN NASI GERECHTEN",NULL
-"46","40",NULL,"Babi Pangang, Foe Yong Hani en sat&eacute;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
-"47","41",NULL,"Babi Pangang, Tjap Tjoy en sat&eacute;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
-"48","42",NULL,"Babi Pangang, Koe Loe Yuk en sat&eacute;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
-"49","43",NULL,"Babi Pangang, Tau Sie Kai en sat&eacute;","16.5","COMBINATIE GERECHTEN (met witte rijst)",NULL
-"50","44",NULL,"Koe Loe Yuk, Foe Yong Hai en sat&eacute;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
-"51","45",NULL,"Koe Loe Yuk, Tjap Tjoy en sat&eacute;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
-"52","46",NULL,"Foe Yong Hai, Tjap Tjoy en sat&eacute;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
-"53","47",NULL,"Foe Yong Hai, Kip Kerrie en Sat&eacute;","16.5","COMBINATIE GERECHTEN (met witte rijst)",NULL
-"54","50",NULL,"Mihoen Ling Fa","16.4","MIHOEN GERECHTEN","Foe Yong Hai, Babi Pangang, sat&eacute; en kippenpootje"
+"46","40",NULL,"Babi Pangang, Foe Yong Hani en saté;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
+"47","41",NULL,"Babi Pangang, Tjap Tjoy en saté;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
+"48","42",NULL,"Babi Pangang, Koe Loe Yuk en saté;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
+"49","43",NULL,"Babi Pangang, Tau Sie Kai en saté;","16.5","COMBINATIE GERECHTEN (met witte rijst)",NULL
+"50","44",NULL,"Koe Loe Yuk, Foe Yong Hai en saté;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
+"51","45",NULL,"Koe Loe Yuk, Tjap Tjoy en saté;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
+"52","46",NULL,"Foe Yong Hai, Tjap Tjoy en saté;","15.8","COMBINATIE GERECHTEN (met witte rijst)",NULL
+"53","47",NULL,"Foe Yong Hai, Kip Kerrie en Saté;","16.5","COMBINATIE GERECHTEN (met witte rijst)",NULL
+"54","50",NULL,"Mihoen Ling Fa","16.4","MIHOEN GERECHTEN","Foe Yong Hai, Babi Pangang, saté; en kippenpootje"
 "55","51",NULL,"Mihoen met varkensvlees","9.3","MIHOEN GERECHTEN",NULL
 "56","52",NULL,"Mihoen met kipfilet","10.4","MIHOEN GERECHTEN",NULL
 "57","53",NULL,"Mihoen met ossenhaas","16.4","MIHOEN GERECHTEN",NULL
 "58","54",NULL,"Mihoen met garnalen","15.3","MIHOEN GERECHTEN",NULL
 "59","55",NULL,"Mihoen Singapore-style","11.9","MIHOEN GERECHTEN","met kleine garnaaltjes en Cha Sieuw-vlees en kerrie poeder"
 "60","56",NULL,"Mihoen met Cha Sieuw vlees","11.2","MIHOEN GERECHTEN",NULL
-"61","57",NULL,"Chinese Bami Ling Fa","16.9","CHINESE BAMI GERECHTEN","Foe Yong Hai, Babi Pangang, sat&eacute; en kippenpootje"
+"61","57",NULL,"Chinese Bami Ling Fa","16.9","CHINESE BAMI GERECHTEN","Foe Yong Hai, Babi Pangang, saté; en kippenpootje"
 "62","58",NULL,"Chinese Bami met varkensvlees","10.1","CHINESE BAMI GERECHTEN",NULL
 "63","58","A","Chinese Bami met kipfilet","11.2","CHINESE BAMI GERECHTEN",NULL
 "64","58","B","Chinese Bami met Cha Sieuw-vlees","12.2","CHINESE BAMI GERECHTEN",NULL
@@ -158,18 +158,18 @@
 "157",NULL,"V1","Vegetarische Tjap Tjoy","8.3","VEGETARISCHE GERECHTEN (met witte rijst)",NULL
 "158",NULL,"V2","Lo Han Zhai","11.2","VEGETARISCHE GERECHTEN (met witte rijst)","sojakaas, Chinese paddenstoelen en groenten in knoflooksaus"
 "159",NULL,"V3","Vegetarische Foe Yong Hai","8.3","VEGETARISCHE GERECHTEN (met witte rijst)",NULL
-"160",NULL,"K1","Frites, sat&eacute; (2st.) en ei","6.5","KINDERMENUS",NULL
+"160",NULL,"K1","Frites, saté; (2st.) en ei","6.5","KINDERMENUS",NULL
 "161",NULL,"K2","Frites, kippootje en ei","6.5","KINDERMENUS",NULL
 "162",NULL,"K3","Frites, mini loempia (2st.) en ei","6.5","KINDERMENUS",NULL
-"163",NULL,"K4","Kinder Bami of Nasi met sat&eacute; (2st.) en ei","6.5","KINDERMENUS",NULL
-"164",NULL,"R1","Indische rijsttafel (voor 1 persoon)","16.4","RIJSTTAFELS","Gado gado, Foe Yong Hai, sat&eacute;, Daging Roedjak, Daging Smoor, Ajam Ketjap, Atjar, Pisang Goreng, Pindas en Cocos"
-"165",NULL,"R2","Indische rijsttafel<br>Vanaf 2 personen... Per persoon","15","RIJSTTAFELS","Ajam Ketjap, Gado Gado, Daging Smoor, Kroepoek, Daging Roedjak, Foe Yong Hai, Sat&eacute;, Sambal Goreng Boontjes, Sambal Goreng Kering, Atjar, Pisang Goreng, Pinda en Cocos"
-"167",NULL,"R3","Chinese Indische Rijsttafel<br>Vanaf 4 personen... per persoon","16.5","RIJSTTAFELS","Foe Yong Hai, Babi Pangang, Tjap Tjoy, Koe Loe Yuk, Ajam Ketjap, Daging Smoor, Daging Roedjak, Sat&eacute;, Ei, Kroepoek, Sambal Goeren boontjes, Atjar, Pisang Goreng, Pinda en Cocos"
-"168",NULL,"R4","Chinese Rijsttafel<br>Vanaf 2 personen... per persoon","17","RIJSTTAFELS","Kippen- of Tomatensoep, Tjap Tjoy met kipfilet, Koe Loe Yuk, Gebakken garnalen, Babi Pangang, Foe Yong Hai, sat&eacute;, kroepoek"
-"169",NULL,"R5","Kantones Rijsttafel<br>Vanaf 2 personen... per persoon","23","RIJSTTAFELS","Wan Tan soep, Chinese Dim Sum (mini loempia, kerrie ko, pangsit goreng, garnalen, pasteitje), Geroosterde Peking Eend, Lychee Kai (licht gebraden kipfilet met lychee in zoetzure saus), Tau Sie Haa (garnalen met zwarte bonensaus)"
-"170",NULL,"R6","Sze Chuan Rijsttafel<br>Vanaf 2 personen... per persoon","23","RIJSTTAFELS","Peking Soep (pittige lichtzure soep), Chinese Dim Sum (mini loempia, kerrie ko, pangsit goreng, garnalen, pastei(tje), Tjieuw Yem Kai (licht gebakken kipfilet met zout en peper), Lychee Yuk (licht gebraden varkensvlees met lychee in zoetzure saus), Yu Sian Ngau Yuk (ossenhaas met licht zoet pikante kruiden saus)"
-"171",NULL,NULL,"Buffet Menu A, per persoon","12.8","BUFFET","Mini Loempia's, Pisang Goreng, Babi Pangang, Koe Loe Yuk, Foe Yong Hai, Kipfilet met zwarte bonensaus, Tjap Tjoy met kipfilet, sat&eacute; Ajam"
-"172",NULL,NULL,"Buffet Menu B, per persoon","15","BUFFET","Mini Loempia's, Pisang Goreng, Babi Pangang, Foe Yong Hai, Kung Bao Kai, Hong Shau Yu, sat&eacute; Ajam, Ossenhaas met zwarte bonensaus, Kipfilet met kerriesaus"
+"163",NULL,"K4","Kinder Bami of Nasi met saté; (2st.) en ei","6.5","KINDERMENUS",NULL
+"164",NULL,"R1","Indische rijsttafel (voor 1 persoon)","16.4","RIJSTTAFELS","Gado gado, Foe Yong Hai, saté;, Daging Roedjak, Daging Smoor, Ajam Ketjap, Atjar, Pisang Goreng, Pindas en Cocos"
+"165",NULL,"R2","Indische rijsttafel vanaf 2 personen... Per persoon","15","RIJSTTAFELS","Ajam Ketjap, Gado Gado, Daging Smoor, Kroepoek, Daging Roedjak, Foe Yong Hai, Saté;, Sambal Goreng Boontjes, Sambal Goreng Kering, Atjar, Pisang Goreng, Pinda en Cocos"
+"167",NULL,"R3","Chinese Indische Rijsttafel vanaf 4 personen... per persoon","16.5","RIJSTTAFELS","Foe Yong Hai, Babi Pangang, Tjap Tjoy, Koe Loe Yuk, Ajam Ketjap, Daging Smoor, Daging Roedjak, Saté;, Ei, Kroepoek, Sambal Goeren boontjes, Atjar, Pisang Goreng, Pinda en Cocos"
+"168",NULL,"R4","Chinese Rijsttafel vanaf 2 personen... per persoon","17","RIJSTTAFELS","Kippen- of Tomatensoep, Tjap Tjoy met kipfilet, Koe Loe Yuk, Gebakken garnalen, Babi Pangang, Foe Yong Hai, saté;, kroepoek"
+"169",NULL,"R5","Kantones Rijsttafel vanaf 2 personen... per persoon","23","RIJSTTAFELS","Wan Tan soep, Chinese Dim Sum (mini loempia, kerrie ko, pangsit goreng, garnalen, pasteitje), Geroosterde Peking Eend, Lychee Kai (licht gebraden kipfilet met lychee in zoetzure saus), Tau Sie Haa (garnalen met zwarte bonensaus)"
+"170",NULL,"R6","Sze Chuan Rijsttafel vanaf 2 personen... per persoon","23","RIJSTTAFELS","Peking Soep (pittige lichtzure soep), Chinese Dim Sum (mini loempia, kerrie ko, pangsit goreng, garnalen, pastei(tje), Tjieuw Yem Kai (licht gebakken kipfilet met zout en peper), Lychee Yuk (licht gebraden varkensvlees met lychee in zoetzure saus), Yu Sian Ngau Yuk (ossenhaas met licht zoet pikante kruiden saus)"
+"171",NULL,NULL,"Buffet Menu A, per persoon","12.8","BUFFET","Mini Loempia's, Pisang Goreng, Babi Pangang, Koe Loe Yuk, Foe Yong Hai, Kipfilet met zwarte bonensaus, Tjap Tjoy met kipfilet, saté; Ajam"
+"172",NULL,NULL,"Buffet Menu B, per persoon","15","BUFFET","Mini Loempia's, Pisang Goreng, Babi Pangang, Foe Yong Hai, Kung Bao Kai, Hong Shau Yu, saté; Ajam, Ossenhaas met zwarte bonensaus, Kipfilet met kerriesaus"
 "173",NULL,NULL,"Bami of Nasi Goreng ipv rijst","0.9","DIVERSEN",NULL
 "174",NULL,NULL,"Mihoen Goreng ipv rijst","2.5","DIVERSEN",NULL
 "175",NULL,NULL,"Chinese Bami ipv rijst","2.5","DIVERSEN",NULL

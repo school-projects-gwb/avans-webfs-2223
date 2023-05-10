@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\Dish;
 use App\Models\News;
+use App\Models\Option;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,7 +26,21 @@ Route::get('/', function () {
 });
 
 Route::get('/menu', function () {
-    return Inertia::render('Menu');
+    return Inertia::render('Menu', [
+        'dish_data' => Dish::with('category', 'options')
+            ->select('dishes.*', 'categories.special_description')
+            ->join('categories', 'dishes.category_id', '=', 'categories.id')
+            ->get()
+            ->groupBy('category.name')
+            ->map(function ($dishes, $categoryName) {
+                $category = $dishes->first()->category;
+                return [
+                    'special_description' => $category->special_description,
+                    'dishes' => $dishes,
+                ];
+            }),
+        'option_data' => Option::whereNotNull('price')->get()
+    ]);
 });
 
 Route::get('/news', function () {

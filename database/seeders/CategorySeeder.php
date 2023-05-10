@@ -32,7 +32,7 @@ class CategorySeeder extends Seeder
         Category::create(['name' => 'RIJSTTAFELS']);
         Category::create(['name' => 'KIP GERECHTEN (met witte rijst)']);
         Category::create(['name' => 'GARNALEN GERECHTEN (met witte rijst)']);
-        Category::create(['name' => 'BUFFET']);
+        Category::create(['name' => 'BUFFET', 'special_description' => 'Wij verzorgen warme buffet vanaf 15 personen. Deze kunnen aangepast worden naar eigen smaak. Informeer vrijblijvend naar de mogelijkheden.']);
         Category::create(['name' => 'DIVERSEN']);
         Category::create(['name' => 'AANBIEDINGEN']);
     }
