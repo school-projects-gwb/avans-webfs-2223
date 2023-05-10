@@ -20,7 +20,7 @@ return new class extends Migration
             $table->char('menu_addition', 2)->nullable();
             $table->string('name');
             $table->decimal('price', 4, 2);
-            $table->string('description');
+            $table->text('description')->nullable();
             $table->boolean('display_on_menu');
             $table->timestamps();
         });
