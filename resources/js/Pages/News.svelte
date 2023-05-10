@@ -4,8 +4,6 @@
 
 <script>
     export let news_articles;
-
-    console.log(news_articles)
 </script>
 
 <svelte:head>

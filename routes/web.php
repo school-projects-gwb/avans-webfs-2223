@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Dish;
 use App\Models\News;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,9 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Home');
+    return Inertia::render('Home', [
+        'highlighted_offer' => Dish::where('is_discount', true)->with('options')->first()
+    ]);
 });
 
 Route::get('/menu', function () {
