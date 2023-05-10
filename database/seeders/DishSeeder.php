@@ -54,5 +54,20 @@ class DishSeeder extends Seeder
 
             $dish->save();
         }
+
+        // Student discount Dish
+        $dish = new Dish();
+        $dish->name = "Chinese Rijsttafel (2 personen)";
+        $dish->description = "Speciale Studentenaanbieding";
+        $dish->price = 21;
+        $dish->is_discount = true;
+        $dish->category_id = Category::where('name', 'AANBIEDINGEN')->first()->id;
+        $dish->save();
+
+        $dish->option_required = true;
+        $dish->option_amount = 3;
+        $dish->options()->attach(Option::whereIn('name',
+            ['Koe Loe Yuk', 'Tjap Tjoy', 'Babi Pangang', 'Foe Yong Hai', 'Garnalen met Gebakken Knoflook', 'Kipfilet in Zwarte Bonen saus', 'Bami', 'Nasi']
+        )->get());
     }
 }

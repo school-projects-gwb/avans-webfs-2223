@@ -34,5 +34,6 @@ class CategorySeeder extends Seeder
         Category::create(['name' => 'GARNALEN GERECHTEN (met witte rijst)']);
         Category::create(['name' => 'BUFFET']);
         Category::create(['name' => 'DIVERSEN']);
+        Category::create(['name' => 'AANBIEDINGEN']);
     }
 }
