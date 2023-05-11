@@ -7,13 +7,36 @@
     onMount(async () => {
         axios.get('/menu/data').then(response => {
             menu_data = response.data;
+            console.log(menu_data);
         });
     });
 </script>
 
 {#if menu_data}
     <div class="bg-menu relative overflow-scroll">
-        <div class="columns-3 min-w-[1200px] border-4 border-green-700 m-8 p-4 pointer-events-none select-none">
+        <div class="columns-3 min-w-[1300px] border-4 border-green-700 m-8 p-4 pointer-events-none select-none">
+            <div class="col-span-1 flex flex-col mx-4 mt-4 p-2 bg-yellow-50 rounded-lg">
+                <p class="tracking-widest uppercase">Menukaart</p>
+                <h3 class="font-bold text-2xl">Chinees Indische Specialiteiten</h3>
+                <h2 class="font-bold text-3xl">De Gouden Draak</h2>
+                <div class="grid grid-cols-2 mt-4">
+                    <div>
+                        <p class="font-bold">Openingstijden</p>
+                        <p>
+                            {#each menu_data.restaurant_data.opening_times_grouped as opening_time_group}
+                                {@html opening_time_group}
+                            {/each}
+                        </p>
+                    </div>
+                    <div>
+                        {@html menu_data.restaurant_data.menu_description}
+                    </div>
+                    <div class="col-span-2 text-left">
+                        <b class="text-lg font-bold mt-2">Allergieën? Meld het ons!</b>
+                        <p class="text-md italic">Onze producten kunnen kruisbesmetting bevatten.</p>
+                    </div>
+                </div>
+            </div>
             {#each Object.entries(menu_data.dish_data) as [category, category_content]}
                 <div class="col-span-1 flex flex-col mx-4 mt-4 p-2 {category_content.special_description != null ? 'bg-white border border-green-700 ' : ''}">
                     <b>{category}</b>

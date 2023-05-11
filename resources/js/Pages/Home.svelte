@@ -3,7 +3,7 @@
 </script>
 
 <script>
-    export let highlighted_offer;
+    export let highlighted_offer, restaurant;
 </script>
 
 <svelte:head>
@@ -12,8 +12,7 @@
 
 <div class="flex flex-col justify-center items-center">
     <h3 class="w-11/12 lg:w-1/2 text-lg font-bold tracking-tight">
-        Al jaren is De Gouden Draak een begrip als het gaat om de beste afhaalgerechten in 's-Hertogenbosch.
-        Graag trakteren we u op authentieke gerechten uit de Cantonese keuken.
+        {restaurant.home_description}
     </h3>
     {#if highlighted_offer}
         <b class="text-2xl underline mt-8">{highlighted_offer.description}</b>

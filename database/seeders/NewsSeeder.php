@@ -15,8 +15,8 @@ class NewsSeeder extends Seeder
      */
     public function run(): void
     {
-        News::create(['title' => 'Nieuwsartikel 1', 'content' =>  'Nieuwsartikel inhoud 1']);
-        News::create(['title' => 'Nieuwsartikel 2', 'content' =>  'Nieuwsartikel inhoud 2']);
-        News::create(['title' => 'Nieuwsartikel 3', 'content' =>  'Nieuwsartikel inhoud 3']);
+        News::create(['restaurant_id' => 1, 'title' => 'Nieuwsartikel 1', 'content' =>  'Nieuwsartikel inhoud 1']);
+        News::create(['restaurant_id' => 1, 'title' => 'Nieuwsartikel 2', 'content' =>  'Nieuwsartikel inhoud 2']);
+        News::create(['restaurant_id' => 1, 'title' => 'Nieuwsartikel 3', 'content' =>  'Nieuwsartikel inhoud 3']);
     }
 }

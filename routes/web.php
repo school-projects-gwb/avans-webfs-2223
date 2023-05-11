@@ -22,7 +22,8 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Home', [
-        'highlighted_offer' => Dish::where('is_discount', true)->with('options')->first()
+        'highlighted_offer' => Dish::where('is_discount', true)->with('options')->first(),
+        'restaurant' => \App\Models\Restaurant::first()
     ]);
 });
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 75);
             $table->text('content');
+            $table->foreignId('restaurant_id')->unsigned()->constrained('restaurants');
             $table->timestamps();
         });
     }

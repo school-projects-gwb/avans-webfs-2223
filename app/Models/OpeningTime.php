@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
+class OpeningTime extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'content'
+        'weekday_number',
+        'start_time',
+        'end_time'
     ];
 
     public function restaurant(): \Illuminate\Database\Eloquent\Relations\BelongsTo

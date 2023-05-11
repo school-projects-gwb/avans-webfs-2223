@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dish;
 use App\Models\Option;
+use App\Models\Restaurant;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,6 +14,9 @@ class MenuController extends Controller
 {
     public function get_data(): array
     {
+        $restaurant = Restaurant::with('openingTimes')->first();
+        $restaurant->append('opening_times_grouped');
+
         return [
             'dish_data' => Dish::with('category', 'options')
                 ->select('dishes.*', 'categories.special_description')
@@ -26,7 +30,8 @@ class MenuController extends Controller
                         'dishes' => $dishes,
                     ];
                 }),
-            'option_data' => Option::whereNotNull('price')->get()
+            'option_data' => Option::whereNotNull('price')->get(),
+            'restaurant_data' => $restaurant
         ];
     }
 }
