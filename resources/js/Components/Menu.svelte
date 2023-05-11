@@ -7,7 +7,6 @@
     onMount(async () => {
         axios.get('/menu/data').then(response => {
             menu_data = response.data;
-            console.log(menu_data);
         });
     });
 </script>
