@@ -14,8 +14,8 @@
             <Link href="/" class="w-full lg:w-4/12">
                 <ApplicationLogo classes="w-20 h-20 fill-current text-gray-500" />
             </Link>
-            <div class="w-full lg:w-4/12 text-secondary text-center">
-                Welkom bij De Gouden Draak! Klik op deze tekst om de aanbiedingen van deze week te zien!
+            <div class="w-full lg:w-4/12 text-secondary text-center overflow-hidden">
+                <a class="header-text-slide-left" href="/menu">Welkom bij De Gouden Draak! Klik op deze tekst om de aanbiedingen van deze week te zien!</a>
             </div>
             <Link href="/" class="w-full lg:w-4/12 flex lg:justify-end">
                 <ApplicationLogo classes="w-20 h-20 fill-current text-gray-500" />

@@ -52,3 +52,20 @@
 .border-fill-horizontal {
     @apply border-b-4 border-t-4 border-secondary;
 }
+
+.header-text-slide-left {
+    display: inline-block;
+    animation-name: headerTextSlideLeft;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes headerTextSlideLeft {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
