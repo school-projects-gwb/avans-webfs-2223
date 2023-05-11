@@ -6,7 +6,7 @@
 </script>
 
 <div
-    class="min-h-screen h-screen flex flex-col items-center pt-6 sm:pt-0 bg-primary-dark"
+    class="min-h-screen h-fit flex flex-col items-center pt-6 sm:pt-0 bg-primary-dark"
 >
     <div class="w-11/12 mt-16 p-4 relative z-10 bg-primary flex flex-col items-center">
         <!-- Header -->
