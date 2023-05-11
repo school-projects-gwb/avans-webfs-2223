@@ -33,6 +33,8 @@
                     <div class="col-span-2 text-left">
                         <b class="text-lg font-bold mt-2">Allergieën? Meld het ons!</b>
                         <p class="text-md italic">Onze producten kunnen kruisbesmetting bevatten.</p>
+                        <p class="mt-2"><b>Telefoonnummer:</b> {menu_data.restaurant_data.phone_number}</p>
+                        <p><b>E-mailadres:</b> {menu_data.restaurant_data.email_address}</p>
                     </div>
                 </div>
             </div>
