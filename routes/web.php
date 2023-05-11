@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Dish;
 use App\Models\News;
@@ -26,21 +27,7 @@ Route::get('/', function () {
 });
 
 Route::get('/menu', function () {
-    return Inertia::render('Menu', [
-        'dish_data' => Dish::with('category', 'options')
-            ->select('dishes.*', 'categories.special_description')
-            ->join('categories', 'dishes.category_id', '=', 'categories.id')
-            ->get()
-            ->groupBy('category.name')
-            ->map(function ($dishes, $categoryName) {
-                $category = $dishes->first()->category;
-                return [
-                    'special_description' => $category->special_description,
-                    'dishes' => $dishes,
-                ];
-            }),
-        'option_data' => Option::whereNotNull('price')->get()
-    ]);
+    return Inertia::render('Menu');
 });
 
 Route::get('/news', function () {
@@ -49,10 +36,11 @@ Route::get('/news', function () {
     ]);
 });
 
+Route::get('/menu/data', [MenuController::class, 'get_data'])->name('menu.get_data');
+
 Route::get('/contact', function () {
     return Inertia::render('Contact');
 });
-
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

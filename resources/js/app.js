@@ -2,6 +2,7 @@ import "./bootstrap";
 import "../css/app.css";
 
 import { createInertiaApp } from "@inertiajs/svelte";
+import { onMount } from "svelte";
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
