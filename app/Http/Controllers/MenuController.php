@@ -14,9 +14,6 @@ class MenuController extends Controller
 {
     public function get_data(): array
     {
-        $restaurant = Restaurant::with('openingTimes')->first();
-        $restaurant->append('opening_times_grouped');
-
         return [
             'dish_data' => Dish::with('category', 'options')
                 ->select('dishes.*', 'categories.special_description')
@@ -31,7 +28,7 @@ class MenuController extends Controller
                     ];
                 }),
             'option_data' => Option::whereNotNull('price')->get(),
-            'restaurant_data' => $restaurant
+            'restaurant_data' => Restaurant::first()
         ];
     }
 }

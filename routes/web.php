@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Dish;
 use App\Models\News;
 use App\Models\Option;
+use App\Models\Restaurant;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,7 +24,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Home', [
         'highlighted_offer' => Dish::where('is_discount', true)->with('options')->first(),
-        'restaurant' => \App\Models\Restaurant::first()
+        'restaurant' => Restaurant::first()
     ]);
 });
 
@@ -40,7 +41,9 @@ Route::get('/news', function () {
 Route::get('/menu/data', [MenuController::class, 'get_data'])->name('menu.get_data');
 
 Route::get('/contact', function () {
-    return Inertia::render('Contact');
+    return Inertia::render('Contact', [
+        'restaurant' => Restaurant::first()
+    ]);
 });
 
 Route::get('/dashboard', function () {

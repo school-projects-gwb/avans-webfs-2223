@@ -10,8 +10,11 @@ class Restaurant extends Model
     use HasFactory;
 
     protected $casts = [
-        'opening_times_grouped' => 'array'
+        'opening_times_grouped' => 'string'
     ];
+
+    protected $appends = ['opening_times_grouped'];
+
     protected $fillable = [
         'home_description',
         'menu_description'
