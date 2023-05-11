@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('home_description');
             $table->text('menu_description');
+            $table->string('phone_number', 15);
+            $table->string('email_address', 75);
             $table->timestamps();
         });
     }

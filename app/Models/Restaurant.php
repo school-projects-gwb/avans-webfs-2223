@@ -17,7 +17,9 @@ class Restaurant extends Model
 
     protected $fillable = [
         'home_description',
-        'menu_description'
+        'menu_description',
+        'phone_number',
+        'email_address'
     ];
     public function openingTimes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
