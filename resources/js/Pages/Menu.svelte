@@ -10,5 +10,5 @@
     <title>The Golden Dragon</title>
 </svelte:head>
 
-<Menu />
+<Menu sortable={true} />
 

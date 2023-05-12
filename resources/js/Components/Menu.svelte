@@ -2,22 +2,27 @@
     import axios from 'axios';
     import { onMount } from 'svelte';
 
-    let menu_data;
+    // Indicates whether menu is sortable and supports favouriting dishes
+    // This is not relevant in i.e. the employee back-end environment
+    // So it is disabled by default
+    export let sortable = false;
+
+    let menu_data,
+        sort_order = 'none';
 
     onMount(async () => {
-        axios.get('/menu/data/menu').then(response => {
+        if (!sortable) sort_order = 'disabled';
+        axios.get('/menu/data/' + sort_order).then(response => {
             menu_data = response.data;
         });
     });
 
-    async function test() {
-        axios.get('/menu/data/none').then(response => {
-            menu_data = response.data;
-        });
+    function sort(new_sort_order) {
+        if (sort_order == 'disabled' || sort_order == new_sort_order) return;
+        
+        // Get newly sorted data
     }
 </script>
-
-<button on:click={test}>Klik op mij</button>
 
 {#if menu_data}
     <div class="bg-menu relative overflow-scroll">

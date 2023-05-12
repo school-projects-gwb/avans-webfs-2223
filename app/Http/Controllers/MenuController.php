@@ -13,14 +13,14 @@ use Inertia\Response;
 
 class MenuController extends Controller
 {
-    public function get_data($sortingStrategy): array
+    public function get_data($sorting): array
     {
-        $sort_favourites = $sortingStrategy == 'fav' || $sortingStrategy == 'all';
-        $sort_menu = $sortingStrategy == 'menu' || $sortingStrategy == 'all';
-        
+        $sort_favourites = $sorting == 'fav' || $sorting == 'all';
+        $sort_menu = $sorting == 'menu' || $sorting == 'all';
+
         $favourite_dish_ids = [2];
 
-        if (count($favourite_dish_ids) > 0) {
+        if (count($favourite_dish_ids) > 0 && $sorting != 'disabled') {
             $favourite_dishes = Dish::whereIn('id', $favourite_dish_ids)
                 ->with('category', 'options')
                 ->select('dishes.*', DB::raw("'FAVORIETEN' as category_name"));
@@ -48,7 +48,7 @@ class MenuController extends Controller
         });
 
         $favourite_data = null;
-        if (count($favourite_dish_ids) > 0) {
+        if (count($favourite_dish_ids) > 0 && $sorting != 'disabled') {
             $favourite_data = $favourite_dishes->groupBy('category_name')
                 ->map(function ($dishes, $categoryName) use ($sort_favourites) {
                     return [
