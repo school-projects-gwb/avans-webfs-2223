@@ -28,18 +28,13 @@
     }
 
     function isFavourite(dish_id) {
-        console.log(menu_data.favourite_dishes);
         return menu_data.favourite_dishes.includes(dish_id.toString());
     }
 
     function handleFavourite(dish_id) {
-        console.log(dish_id);
         axios.post('/menu/handle-dish-cookie/' + dish_id, {withCredentials: true})
             .then(response => {
                 handleMenuData();
-            })
-            .catch(error => {
-                console.log("Something went wrong:" + error);
             });
     }
 </script>
@@ -53,6 +48,7 @@
                     <option value="{key}">{value}</option>
                 {/each}
             </select>
+            <p class="text-left mt-2 italic font-semibold">Klik op het selectievakje naast een gerecht om deze toe te voegen/verwijderen aan je favorieten!</p>
         </div>
     {/if}
     <div class="bg-menu relative overflow-scroll">
