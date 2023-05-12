@@ -8,23 +8,38 @@
     export let sortable = false;
 
     let menu_data,
-        sort_order = 'none';
+        sort_order = 'none',
+        sort_input_value;
 
     onMount(async () => {
         if (!sortable) sort_order = 'disabled';
+        await getMenuData();
+    });
+
+    async function getMenuData() {
         axios.get('/menu/data/' + sort_order).then(response => {
             menu_data = response.data;
         });
-    });
+    }
 
-    function sort(new_sort_order) {
+    function handleSort(new_sort_order) {
         if (sort_order == 'disabled' || sort_order == new_sort_order) return;
-        
-        // Get newly sorted data
+        console.log("Getting menu data");
+        getMenuData();
     }
 </script>
 
 {#if menu_data}
+    {#if sortable}
+        <div class="w-full flex flex-col justify-start mb-4">
+            <label class="text-left font-bold">Menu sorteren <span class="text-sm italic">(alfabetische volgorde)</span></label>
+            <select class="w-1/4" bind:value={sort_input_value} on:change={handleSort}>
+                {#each Object.entries(menu_data.sort_options) as [key, value]}
+                    <option value="{key}">{value}</option>
+                {/each}
+            </select>
+        </div>
+    {/if}
     <div class="bg-menu relative overflow-scroll">
         <div class="columns-3 min-w-[1300px] border-4 border-green-700 m-8 p-4 pointer-events-none select-none">
             <div class="col-span-1 flex flex-col mx-4 mt-4 p-2 bg-yellow-50 rounded-lg">

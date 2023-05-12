@@ -64,7 +64,8 @@ class MenuController extends Controller
         return [
             'dish_data' => $merged_data,
             'option_data' => Option::whereNotNull('price')->get(),
-            'restaurant_data' => Restaurant::first()
+            'restaurant_data' => Restaurant::first(),
+            'sort_options' => ['none' => 'Ongesorteerd', 'all' => 'Alles', 'fav' => 'Favorieten', 'menu' => 'Menu']
         ];
     }
 }
