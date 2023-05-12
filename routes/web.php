@@ -38,7 +38,7 @@ Route::get('/news', function () {
     ]);
 });
 
-Route::get('/menu/data', [MenuController::class, 'get_data'])->name('menu.get_data');
+Route::get('/menu/data/{sortingStrategy}', [MenuController::class, 'get_data'])->name('menu.get_data');
 
 Route::get('/contact', function () {
     return Inertia::render('Contact', [

@@ -5,11 +5,19 @@
     let menu_data;
 
     onMount(async () => {
-        axios.get('/menu/data').then(response => {
+        axios.get('/menu/data/menu').then(response => {
             menu_data = response.data;
         });
     });
+
+    async function test() {
+        axios.get('/menu/data/none').then(response => {
+            menu_data = response.data;
+        });
+    }
 </script>
+
+<button on:click={test}>Klik op mij</button>
 
 {#if menu_data}
     <div class="bg-menu relative overflow-scroll">
