@@ -20,6 +20,10 @@ class MenuController extends Controller
 
         $favourite_dish_ids = json_decode($request->cookie('dish_ids'), true);
 
+        if ($favourite_dish_ids == null) {
+            $favourite_dish_ids = [];
+        }
+
         if (count($favourite_dish_ids) > 0 && $sorting != 'disabled') {
             $favourite_dishes = Dish::whereIn('id', $favourite_dish_ids)
                 ->with('category', 'options')
