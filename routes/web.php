@@ -38,7 +38,8 @@ Route::get('/news', function () {
     ]);
 });
 
-Route::get('/menu/data/{sorting}', [MenuController::class, 'get_data'])->name('menu.get_data');
+Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.get-data');
+Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
 
 Route::get('/contact', function () {
     return Inertia::render('Contact', [

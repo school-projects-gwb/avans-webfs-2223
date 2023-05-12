@@ -13,10 +13,10 @@
 
     onMount(async () => {
         if (!sortable) sort_order = 'disabled';
-        await getMenuData();
+        await handleMenuData();
     });
 
-    async function getMenuData() {
+    async function handleMenuData() {
         axios.get('/menu/data/' + sort_order).then(response => {
             menu_data = response.data;
         });
@@ -24,8 +24,23 @@
 
     function handleSort(new_sort_order) {
         if (sort_order == 'disabled' || sort_order == new_sort_order) return;
-        console.log("Getting menu data");
-        getMenuData();
+        handleMenuData();
+    }
+
+    function isFavourite(dish_id) {
+        console.log(menu_data.favourite_dishes);
+        return menu_data.favourite_dishes.includes(dish_id.toString());
+    }
+
+    function handleFavourite(dish_id) {
+        console.log(dish_id);
+        axios.post('/menu/handle-dish-cookie/' + dish_id, {withCredentials: true})
+            .then(response => {
+                handleMenuData();
+            })
+            .catch(error => {
+                console.log("Something went wrong:" + error);
+            });
     }
 </script>
 
@@ -33,7 +48,7 @@
     {#if sortable}
         <div class="w-full flex flex-col justify-start mb-4">
             <label class="text-left font-bold">Menu sorteren <span class="text-sm italic">(alfabetische volgorde)</span></label>
-            <select class="w-1/4" bind:value={sort_input_value} on:change={handleSort}>
+            <select class="w-full md:w-1/2 lg:w-1/4" bind:value={sort_input_value} on:change={handleSort}>
                 {#each Object.entries(menu_data.sort_options) as [key, value]}
                     <option value="{key}">{value}</option>
                 {/each}
@@ -41,7 +56,7 @@
         </div>
     {/if}
     <div class="bg-menu relative overflow-scroll">
-        <div class="columns-3 min-w-[1300px] border-4 border-green-700 m-8 p-4 pointer-events-none select-none">
+        <div class="columns-3 min-w-[1300px] border-4 border-green-700 m-8 p-4 select-none">
             <div class="col-span-1 flex flex-col mx-4 mt-4 p-2 bg-yellow-50 rounded-lg">
                 <p class="tracking-widest uppercase">Menukaart</p>
                 <h3 class="font-bold text-2xl">Chinees Indische Specialiteiten</h3>
@@ -78,6 +93,9 @@
                                 <span>
                                     {dish.menu_number == null ? '' : dish.menu_number}{dish.menu_addition == null ? '' : dish.menu_addition }{dish.menu_number != null || dish.menu_addition != null ? '.' : ''}
                                     {dish.name}
+                                    {#if sortable}
+                                        <input type="checkbox" class="h-3 w-3" checked={isFavourite(dish.id)} on:click={handleFavourite(dish.id)} />
+                                    {/if}
                                 </span>
                                 <span class="w-0 flex-1 border-b-2 border-black border-dotted mb-1.5 mx-1"></span>
                                 <span>€ {dish.price}</span>
