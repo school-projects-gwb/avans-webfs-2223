@@ -37,11 +37,19 @@
                 handleMenuData();
             });
     }
+
+    function handlePrintMenu() {
+        axios.post('/menu/print-pdf/')
+            .then(response => {
+                console.log(response);
+            });
+    }
 </script>
 
 {#if menu_data}
     {#if sortable}
         <div class="w-full flex flex-col justify-start mb-4">
+            <a class="underline text-left mb-2 text-xl font-bold" href="/menu/print-pdf" target="_blank">Download menu PDF</a>
             <label class="text-left font-bold">Menu sorteren <span class="text-sm italic">(alfabetische volgorde)</span></label>
             <select class="w-full md:w-1/2 lg:w-1/4" bind:value={sort_input_value} on:change={handleSort}>
                 {#each Object.entries(menu_data.sort_options) as [key, value]}
@@ -107,7 +115,7 @@
                                     <p class="italic text-sm">
                                     {#each dish.options as option}
                                         {#if option.price == null}
-                                            {option.name}&nbsp
+                                            {option.name},&nbsp
                                         {/if}
                                     {/each}
                                     </p>

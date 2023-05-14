@@ -29,18 +29,19 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/menu', function () {
-    return Inertia::render('Menu');
-});
-
 Route::get('/news', function () {
     return Inertia::render('News', [
         'news_articles' => News::all()
     ]);
 });
 
+Route::get('/menu', function () {
+    return Inertia::render('Menu');
+});
+
 Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.get-data');
 Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
+Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
 
 Route::get('/contact', function () {
     return Inertia::render('Contact', [
