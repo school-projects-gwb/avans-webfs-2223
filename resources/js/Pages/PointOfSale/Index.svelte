@@ -18,6 +18,11 @@
         calculateTotal();
     }
 
+    function resetOrder(){
+        orderData = [];
+        calculateTotal();
+    }
+
     function calculateTotal(){
         totalPrice = 0.00;
         orderData.forEach(item => {
@@ -83,7 +88,7 @@
                     <div>
                         <span class="text-2xl font-bold mr-20">€ {totalPrice.toFixed(2)}</span>
                         <button class="bg-gray-100 p-[2px] px-3 border border-black">Afrekenen</button>
-                        <button class="bg-gray-100 p-[2px] px-3 border border-black">Wis Bestelling</button>
+                        <button class="bg-gray-100 p-[2px] px-3 border border-black" on:click={resetOrder}>Wis Bestelling</button>
                     </div>
                 </div>
             </div>
