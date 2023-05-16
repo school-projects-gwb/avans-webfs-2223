@@ -88,7 +88,7 @@ class MenuController extends Controller
             $message = 'Dish added to cookie';
         }
 
-        $cookie = cookie($key, json_encode($existingDishIds), 60 * 24 * 7); // Set the cookie to expire in 1 week
+        $cookie = cookie($key, json_encode($existingDishIds), 60 * 24 * 7); // 1 week
 
         return response($message)->withCookie($cookie);
     }

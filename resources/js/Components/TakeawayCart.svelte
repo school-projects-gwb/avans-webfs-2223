@@ -10,9 +10,21 @@
 
     async function handleCartData() {
         axios.get('/cart/takeaway/data').then(response => {
+            console.log(response.data);
             cart_data = response.data;
-            console.log(cart_data.dish_data)
         });
+    }
+
+    async function handleOption(dish_id, option_id) {
+        axios.post(`/cart/takeaway/handle-dish-option-cookie/${dish_id}/${option_id}`, {withCredentials: true})
+            .then(async response => {
+                console.log(response);
+                await handleCartData();
+            });
+    }
+
+    function isSelectedOption(dish_id, option_id) {
+        return cart_data.option_data[dish_id].includes(option_id.toString());
     }
 
     export const handleCartDishAdded = async (dish_id) => {
@@ -46,7 +58,7 @@
                                 <p class="underline">Kies {dish.option_amount} optie(s)</p>
                                 {#each dish.options.filter(option => option.price === null) as option}
                                     <div>
-                                        <input type="checkbox">
+                                        <input type="checkbox" on:click={handleOption(dish.id, option.id)}>
                                         {option.name} {option.condition_text ? `(${option.condition_text})` : ''}
                                     </div>
                                 {/each}
@@ -55,7 +67,7 @@
                                 <p class="underline">Optioneel</p>
                                 {#each dish.options.filter(option => option.price !== null) as option}
                                     <div>
-                                        <input type="checkbox">
+                                        <input type="checkbox" on:click={handleOption(dish.id, option.id)} checked={isSelectedOption(dish.id, option.id)}>
                                         {option.name} {option.condition_text ? `(${option.condition_text})` : ''}
                                         <b>- € {option.price}</b>
                                     </div>

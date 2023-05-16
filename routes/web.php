@@ -45,6 +45,7 @@ Route::get('/cart/takeaway/data', [TakeawayOrderController::class, 'getData'])->
 
 Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
 Route::post('/cart/takeaway/handle-dish-cookie/{dishId}', [TakeawayOrderController::class, 'handleDishCookie'])->name('cart.takeaway.handle-dish-cookie');
+Route::post('/cart/takeaway/handle-dish-option-cookie/{dishId}/{optionId}', [TakeawayOrderController::class, 'handleDishOptionCookie'])->name('cart.takeaway.handle-dish-option-cookie');
 
 Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
 
