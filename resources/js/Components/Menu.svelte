@@ -1,6 +1,6 @@
 <script>
     import axios from 'axios';
-    import { onMount } from 'svelte';
+    import {createEventDispatcher, onMount} from 'svelte';
 
     // Indicates whether menu is sortable and supports favouriting dishes
     // This is not relevant in i.e. the employee back-end environment
@@ -10,6 +10,8 @@
     let menu_data,
         sort_order = 'none',
         sort_input_value;
+
+    const dispatch = createEventDispatcher();
 
     onMount(async () => {
         if (!sortable) sort_order = 'disabled';
@@ -44,6 +46,9 @@
 
     function handleCart(dish_id) {
         // todo implement
+        dispatch('cartDishAdded', {
+            dish_id: dish_id
+        });
     }
 </script>
 

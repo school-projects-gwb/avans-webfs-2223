@@ -1,12 +1,10 @@
 <script>
     import { Link } from "@inertiajs/svelte";
     import ApplicationLogo from "../Components/ApplicationLogo.svelte";
-    import TakeawayCart from "../Components/TakeawayCart.svelte";
     import DragonFacingLeft from '../../img/dragon-left-facing.png'
     import DragonFacingRight from '../../img/dragon-right-facing.png'
 </script>
 
-<TakeawayCart />
 <div
     class="min-h-screen h-fit flex flex-col items-center lg:pt-6 bg-primary-dark"
 >
