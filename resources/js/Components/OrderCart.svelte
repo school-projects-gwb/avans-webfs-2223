@@ -2,8 +2,11 @@
     import axios from 'axios';
     import { onMount } from 'svelte';
 
+    // Component configuration
+    // Pass these variables during the initialisation of the component
     export let is_takeaway = false;
-    let cart_data;
+
+    let cart_data, first_name, last_name;
 
     onMount(async () => {
         await handleCartData();
@@ -43,9 +46,13 @@
     }
 
     function handlePlaceOrder() {
-        axios.post(`/cart/place-order`, {withCredentials: true})
+        const requestData = {
+            'first_name': first_name,
+            'last_name': last_name
+        };
+
+        axios.post(`/cart/place-order`, requestData, {withCredentials: true})
             .then(async response => {
-                // todo implement
                 console.log(response);
             });
     }
@@ -64,7 +71,7 @@
                         </p>
                         <div class="flex">
                             <p class="text-lg font-bold">€ {dish.price}</p>
-                            <input id="amount-{dish.id}" class="inline w-20 h-6 ml-2 mt-0.5" type="number" min="0" value="{cart_data.option_data[dish.id]['amount'] ? cart_data.option_data[dish.id]['amount'] : 1}" on:change={handleCartDishRemoved(dish.id)}/>
+                            <input id="amount-{dish.id}" class="inline w-20 h-6 ml-2 mt-0.5" type="number" min="0" value="{cart_data.option_data[dish.id]['amount']}" on:change={handleCartDishRemoved(dish.id)}/>
                         </div>
                     </div>
                     {#if dish.description != null}
@@ -112,9 +119,9 @@
             {#if is_takeaway}
                 <h1 class="text-2xl font-bold text-left">Stap 2: Uw gegevens</h1>
                 <label for="first_name">Voornaam</label>
-                <input id="first_name" class="mb-4" type="text"/>
+                <input id="first_name" class="mb-4" type="text" bind:value={first_name}/>
                 <label for="last_name">Achternaam</label>
-                <input id="last_name" type="text"/>
+                <input id="last_name" type="text" bind:value={last_name}/>
             {/if}
             <button class="bg-primary text-white py-2 text-xl uppercase border-none font-bold mt-8" on:click={handlePlaceOrder}>Plaats bestelling</button>
         </div>

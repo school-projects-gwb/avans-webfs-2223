@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Dish;
 use App\Models\Option;
+use App\Models\Order;
+use App\Models\OrderLine;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -37,11 +40,17 @@ class OrderController extends Controller
         ];
     }
 
-    public function store() {
+    public function store(Request $request) {
+        $request->validate([
+            'first_name' => 'nullable|string|max:45',
+            'last_name' => 'nullable|string|max:75'
+        ]);
+
         $valid = true;
 
         $cookieData = $this->getCookieData();
-
+        // Make sure all dishes and options are valid
+        // Strategy: Go through every dish and check whether the options are valid
         foreach ($cookieData as $dish_id => $dish_data) {
             foreach ($dish_data['options'] as $option_id) {
                 $statusCode = $this->handleDishOptionCookie($dish_id, $option_id)->getStatusCode();
@@ -52,8 +61,28 @@ class OrderController extends Controller
             }
         }
 
-        // todo implement
-        dd($valid);
+        if ($valid) {
+            $order = new Order();
+            $order->first_name = $request->input('first_name');
+            $order->last_name = $request->input('last_name');
+            $order->is_takeaway = true;
+            $order->save();
+
+            foreach ($cookieData as $dish_id => $dish_data) {
+                $orderLine = new OrderLine();
+                $orderLine->dish_id = $dish_id;
+                $orderLine->amount = $dish_data['amount'];
+                $order->orderLines()->save($orderLine);
+
+                foreach ($dish_data['options'] as $option_id) {
+                    $orderLine = new OrderLine();
+                    $orderLine->dish_id = $dish_id;
+                    $orderLine->option_id = $option_id;
+                    $orderLine->amount = 1;
+                    $order->orderLines()->save($orderLine);
+                }
+            }
+        }
     }
 
     private function getCookieData() {
