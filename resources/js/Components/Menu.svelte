@@ -48,13 +48,6 @@
                 handleMenuData();
             });
     }
-
-    function handlePrintMenu() {
-        axios.post('/menu/print-pdf/')
-            .then(response => {
-                console.log(response);
-            });
-    }
 </script>
 
 {#if menu_data}

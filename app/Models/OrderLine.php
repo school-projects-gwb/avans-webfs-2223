@@ -18,8 +18,8 @@ class OrderLine extends Model
         return $this->belongsTo(Dish::class, 'dish_id', 'id');
     }
 
-    public function combination(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function option(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Option::class, 'combination_id', 'id');
+        return $this->belongsTo(Option::class, 'option_id', 'id');
     }
 }

@@ -9,6 +9,12 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'is_takeaway'
+    ];
+
     public function orderLines(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(OrderLine::class);
