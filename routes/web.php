@@ -40,7 +40,7 @@ Route::get('/menu', function () {
 });
 
 Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.get-data');
-Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
+Route::post('/menu/handle-dish-cookie/{dishId}/{dishType}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
 Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
 
 Route::get('/contact', function () {
