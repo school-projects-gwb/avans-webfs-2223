@@ -6,13 +6,13 @@
 </script>
 
 <div
-    class="min-h-screen h-fit flex flex-col items-center pt-6 sm:pt-0 bg-primary-dark"
+    class="min-h-screen h-fit flex flex-col items-center lg:pt-6 bg-primary-dark"
 >
-    <div class="w-11/12 mt-16 p-4 relative z-10 bg-primary flex flex-col items-center">
+    <div class="lg:w-11/12 w-full lg:mt-16 p-4 relative z-10 bg-primary flex flex-col items-center">
         <!-- Header -->
         <div class="flex w-full flex-col lg:flex-row justify-center lg:justify-between">
             <Link href="/" class="w-full lg:w-4/12">
-                <ApplicationLogo classes="w-20 h-20 fill-current text-gray-500" />
+                <ApplicationLogo classes="w-16 h-16 fill-current text-gray-500" />
             </Link>
             <div class="w-full lg:w-4/12 text-secondary text-center overflow-hidden">
                 <a class="header-text-slide-left" href="/menu">Welkom bij De Gouden Draak! Klik op deze tekst om de aanbiedingen van deze week te zien!</a>
@@ -23,7 +23,7 @@
         </div>
         <div class="mt-36 w-11/12 flex flex-col justify-center text-center">
             <div class="flex w-full justify-between">
-                <img src="{DragonFacingRight}" class="w-44 h-44">
+                <img src="{DragonFacingRight}" class="w-20 h-20 lg:w-44 lg:h-44">
                 <div>
                     <h1 class="text-4xl font-semibold text-secondary">Chinees Indische Specialiteiten</h1>
                     <h1 class="text-5xl font-bold text-secondary mt-2">De Gouden Draak</h1>
@@ -33,7 +33,7 @@
                         <a href="/contact" class="text-white text-xl px-8 bg-menu-item">Contact</a>
                     </div>
                 </div>
-                <img src="{DragonFacingLeft}" class="w-44 h-44">
+                <img src="{DragonFacingLeft}" class="w-16 h-16 lg:w-44 lg:h-44">
             </div>
             <div class="mt-12 w-11/12 p-8 m-auto bg-content border border-black">
                 <slot />
