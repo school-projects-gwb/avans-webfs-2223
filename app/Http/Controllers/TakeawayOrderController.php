@@ -18,15 +18,22 @@ class TakeawayOrderController extends Controller
             $cookieData = [];
         }
 
-        $dish_data = Dish::with('category', 'options')
+        $dishData = Dish::with('category', 'options')
             ->select('dishes.*', 'categories.special_description')
             ->join('categories', 'dishes.category_id', '=', 'categories.id')
             ->whereIn('dishes.id', array_keys($cookieData))
-            ->get();
+            ->get()
+            ->map(function ($dish) use ($cookieData) {
+                $optionLimits = $this->getOptionLimits($dish, $cookieData[$dish->id]);
+                $dish->is_option_required_limit = $optionLimits['required_limit_reached'];
+                $dish->is_option_optional_limit = $optionLimits['optional_limit_reached'];
+                return $dish;
+            });
 
         return [
-            'dish_data' => $dish_data,
-            'option_data' => $cookieData
+            'dish_data' => $dishData,
+            'option_data' => $cookieData,
+            'total_amount' => $this->getOrderTotals($dishData, $cookieData)
         ];
     }
 
@@ -50,6 +57,38 @@ class TakeawayOrderController extends Controller
         $cookie = cookie($this->dish_cookie_key, json_encode($cookieData), 60 * 24 * 7); // 1 week
 
         return response($message)->withCookie($cookie);
+    }
+
+    private function getOrderTotals($dishData, $cookieData) {
+        $dishTotals = $dishData->sum(function ($dish) {
+            return $dish->price;
+        });
+
+        $optionTotals = 0;
+
+        foreach ($cookieData as $key => $option_ids) {
+            $optionData = Option::whereIn('id', $option_ids)->whereNotNull('price')->get();
+            $totals = $optionData->sum(function ($option) {
+               return $option->price;
+            });
+            $optionTotals += $totals;
+        }
+
+        return number_format($dishTotals + $optionTotals, 2, ',', '.');
+    }
+
+    private function getOptionLimits($dish, $option_ids) {
+        $result = [];
+
+        // Optional options
+        $optional_options = Option::whereIn('id',  $option_ids)->whereNotNull('price')->get();
+        $result['optional_limit_reached'] = count($optional_options) == 1;
+
+        // Required options
+        $required_options = Option::whereIn('id',  $option_ids)->whereNull('price')->get();
+        $result['required_limit_reached'] = count($required_options) == $dish->option_amount;
+
+        return $result;
     }
 
     public function handleDishOptionCookie($dishId, $optionId) {
@@ -88,6 +127,7 @@ class TakeawayOrderController extends Controller
         } else {
             $optionIndex = array_search($optionId, $cookieData[$dishId]);
             unset($cookieData[$dishId][$optionIndex]);
+            $cookieData[$dishId] = array_values($cookieData[$dishId]);
             $message = 'Optie succesvol verwijderd.';
         }
 

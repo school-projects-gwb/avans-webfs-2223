@@ -18,7 +18,6 @@
     async function handleOption(dish_id, option_id) {
         axios.post(`/cart/takeaway/handle-dish-option-cookie/${dish_id}/${option_id}`, {withCredentials: true})
             .then(async response => {
-                console.log(response);
                 await handleCartData();
             });
     }
@@ -58,7 +57,9 @@
                                 <p class="underline">Kies {dish.option_amount} optie(s)</p>
                                 {#each dish.options.filter(option => option.price === null) as option}
                                     <div>
-                                        <input type="checkbox" on:click={handleOption(dish.id, option.id)}>
+                                        <input type="checkbox" class="disabled:bg-gray-300" on:click={handleOption(dish.id, option.id)} checked={isSelectedOption(dish.id, option.id)}
+                                           disabled={!isSelectedOption(dish.id, option.id) && dish.is_option_required_limit ? 'disabled' : ''}
+                                        >
                                         {option.name} {option.condition_text ? `(${option.condition_text})` : ''}
                                     </div>
                                 {/each}
@@ -67,13 +68,21 @@
                                 <p class="underline">Optioneel</p>
                                 {#each dish.options.filter(option => option.price !== null) as option}
                                     <div>
-                                        <input type="checkbox" on:click={handleOption(dish.id, option.id)} checked={isSelectedOption(dish.id, option.id)}>
+                                        <input type="checkbox" class="disabled:bg-gray-300" on:click={handleOption(dish.id, option.id)} checked={isSelectedOption(dish.id, option.id)}
+                                           disabled={!isSelectedOption(dish.id, option.id) && dish.is_option_optional_limit ? 'disabled' : ''}
+                                        >
                                         {option.name} {option.condition_text ? `(${option.condition_text})` : ''}
                                         <b>- € {option.price}</b>
                                     </div>
                                 {/each}
                             {/if}
                         {/if}
+                    </div>
+                    <div class="flex justify-between mt-4">
+                        <p class="text-xl font-bold">
+                            Totaalbedrag
+                        </p>
+                        <p class="text-xl font-bold">€ {cart_data.total_amount}</p>
                     </div>
                 </div>
             {/each}
