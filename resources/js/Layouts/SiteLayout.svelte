@@ -35,7 +35,7 @@
                 </div>
                 <img src="{DragonFacingLeft}" class="w-16 h-16 lg:w-44 lg:h-44">
             </div>
-            <div class="mt-12 w-11/12 p-8 m-auto bg-content border border-black">
+            <div class="mt-12 w-11/12 m-auto bg-content border border-black">
                 <slot />
             </div>
         </div>

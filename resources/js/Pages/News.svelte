@@ -10,6 +10,7 @@
     <title>The Golden Dragon</title>
 </svelte:head>
 
+<span class="mt-8 block"></span>
 {#each news_articles as news_article}
     <div class="mb-8">
         <h3 class="text-3xl font-bold">

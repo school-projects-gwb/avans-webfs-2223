@@ -10,7 +10,7 @@
     <title>The Golden Dragon</title>
 </svelte:head>
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-center items-center my-8">
     <h3 class="w-11/12 lg:w-1/2 text-lg font-bold tracking-tight">
         {restaurant.home_description}
     </h3>
