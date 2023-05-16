@@ -24,7 +24,7 @@ class OrderController extends Controller
             ->whereIn('dishes.id', array_keys($cookieData))
             ->get()
             ->map(function ($dish) use ($cookieData) {
-                $optionLimits = $this->getOptionLimits($dish, $cookieData[$dish->id]);
+                $optionLimits = $this->getOptionLimits($dish, $cookieData[$dish->id]['options']);
                 $dish->is_option_required_limit = $optionLimits['required_limit_reached'];
                 $dish->is_option_optional_limit = $optionLimits['optional_limit_reached'];
                 return $dish;
@@ -37,13 +37,13 @@ class OrderController extends Controller
         ];
     }
 
-    public function store(Request $request) {
+    public function store() {
         $valid = true;
 
         $cookieData = $this->getCookieData();
 
-        foreach ($cookieData as $dish_id => $option_ids) {
-            foreach ($option_ids as $option_id) {
+        foreach ($cookieData as $dish_id => $dish_data) {
+            foreach ($dish_data['options'] as $option_id) {
                 $statusCode = $this->handleDishOptionCookie($dish_id, $option_id)->getStatusCode();
                 if ($statusCode != 200) {
                     $valid = false;
@@ -66,7 +66,7 @@ class OrderController extends Controller
         $cookieData = $cookieData == null ? [] : $cookieData;
 
         if ($index === false) {
-            $cookieData[$dishId] = [];
+            $cookieData[$dishId] = ['amount' => 1, 'options' => []];
             $message = 'Dish added to cookie';
         } else {
             $message = 'Dish already in cart';
@@ -84,8 +84,8 @@ class OrderController extends Controller
 
         $optionTotals = 0;
 
-        foreach ($cookieData as $key => $option_ids) {
-            $optionData = Option::whereIn('id', $option_ids)->whereNotNull('price')->get();
+        foreach ($cookieData as $dish_id => $dish_data) {
+            $optionData = Option::whereIn('id', $dish_data['options'])->whereNotNull('price')->get();
             $totals = $optionData->sum(function ($option) {
                return $option->price;
             });
@@ -118,38 +118,38 @@ class OrderController extends Controller
         if ($indexCheck === false) {
             $message = 'Gerecht niet gevonden.';
             $status = 304;
-        } else if (!in_array($optionId,$cookieData[$dishId])) { // Make sure we're ADDING and not REMOVING option
+        } else if (!in_array($optionId,$cookieData[$dishId]['options'])) { // Make sure we're ADDING and not REMOVING option
             // Check whether dish has option
             $dish = Dish::with(['options' => function ($query) use ($cookieData, $dishId) {
-                $query->whereIn('id', $cookieData[$dishId]);
+                $query->whereIn('id', $cookieData[$dishId]['options']);
             }])->find($dishId);
             // Make sure dish exists and has as the cookie options
-            if ($dish && count($dish->options) == count($cookieData[$dishId])) {
+            if ($dish && count($dish->options) == count($cookieData[$dishId]['options'])) {
                 $option = Option::where('id', $optionId)->first();
                 // Check optional options
                 if ($option->price) {
                     // Make sure this is 0, you cannot have more than 1 optional free option
-                    $current_options = Option::whereIn('id', $cookieData[$dishId])->whereNotNull('price')->get();
+                    $current_options = Option::whereIn('id', $cookieData[$dishId]['options'])->whereNotNull('price')->get();
                     if (count($current_options) > 0) {
                         $message = 'Je mag maximaal 1 van dit type gerecht hebben.';
                         $status = 304;
                     } else {
-                        $cookieData[$dishId][] = $optionId;
+                        $cookieData[$dishId]['options'][] = $optionId;
                     }
                 } else {
-                    $current_options = Option::whereIn('id', $cookieData[$dishId])->whereNull('price')->get();
+                    $current_options = Option::whereIn('id', $cookieData[$dishId]['options'])->whereNull('price')->get();
                     if (count($current_options) >= $dish->option_amount) {
                         $message = 'Je mag maximaal '.$dish->option_amount .' van dit type gerecht(en) hebben.';
                         $status = 304;
                     } else {
-                        $cookieData[$dishId][] = $optionId;
+                        $cookieData[$dishId]['options'][] = $optionId;
                     }
                 }
             }
         } else {
-            $optionIndex = array_search($optionId, $cookieData[$dishId]);
-            unset($cookieData[$dishId][$optionIndex]);
-            $cookieData[$dishId] = array_values($cookieData[$dishId]);
+            $optionIndex = array_search($optionId, $cookieData[$dishId]['options']);
+            unset($cookieData[$dishId]['options'][$optionIndex]);
+            $cookieData[$dishId]['options'] = array_values($cookieData[$dishId]['options']);
             $message = 'Optie succesvol verwijderd.';
         }
 

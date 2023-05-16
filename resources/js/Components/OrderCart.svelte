@@ -24,7 +24,7 @@
     }
 
     function isSelectedOption(dish_id, option_id) {
-        return cart_data.option_data[dish_id].includes(option_id.toString());
+        return cart_data.option_data[dish_id]['options'].includes(option_id.toString());
     }
 
     export const handleCartDishAdded = async (dish_id) => {
