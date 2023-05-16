@@ -1,12 +1,14 @@
 <script>
     import axios from 'axios';
-    import { onMount } from 'svelte';
+    import {createEventDispatcher, onMount} from 'svelte';
 
     // Component configuration
     // Pass these variables during the initialisation of the component
     export let is_takeaway = false;
 
     let cart_data, first_name, last_name, errors = "";
+
+    const dispatch = createEventDispatcher();
 
     onMount(async () => {
         await handleCartData();
@@ -53,7 +55,9 @@
 
         axios.post(`/cart/place-order`, requestData, {withCredentials: true})
             .then(async response => {
-                console.log(response);
+                dispatch('orderPlaced', {
+                    data: response
+                });
             })
             .catch(error => {
                 errors = error.response.data;

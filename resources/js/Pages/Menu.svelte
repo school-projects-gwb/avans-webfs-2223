@@ -10,6 +10,10 @@
     function onCartDishAdded(event) {
         cartDishAdded(event.detail.dish_id);
     }
+
+    function onOrderPlaced(event) {
+        console.log(event.detail.data);
+    }
 </script>
 
 <svelte:head>
@@ -18,6 +22,6 @@
 
 <Menu sortable={true} on:cartDishAdded={onCartDishAdded} />
 <div class="fixed bottom-0 right-0 w-1/4 bg-white p-4">
-    <OrderCart bind:handleCartDishAdded={cartDishAdded} is_takeaway={true} />
+    <OrderCart on:orderPlaced={onOrderPlaced} bind:handleCartDishAdded={cartDishAdded} is_takeaway={true} />
 </div>
 

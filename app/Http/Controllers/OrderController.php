@@ -94,6 +94,8 @@ class OrderController extends Controller
                     $order->orderLines()->save($orderLine);
                 }
             }
+
+            $message = Order::with('orderLines')->find($order->id);
         }
 
         return response($message, $status);
