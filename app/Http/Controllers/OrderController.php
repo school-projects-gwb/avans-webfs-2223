@@ -47,6 +47,8 @@ class OrderController extends Controller
         ]);
 
         $valid = true;
+        $status = 201;
+        $message = "Order created";
 
         $cookieData = $this->getCookieData();
         // Make sure all dishes and options are valid
@@ -56,12 +58,22 @@ class OrderController extends Controller
                 $statusCode = $this->handleDishOptionCookie($dish_id, $option_id)->getStatusCode();
                 if ($statusCode != 200) {
                     $valid = false;
+                    $message = "Gerecht data niet valide";
+                    break;
+                }
+
+                $optionLimits = $this->getOptionLimits(Dish::with('category', 'options')->find($dish_id), $dish_data['options']);
+                if (!$optionLimits['required_limit_reached']) {
+                    $valid = false;
+                    $message = "Kies alle verplichte opties";
                     break;
                 }
             }
         }
 
-        if ($valid) {
+        if (!$valid) {
+            $status = 422;
+        } else {
             $order = new Order();
             $order->first_name = $request->input('first_name');
             $order->last_name = $request->input('last_name');
@@ -83,6 +95,8 @@ class OrderController extends Controller
                 }
             }
         }
+
+        return response($message, $status);
     }
 
     private function getCookieData() {
@@ -138,7 +152,7 @@ class OrderController extends Controller
 
         // Required options
         $required_options = Option::whereIn('id',  $option_ids)->whereNull('price')->get();
-        $result['required_limit_reached'] = count($required_options) == $dish->option_amount;
+        $result['required_limit_reached'] = !$dish->option_required || count($required_options) == $dish->option_amount;
 
         return $result;
     }

@@ -6,7 +6,7 @@
     // Pass these variables during the initialisation of the component
     export let is_takeaway = false;
 
-    let cart_data, first_name, last_name;
+    let cart_data, first_name, last_name, errors = "";
 
     onMount(async () => {
         await handleCartData();
@@ -54,6 +54,9 @@
         axios.post(`/cart/place-order`, requestData, {withCredentials: true})
             .then(async response => {
                 console.log(response);
+            })
+            .catch(error => {
+                errors = error.response.data;
             });
     }
 </script>
@@ -123,7 +126,8 @@
                 <label for="last_name">Achternaam</label>
                 <input id="last_name" type="text" bind:value={last_name}/>
             {/if}
-            <button class="bg-primary text-white py-2 text-xl uppercase border-none font-bold mt-8" on:click={handlePlaceOrder}>Plaats bestelling</button>
+            <span class="text-primary mt-8 font-bold text-lg">{errors}</span>
+            <button class="bg-primary text-white py-2 text-xl uppercase border-none font-bold" on:click={handlePlaceOrder}>Plaats bestelling</button>
         </div>
     {:else}
         Bestelling is leeg. Voeg producten toe uit het menu om je bestelling te starten!
