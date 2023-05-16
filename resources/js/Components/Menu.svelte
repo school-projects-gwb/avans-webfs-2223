@@ -36,17 +36,14 @@
     }
 
     function handleFavourite(dish_id) {
-        axios.post(`/menu/handle-dish-cookie/${dish_id}/fav`, {withCredentials: true})
+        axios.post(`/menu/handle-dish-cookie/${dish_id}`, {withCredentials: true})
             .then(response => {
                 handleMenuData();
             });
     }
 
     function handleCart(dish_id) {
-        axios.post(`/menu/handle-dish-cookie/${dish_id}/cart`, {withCredentials: true})
-            .then(response => {
-                handleMenuData();
-            });
+        // todo implement
     }
 </script>
 
@@ -103,7 +100,7 @@
                                     {dish.name}
                                     {#if sortable}
                                         <input type="checkbox" class="h-3 w-3" checked={isFavourite(dish.id)} on:click={handleFavourite(dish.id)} />
-                                        <input type="checkbox" class="h-3 w-3" checked={isInCart(dish.id)} on:click={handleCart(dish.id)} />
+                                        <input class="text-sm font-bold underline ml-1 cursor-pointer" type="button" on:click={handleCart(dish.id)} value="+ Bestelling" />
                                     {/if}
                                 </span>
                                 <span class="w-0 flex-1 border-b-2 border-black border-dotted mb-1.5 mx-1"></span>

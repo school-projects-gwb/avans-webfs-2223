@@ -19,14 +19,9 @@ class MenuController extends Controller
         $sort_menu = $sorting == 'menu' || $sorting == 'all';
 
         $favourite_dish_ids = json_decode($request->cookie('dish_ids'), true);
-        $cart_dish_ids = json_decode($request->cookie('cart_dish_ids'), true);
 
         if ($favourite_dish_ids == null) {
             $favourite_dish_ids = [];
-        }
-
-        if ($cart_dish_ids == null) {
-            $cart_dish_ids = [];
         }
 
         if (count($favourite_dish_ids) > 0 && $sorting != 'disabled') {
@@ -75,13 +70,12 @@ class MenuController extends Controller
             'option_data' => Option::whereNotNull('price')->get(),
             'restaurant_data' => Restaurant::first(),
             'sort_options' => ['none' => 'Ongesorteerd', 'all' => 'Alles', 'fav' => 'Favorieten', 'menu' => 'Menu'],
-            'favourite_dishes' => $favourite_dish_ids,
-            'cart_dishes' => $cart_dish_ids
+            'favourite_dishes' => $favourite_dish_ids
         ];
     }
 
     public function handleDishCookie($dishId, $dishType) {
-        $key = $dishType == 'fav' ? 'dish_ids' : 'cart_dish_ids';
+        $key = 'dish_ids';
         $existingDishIds = json_decode(request()->cookie($key, '[]'));
 
         $index = array_search($dishId, $existingDishIds);
