@@ -74,7 +74,7 @@ class MenuController extends Controller
         ];
     }
 
-    public function handleDishCookie($dishId, $dishType) {
+    public function handleDishCookie($dishId) {
         $key = 'dish_ids';
         $existingDishIds = json_decode(request()->cookie($key, '[]'));
 

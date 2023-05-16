@@ -33,10 +33,6 @@
         return menu_data.favourite_dishes.includes(dish_id.toString());
     }
 
-    function isInCart(dish_id) {
-        return menu_data.cart_dishes.includes(dish_id.toString());
-    }
-
     function handleFavourite(dish_id) {
         axios.post(`/menu/handle-dish-cookie/${dish_id}`, {withCredentials: true})
             .then(response => {
@@ -45,7 +41,6 @@
     }
 
     function handleCart(dish_id) {
-        // todo implement
         dispatch('cartDishAdded', {
             dish_id: dish_id
         });

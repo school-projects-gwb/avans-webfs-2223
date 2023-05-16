@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TakeawayOrderController;
 use App\Models\Dish;
 use App\Models\News;
 use App\Models\Option;
@@ -39,8 +40,12 @@ Route::get('/menu', function () {
     return Inertia::render('Menu');
 });
 
-Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.get-data');
+Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.data');
+Route::get('/cart/takeaway/data', [TakeawayOrderController::class, 'getData'])->name('cart.takeaway.data');
+
 Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
+Route::post('/cart/takeaway/handle-dish-cookie/{dishId}', [TakeawayOrderController::class, 'handleDishCookie'])->name('cart.takeaway.handle-dish-cookie');
+
 Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
 
 Route::get('/contact', function () {
