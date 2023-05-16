@@ -74,25 +74,6 @@ class MenuController extends Controller
         ];
     }
 
-    public function handleDishCookie($dishId) {
-        $key = 'dish_ids';
-        $existingDishIds = json_decode(request()->cookie($key, '[]'));
-
-        $index = array_search($dishId, $existingDishIds);
-
-        if ($index !== false) {
-            array_splice($existingDishIds, $index, 1);
-            $message = 'Dish removed from cookie';
-        } else {
-            $existingDishIds[] = $dishId;
-            $message = 'Dish added to cookie';
-        }
-
-        $cookie = cookie($key, json_encode($existingDishIds), 60 * 24 * 7); // 1 week
-
-        return response($message)->withCookie($cookie);
-    }
-
     public function printPdf()
     {
         $dish_data = Dish::with('category', 'options')

@@ -52,6 +52,7 @@ class OrderController extends Controller
             }
         }
 
+        // todo implement
         dd($valid);
     }
 
@@ -59,7 +60,7 @@ class OrderController extends Controller
         return json_decode(request()->cookie($this->dish_cookie_key), true);
     }
 
-    public function handleDishCookie($dishId) {
+    public function handleDishCookie($dishId, $amount) {
         $cookieData = $this->getCookieData();
 
         $index = $cookieData == null ? false : in_array($dishId, array_keys($cookieData));
@@ -67,27 +68,31 @@ class OrderController extends Controller
 
         if ($index === false) {
             $cookieData[$dishId] = ['amount' => 1, 'options' => []];
-            $message = 'Dish added to cookie';
         } else {
-            $message = 'Dish already in cart';
+            // Already exists
+            if ($amount > 0) { // Modify amount
+                $cookieData[$dishId]['amount'] = $amount;
+            } else { // Remove dish
+                unset($cookieData[$dishId]);
+            }
         }
 
         $cookie = cookie($this->dish_cookie_key, json_encode($cookieData), 60 * 24 * 7); // 1 week
 
-        return response($message)->withCookie($cookie);
+        return response("")->withCookie($cookie);
     }
 
     private function getOrderTotals($dishData, $cookieData) {
-        $dishTotals = $dishData->sum(function ($dish) {
-            return $dish->price;
+        $dishTotals = $dishData->sum(function ($dish) use ($cookieData) {
+            return $dish->price * $cookieData[$dish->id]['amount'];
         });
 
         $optionTotals = 0;
 
         foreach ($cookieData as $dish_id => $dish_data) {
             $optionData = Option::whereIn('id', $dish_data['options'])->whereNotNull('price')->get();
-            $totals = $optionData->sum(function ($option) {
-               return $option->price;
+            $totals = $optionData->sum(function ($option) use ($dish_data) {
+               return $option->price * $dish_data['amount'];
             });
             $optionTotals += $totals;
         }

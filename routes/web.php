@@ -43,8 +43,7 @@ Route::get('/menu', function () {
 Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.data');
 Route::get('/cart/data', [OrderController::class, 'getData'])->name('cart.data');
 
-Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
-Route::post('/cart/handle-dish-cookie/{dishId}', [OrderController::class, 'handleDishCookie'])->name('cart.handle-dish-cookie');
+Route::post('/cart/handle-dish-cookie/{dishId}/{amount}', [OrderController::class, 'handleDishCookie'])->name('cart.handle-dish-cookie');
 Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', [OrderController::class, 'handleDishOptionCookie'])->name('cart.handle-dish-option-cookie');
 Route::post('/cart/place-order', [OrderController::class, 'store'])->name('cart.place-order');
 

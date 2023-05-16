@@ -11,7 +11,6 @@
 
     async function handleCartData() {
         axios.get('/cart/data').then(response => {
-            console.log(response.data);
             cart_data = response.data;
         });
     }
@@ -28,7 +27,16 @@
     }
 
     export const handleCartDishAdded = async (dish_id) => {
-        axios.post(`/cart/handle-dish-cookie/${dish_id}`, {withCredentials: true})
+        axios.post(`/cart/handle-dish-cookie/${dish_id}/1`, {withCredentials: true})
+            .then(async response => {
+                await handleCartData();
+            });
+    }
+
+    async function handleCartDishRemoved(dish_id, amount) {
+        const input = document.getElementById(`amount-${dish_id}`);
+        const value = input.value;
+        axios.post(`/cart/handle-dish-cookie/${dish_id}/${value}`, {withCredentials: true})
             .then(async response => {
                 await handleCartData();
             });
@@ -37,6 +45,7 @@
     function handlePlaceOrder() {
         axios.post(`/cart/place-order`, {withCredentials: true})
             .then(async response => {
+                // todo implement
                 console.log(response);
             });
     }
@@ -53,7 +62,10 @@
                             {dish.menu_number == null ? '' : dish.menu_number}{dish.menu_addition == null ? '' : dish.menu_addition }{dish.menu_number != null || dish.menu_addition != null ? '.' : ''}
                             {dish.name}
                         </p>
-                        <p class="text-lg font-bold">€ {dish.price}</p>
+                        <div class="flex">
+                            <p class="text-lg font-bold">€ {dish.price}</p>
+                            <input id="amount-{dish.id}" class="inline w-20 h-6 ml-2 mt-0.5" type="number" min="0" value="{cart_data.option_data[dish.id]['amount'] ? cart_data.option_data[dish.id]['amount'] : 1}" on:change={handleCartDishRemoved(dish.id)}/>
+                        </div>
                     </div>
                     {#if dish.description != null}
                         <p class="text-left italic">{dish.description}</p>
@@ -85,14 +97,14 @@
                             {/if}
                         {/if}
                     </div>
-                    <div class="flex justify-between mt-4">
-                        <p class="text-xl font-bold">
-                            Totaalbedrag
-                        </p>
-                        <p class="text-xl font-bold">€ {cart_data.total_amount}</p>
-                    </div>
                 </div>
             {/each}
+            <div class="flex justify-between mt-4">
+                <p class="text-xl font-bold">
+                    Totaalbedrag
+                </p>
+                <p class="text-xl font-bold">€ {cart_data.total_amount}</p>
+            </div>
         </div>
 
 
