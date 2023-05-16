@@ -2,6 +2,7 @@
     import axios from 'axios';
     import { onMount } from 'svelte';
 
+    export let is_takeaway = false;
     let cart_data;
 
     onMount(async () => {
@@ -9,14 +10,14 @@
     });
 
     async function handleCartData() {
-        axios.get('/cart/takeaway/data').then(response => {
+        axios.get('/cart/data').then(response => {
             console.log(response.data);
             cart_data = response.data;
         });
     }
 
     async function handleOption(dish_id, option_id) {
-        axios.post(`/cart/takeaway/handle-dish-option-cookie/${dish_id}/${option_id}`, {withCredentials: true})
+        axios.post(`/cart/handle-dish-option-cookie/${dish_id}/${option_id}`, {withCredentials: true})
             .then(async response => {
                 await handleCartData();
             });
@@ -27,15 +28,21 @@
     }
 
     export const handleCartDishAdded = async (dish_id) => {
-        axios.post(`/cart/takeaway/handle-dish-cookie/${dish_id}`, {withCredentials: true})
+        axios.post(`/cart/handle-dish-cookie/${dish_id}`, {withCredentials: true})
             .then(async response => {
                 await handleCartData();
             });
     }
-</script>
 
-<div class="fixed bottom-0 right-0 w-1/4 bg-white p-4">
-    <h1 class="font-bold text-xl mb-4 text-primary text-left uppercase">Afhaal bestelling plaatsen</h1>
+    function handlePlaceOrder() {
+        axios.post(`/cart/place-order`, {withCredentials: true})
+            .then(async response => {
+                console.log(response);
+            });
+    }
+</script>
+<div>
+    <h1 class="font-bold text-xl mb-4 text-primary text-left uppercase">{is_takeaway ? 'Afhaal' : ''} bestelling plaatsen</h1>
     {#if cart_data && cart_data.dish_data.length > 0}
         <div>
             <h1 class="text-2xl font-bold text-left">Stap 1: Gerechten</h1>
@@ -88,15 +95,18 @@
             {/each}
         </div>
 
+
         <div class="flex flex-col text-left mt-8">
-            <h1 class="text-2xl font-bold text-left">Stap 2: Uw gegevens</h1>
-            <label for="first_name">Voornaam</label>
-            <input id="first_name" class="mb-4" type="text"/>
-            <label for="last_name">Achternaam</label>
-            <input id="last_name" type="text"/>
-            <button class="bg-primary text-white py-2 text-xl uppercase border-none font-bold mt-8">Plaats bestelling</button>
+            {#if is_takeaway}
+                <h1 class="text-2xl font-bold text-left">Stap 2: Uw gegevens</h1>
+                <label for="first_name">Voornaam</label>
+                <input id="first_name" class="mb-4" type="text"/>
+                <label for="last_name">Achternaam</label>
+                <input id="last_name" type="text"/>
+            {/if}
+            <button class="bg-primary text-white py-2 text-xl uppercase border-none font-bold mt-8" on:click={handlePlaceOrder}>Plaats bestelling</button>
         </div>
     {:else}
-        Uw bestelling is leeg. Voeg producten toe uit het menu om je bestelling te starten!
+        Bestelling is leeg. Voeg producten toe uit het menu om je bestelling te starten!
     {/if}
 </div>

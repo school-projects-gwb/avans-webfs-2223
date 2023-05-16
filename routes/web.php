@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TakeawayOrderController;
+use App\Http\Controllers\OrderController;
 use App\Models\Dish;
 use App\Models\News;
 use App\Models\Option;
@@ -41,11 +41,12 @@ Route::get('/menu', function () {
 });
 
 Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.data');
-Route::get('/cart/takeaway/data', [TakeawayOrderController::class, 'getData'])->name('cart.takeaway.data');
+Route::get('/cart/data', [OrderController::class, 'getData'])->name('cart.data');
 
 Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
-Route::post('/cart/takeaway/handle-dish-cookie/{dishId}', [TakeawayOrderController::class, 'handleDishCookie'])->name('cart.takeaway.handle-dish-cookie');
-Route::post('/cart/takeaway/handle-dish-option-cookie/{dishId}/{optionId}', [TakeawayOrderController::class, 'handleDishOptionCookie'])->name('cart.takeaway.handle-dish-option-cookie');
+Route::post('/cart/handle-dish-cookie/{dishId}', [OrderController::class, 'handleDishCookie'])->name('cart.handle-dish-cookie');
+Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', [OrderController::class, 'handleDishOptionCookie'])->name('cart.handle-dish-option-cookie');
+Route::post('/cart/place-order', [OrderController::class, 'store'])->name('cart.place-order');
 
 Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
 

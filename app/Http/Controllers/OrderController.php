@@ -6,7 +6,7 @@ use App\Models\Dish;
 use App\Models\Option;
 use Illuminate\Http\Request;
 
-class TakeawayOrderController extends Controller
+class OrderController extends Controller
 {
     private string $dish_cookie_key = 'cart_dish_ids';
 
@@ -35,6 +35,24 @@ class TakeawayOrderController extends Controller
             'option_data' => $cookieData,
             'total_amount' => $this->getOrderTotals($dishData, $cookieData)
         ];
+    }
+
+    public function store(Request $request) {
+        $valid = true;
+
+        $cookieData = $this->getCookieData();
+
+        foreach ($cookieData as $dish_id => $option_ids) {
+            foreach ($option_ids as $option_id) {
+                $statusCode = $this->handleDishOptionCookie($dish_id, $option_id)->getStatusCode();
+                if ($statusCode != 200) {
+                    $valid = false;
+                    break;
+                }
+            }
+        }
+
+        dd($valid);
     }
 
     private function getCookieData() {
@@ -95,9 +113,11 @@ class TakeawayOrderController extends Controller
         $cookieData = $this->getCookieData();
         $indexCheck = in_array($dishId, array_keys($cookieData));
         $message = 'Optie succesvol toegevoegd.';
+        $status = 200;
 
         if ($indexCheck === false) {
             $message = 'Gerecht niet gevonden.';
+            $status = 304;
         } else if (!in_array($optionId,$cookieData[$dishId])) { // Make sure we're ADDING and not REMOVING option
             // Check whether dish has option
             $dish = Dish::with(['options' => function ($query) use ($cookieData, $dishId) {
@@ -112,6 +132,7 @@ class TakeawayOrderController extends Controller
                     $current_options = Option::whereIn('id', $cookieData[$dishId])->whereNotNull('price')->get();
                     if (count($current_options) > 0) {
                         $message = 'Je mag maximaal 1 van dit type gerecht hebben.';
+                        $status = 304;
                     } else {
                         $cookieData[$dishId][] = $optionId;
                     }
@@ -119,6 +140,7 @@ class TakeawayOrderController extends Controller
                     $current_options = Option::whereIn('id', $cookieData[$dishId])->whereNull('price')->get();
                     if (count($current_options) >= $dish->option_amount) {
                         $message = 'Je mag maximaal '.$dish->option_amount .' van dit type gerecht(en) hebben.';
+                        $status = 304;
                     } else {
                         $cookieData[$dishId][] = $optionId;
                     }
@@ -133,6 +155,6 @@ class TakeawayOrderController extends Controller
 
         $cookie = cookie($this->dish_cookie_key, json_encode($cookieData), 60 * 24 * 7); // 1 week
 
-        return response($message)->withCookie($cookie);
+        return response($message, $status)->withCookie($cookie);
     }
 }

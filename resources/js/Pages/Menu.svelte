@@ -4,7 +4,7 @@
 
 <script>
     import Menu from "@/Components/Menu.svelte";
-    import TakeawayCart from "@/Components/TakeawayCart.svelte";
+    import OrderCart from "@/Components/OrderCart.svelte";
 
     let cartDishAdded
     function onCartDishAdded(event) {
@@ -17,5 +17,7 @@
 </svelte:head>
 
 <Menu sortable={true} on:cartDishAdded={onCartDishAdded} />
-<TakeawayCart bind:handleCartDishAdded={cartDishAdded} />
+<div class="fixed bottom-0 right-0 w-1/4 bg-white p-4">
+    <OrderCart bind:handleCartDishAdded={cartDishAdded} is_takeaway={true} />
+</div>
 
