@@ -97,8 +97,8 @@ class OrderController extends Controller
                 }
             }
 
-            $cookie = cookie($this->order_placed_cookie_key, json_encode(true), 60 * 24 * 7);
             $message = Order::with('orderLines')->find($order->id);
+            $cookie = cookie($this->order_placed_cookie_key, json_encode(['order' => $message]), 60 * 24 * 7);
             return response($message, $status)->withCookie($cookie);
         }
 

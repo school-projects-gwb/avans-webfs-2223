@@ -12,7 +12,7 @@
 
     onMount(async () => {
         axios.get('/cart/is-order-placed').then(response => {
-            orderPlaced = response.data === 1;
+            orderPlaced = response.data['order'] != null;
         });
         await handleCartData();
     });

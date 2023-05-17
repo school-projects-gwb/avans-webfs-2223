@@ -3,6 +3,7 @@
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TakeawayController;
 use App\Models\Dish;
 use App\Models\News;
 use App\Models\Option;
@@ -47,7 +48,9 @@ Route::post('/cart/handle-dish-cookie/{dishId}/{amount}', [OrderController::clas
 Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', [OrderController::class, 'handleDishOptionCookie'])->name('cart.handle-dish-option-cookie');
 Route::post('/cart/clear-order-cookie-data', [OrderController::class, 'clearOrderCookieData'])->name('cart.clear-order-cookie-data');
 Route::get('/cart/is-order-placed', [OrderController::class, 'isOrderPlaced'])->name('cart.is-order-placed');
+Route::get('/cart/get-order-qr-data', [TakeawayController::class, 'getOrderQRData'])->name('cart.get-order-qr-data');
 Route::post('/cart/place-order', [OrderController::class, 'store'])->name('cart.place-order');
+
 
 Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
 
