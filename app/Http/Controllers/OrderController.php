@@ -15,6 +15,11 @@ class OrderController extends Controller
     private string $dish_cookie_key = 'cart_dish_ids';
     private string $order_placed_cookie_key = 'order_placed';
 
+    /**
+     * Get all order data (for displaying in cart)
+     * @param Request $request
+     * @return array Order data
+     */
     public function getData(Request $request): array
     {
         $cookieData = $this->getCookieData();
@@ -42,6 +47,11 @@ class OrderController extends Controller
         ];
     }
 
+    /**
+     * Create (and validate) new order based on cookie data
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
+     */
     public function store(Request $request) {
         $request->validate([
             'first_name' => 'nullable|string|max:45',
@@ -75,7 +85,7 @@ class OrderController extends Controller
 
         if (!$valid) {
             $status = 422;
-        } else {
+        } else {// Create new order and order lines
             $order = new Order();
             $order->first_name = $request->input('first_name');
             $order->last_name = $request->input('last_name');
@@ -96,7 +106,7 @@ class OrderController extends Controller
                     $order->orderLines()->save($orderLine);
                 }
             }
-
+            // Return cookie containing order information
             $message = Order::with('orderLines')->find($order->id);
             $cookie = cookie($this->order_placed_cookie_key, json_encode(['order' => $message]), 60 * 24 * 7);
             return response($message, $status)->withCookie($cookie);
@@ -160,6 +170,15 @@ class OrderController extends Controller
         return number_format($dishTotals + $optionTotals, 2, ',', '.');
     }
 
+    /**
+     * Get limit of options for both optional and required options
+     * Rule: Only 1 optional option per order
+     * Rule: Maximum of option_amount options for required options
+     * Required option = Option that has no price set
+     * @param $dish
+     * @param $option_ids
+     * @return array
+     */
     private function getOptionLimits($dish, $option_ids) {
         $result = [];
 

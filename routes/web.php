@@ -41,25 +41,31 @@ Route::get('/menu', function () {
     return Inertia::render('Menu');
 });
 
-Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.data');
-Route::get('/cart/data', [OrderController::class, 'getData'])->name('cart.data');
-
-Route::post('/cart/handle-dish-cookie/{dishId}/{amount}', [OrderController::class, 'handleDishCookie'])->name('cart.handle-dish-cookie');
-Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', [OrderController::class, 'handleDishOptionCookie'])->name('cart.handle-dish-option-cookie');
-Route::post('/cart/clear-order-cookie-data', [OrderController::class, 'clearOrderCookieData'])->name('cart.clear-order-cookie-data');
-Route::get('/cart/is-order-placed', [OrderController::class, 'isOrderPlaced'])->name('cart.is-order-placed');
-Route::get('/cart/get-order-qr-data', [TakeawayController::class, 'getOrderQRData'])->name('cart.get-order-qr-data');
-Route::post('/cart/place-order', [OrderController::class, 'store'])->name('cart.place-order');
-Route::post('/cart/clear-order-cookie', [OrderController::class, 'clearOrderCookie'])->name('cart.clear-order-cookie');
-
-
-Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
-
 Route::get('/contact', function () {
     return Inertia::render('Contact', [
         'restaurant' => Restaurant::first()
     ]);
 });
+
+// Order
+Route::controller(OrderController::class)->group(function () {
+    // GET
+    Route::get('/cart/is-order-placed', [OrderController::class, 'isOrderPlaced'])->name('cart.is-order-placed');
+    Route::get('/cart/data', [OrderController::class, 'getData'])->name('cart.data');
+    // POST
+    Route::post('/cart/handle-dish-cookie/{dishId}/{amount}', [OrderController::class, 'handleDishCookie'])->name('cart.handle-dish-cookie');
+    Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', [OrderController::class, 'handleDishOptionCookie'])->name('cart.handle-dish-option-cookie');
+    Route::post('/cart/clear-order-cookie-data', [OrderController::class, 'clearOrderCookieData'])->name('cart.clear-order-cookie-data');
+    Route::post('/cart/place-order', [OrderController::class, 'store'])->name('cart.place-order');
+    Route::post('/cart/clear-order-cookie', [OrderController::class, 'clearOrderCookie'])->name('cart.clear-order-cookie');
+});
+
+// Takeaway
+Route::get('/cart/get-order-qr-data', [TakeawayController::class, 'getOrderQRData'])->name('cart.get-order-qr-data');
+
+// Menu
+Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.data');
+Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
