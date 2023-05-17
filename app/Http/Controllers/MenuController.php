@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dish;
 use App\Models\Option;
 use App\Models\Restaurant;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class MenuController extends Controller
 {
@@ -72,6 +69,25 @@ class MenuController extends Controller
             'sort_options' => ['none' => 'Ongesorteerd', 'all' => 'Alles', 'fav' => 'Favorieten', 'menu' => 'Menu'],
             'favourite_dishes' => $favourite_dish_ids
         ];
+    }
+
+    public function handleDishCookie($dishId) {
+        $key = 'dish_ids';
+        $existingDishIds = json_decode(request()->cookie($key, '[]'));
+
+        $index = array_search($dishId, $existingDishIds);
+
+        if ($index !== false) {
+            array_splice($existingDishIds, $index, 1);
+            $message = 'Dish removed from cookie';
+        } else {
+            $existingDishIds[] = $dishId;
+            $message = 'Dish added to cookie';
+        }
+
+        $cookie = cookie($key, json_encode($existingDishIds), 60 * 24 * 7); // Set the cookie to expire in 1 week
+
+        return response($message)->withCookie($cookie);
     }
 
     public function printPdf()

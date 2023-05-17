@@ -56,6 +56,7 @@
     }
 
     function handlePlaceOrder() {
+        errors = "";
         const requestData = {
             'first_name': first_name,
             'last_name': last_name
@@ -66,6 +67,7 @@
                 errors = error.response.data;
             })
             .then(async response => {
+                if (errors !== "") return;
                 orderPlaced = true;
                 dispatch('orderPlaced', {
                     data: response
@@ -133,7 +135,6 @@
                 </div>
             </div>
 
-
             <div class="flex flex-col text-left mt-8">
                 {#if is_takeaway}
                     <h1 class="text-2xl font-bold text-left">Stap 2: Uw gegevens (optioneel)</h1>
@@ -146,7 +147,7 @@
                 <button class="bg-primary text-white py-2 text-xl uppercase border-none font-bold" on:click={handlePlaceOrder}>Plaats bestelling</button>
             </div>
         {:else}
-            Bestelling is leeg. Voeg producten toe uit het menu om je bestelling te starten!
+            <p class="text-left">Bestelling is leeg. Voeg producten toe uit het menu om je bestelling te starten!</p>
         {/if}
     </div>
 {/if}

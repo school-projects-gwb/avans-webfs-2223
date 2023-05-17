@@ -6,7 +6,6 @@ use App\Models\Dish;
 use App\Models\Option;
 use App\Models\Order;
 use App\Models\OrderLine;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -73,13 +72,14 @@ class OrderController extends Controller
                     $message = "Gerecht data niet valide";
                     break;
                 }
+            }
 
-                $optionLimits = $this->getOptionLimits(Dish::with('category', 'options')->find($dish_id), $dish_data['options']);
-                if (!$optionLimits['required_limit_reached']) {
-                    $valid = false;
-                    $message = "Kies alle verplichte opties";
-                    break;
-                }
+            $optionLimits = $this->getOptionLimits(Dish::with('category', 'options')->find($dish_id), $dish_data['options']);
+
+            if (!$optionLimits['required_limit_reached']) {
+                $valid = false;
+                $message = "Kies alle verplichte opties";
+                break;
             }
         }
 

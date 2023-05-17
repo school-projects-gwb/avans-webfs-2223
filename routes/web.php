@@ -66,6 +66,7 @@ Route::get('/cart/get-order-qr-data', [TakeawayController::class, 'getOrderQRDat
 // Menu
 Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.data');
 Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
+Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
