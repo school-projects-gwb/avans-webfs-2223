@@ -45,6 +45,8 @@ Route::get('/cart/data', [OrderController::class, 'getData'])->name('cart.data')
 
 Route::post('/cart/handle-dish-cookie/{dishId}/{amount}', [OrderController::class, 'handleDishCookie'])->name('cart.handle-dish-cookie');
 Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', [OrderController::class, 'handleDishOptionCookie'])->name('cart.handle-dish-option-cookie');
+Route::post('/cart/clear-order-cookie-data', [OrderController::class, 'clearOrderCookieData'])->name('cart.clear-order-cookie-data');
+Route::get('/cart/is-order-placed', [OrderController::class, 'isOrderPlaced'])->name('cart.is-order-placed');
 Route::post('/cart/place-order', [OrderController::class, 'store'])->name('cart.place-order');
 
 Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');

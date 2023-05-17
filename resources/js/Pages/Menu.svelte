@@ -5,14 +5,16 @@
 <script>
     import Menu from "@/Components/Menu.svelte";
     import OrderCart from "@/Components/OrderCart.svelte";
+    import OrderTakeawaySuccess from "@/Components/OrderTakeawaySuccess.svelte";
 
-    let cartDishAdded
+    let cartDishAdded, orderData, orderPlaced = false;
     function onCartDishAdded(event) {
         cartDishAdded(event.detail.dish_id);
     }
 
     function onOrderPlaced(event) {
-        console.log(event.detail.data);
+        orderPlaced = true;
+        orderData(event.detail.data);
     }
 </script>
 
@@ -23,5 +25,6 @@
 <Menu sortable={true} on:cartDishAdded={onCartDishAdded} />
 <div class="fixed bottom-0 right-0 w-1/4 bg-white p-4">
     <OrderCart on:orderPlaced={onOrderPlaced} bind:handleCartDishAdded={cartDishAdded} is_takeaway={true} />
+    <OrderTakeawaySuccess bind:handleOrderPlaced={orderData} />
 </div>
 

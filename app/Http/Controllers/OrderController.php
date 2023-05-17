@@ -8,10 +8,12 @@ use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class OrderController extends Controller
 {
     private string $dish_cookie_key = 'cart_dish_ids';
+    private string $order_placed_cookie_key = 'order_placed';
 
     public function getData(Request $request): array
     {
@@ -95,10 +97,23 @@ class OrderController extends Controller
                 }
             }
 
+            $cookie = cookie($this->order_placed_cookie_key, json_encode(true), 60 * 24 * 7);
             $message = Order::with('orderLines')->find($order->id);
+            return response($message, $status)->withCookie($cookie);
         }
 
         return response($message, $status);
+    }
+
+    public function clearOrderCookieData() {
+        $dishCookie = Cookie::forget($this->dish_cookie_key);
+        $orderPlacedCookie = Cookie::forget($this->order_placed_cookie_key);
+
+        return response('Cookies removed')->withCookies([$dishCookie, $orderPlacedCookie]);
+    }
+
+    public function isOrderPlaced() {
+        return json_decode(request()->cookie($this->order_placed_cookie_key), true);
     }
 
     private function getCookieData() {
