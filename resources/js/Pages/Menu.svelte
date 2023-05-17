@@ -19,6 +19,13 @@
     function onOrderCookieCleared(event) {
         orderCookieCleared(event);
     }
+
+    function toggleCart() {
+        const cart_window = document.getElementById('cart_window');
+        const cart_button = document.getElementById('cart_button');
+        cart_window.classList.toggle('hidden');
+        cart_button.classList.toggle('hidden');
+    }
 </script>
 
 <svelte:head>
@@ -26,7 +33,11 @@
 </svelte:head>
 
 <Menu sortable={true} on:cartDishAdded={onCartDishAdded} />
-<div class="fixed bottom-0 right-0 w-1/4 bg-white p-4">
+<button class="fixed bottom-0 right-0 bg-menu text-2xl font-bold hidden uppercase underline p-4 border-4 border-green-700" id="cart_button" on:click={toggleCart}>Afhaal bestelling plaatsen</button>
+<div class="fixed bottom-0 right-0 w-full md:w-3/4 lg:w-5/12 xl:w-1/4 bg-menu p-4 border-4 border-green-700" id="cart_window">
+    <div class="w-full flex justify-end">
+        <button class="text-right underline font-bold cursor-pointer" on:click={toggleCart}>Venster verkleinen</button>
+    </div>
     <OrderCart on:orderPlaced={onOrderPlaced} bind:handleOrderCookieCleared={orderCookieCleared} bind:handleCartDishAdded={cartDishAdded} is_takeaway={true} />
     <OrderTakeawaySuccess on:orderCookieCleared={onOrderCookieCleared} bind:handleOrderPlaced={orderData} />
 </div>
