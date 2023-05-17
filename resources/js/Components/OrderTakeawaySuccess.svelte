@@ -1,6 +1,6 @@
 <script>
     import axios from "axios";
-    import {onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import QrCode from "svelte-qrcode"
 
     let orderPlaced = false;
@@ -9,6 +9,8 @@
     onMount(async () => {
         await handleQrCode();
     });
+
+    const dispatch = createEventDispatcher();
 
     async function handleQrCode() {
         axios.get('/cart/is-order-placed').then(response => {
@@ -27,6 +29,14 @@
         });
     }
 
+    async function handleNewOrder() {
+        axios.post(`/cart/clear-order-cookie`, {withCredentials: true})
+            .then(async response => {
+                orderPlaced = false;
+                dispatch('orderCookieCleared');
+            });
+    }
+
     export const handleOrderPlaced = async (orderData) => {
         await handleQrCode();
     }
@@ -38,6 +48,6 @@
         <div class="w-1/2 my-4">
             <QrCode value="{orderData}" />
         </div>
-        <button class="bg-primary text-white py-2 px-4 text-xl uppercase border-none font-bold mt-4">Nieuwe bestelling starten</button>
+        <button class="bg-primary text-white py-2 px-4 text-xl uppercase border-none font-bold mt-4" on:click={handleNewOrder}>Nieuwe bestelling starten</button>
     </div>
 {/if}

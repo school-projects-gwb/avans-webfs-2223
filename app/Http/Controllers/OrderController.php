@@ -105,11 +105,11 @@ class OrderController extends Controller
         return response($message, $status);
     }
 
-    public function clearOrderCookieData() {
+    public function clearOrderCookie() {
         $dishCookie = Cookie::forget($this->dish_cookie_key);
         $orderPlacedCookie = Cookie::forget($this->order_placed_cookie_key);
 
-        return response('Cookies removed')->withCookies([$dishCookie, $orderPlacedCookie]);
+        return response('Cookies removed')->withCookie($dishCookie)->withCookie($orderPlacedCookie);
     }
 
     public function isOrderPlaced() {

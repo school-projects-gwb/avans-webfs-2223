@@ -41,6 +41,11 @@
             });
     }
 
+    export const handleOrderCookieCleared = async () => {
+        orderPlaced = false;
+        await handleCartData();
+    }
+
     async function handleCartDishRemoved(dish_id, amount) {
         const input = document.getElementById(`amount-${dish_id}`);
         const value = input.value;

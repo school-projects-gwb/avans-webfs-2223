@@ -50,6 +50,7 @@ Route::post('/cart/clear-order-cookie-data', [OrderController::class, 'clearOrde
 Route::get('/cart/is-order-placed', [OrderController::class, 'isOrderPlaced'])->name('cart.is-order-placed');
 Route::get('/cart/get-order-qr-data', [TakeawayController::class, 'getOrderQRData'])->name('cart.get-order-qr-data');
 Route::post('/cart/place-order', [OrderController::class, 'store'])->name('cart.place-order');
+Route::post('/cart/clear-order-cookie', [OrderController::class, 'clearOrderCookie'])->name('cart.clear-order-cookie');
 
 
 Route::get('/menu/print-pdf', [MenuController::class, 'printPdf'])->name('menu.print-pdf');
