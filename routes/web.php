@@ -11,6 +11,7 @@ use App\Models\Restaurant;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PointOfSaleController;
 
 
 /*
@@ -86,9 +87,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('role:Administrator|Cashier')->name('pos.')->prefix('pos')->group(function (){
-   Route::get('/', function (){
-        dd("hoi");
-   })->name('index');
+   Route::get('/', [PointOfSaleController::class, 'index'])->name('index');
 });
 
 require __DIR__.'/auth.php';

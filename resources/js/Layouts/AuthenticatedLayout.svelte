@@ -11,7 +11,7 @@
 </script>
 
 <div>
-    <div class="min-h-screen bg-gray-100">
+    <div class="flex flex-col h-screen bg-gray-100">
         <nav
             class="bg-white border-b border-gray-100"
         >
@@ -38,6 +38,13 @@
                                 active={route().current("dashboard")}
                             >
                                 Dashboard
+                            </NavLink>
+
+                            <NavLink
+                                href={route("pos.index")}
+                                active={route().current("pos.index")}
+                            >
+                                Kassa
                             </NavLink>
                         </div>
                     </div>
@@ -173,7 +180,7 @@
         </nav>
 
         <!-- Page Content -->
-        <main>
+        <main class="flex-1">
             <slot />
         </main>
     </div>
