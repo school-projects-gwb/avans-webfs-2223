@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('sales_date');
+            $table->string('first_name', 45)->nullable();
+            $table->string('last_name', 75)->nullable();
+            $table->boolean('is_takeaway');
             $table->timestamps();
         });
     }

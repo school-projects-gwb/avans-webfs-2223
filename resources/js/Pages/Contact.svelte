@@ -10,7 +10,7 @@
     <title>The Golden Dragon</title>
 </svelte:head>
 
-<p class="text-xl font-bold">De Gouden Draak is eenvoudig te vinden, vlak bij het centrum, 5 minuten lopen achter het centraal station.</p>
+<p class="text-xl font-bold mt-8">De Gouden Draak is eenvoudig te vinden, vlak bij het centrum, 5 minuten lopen achter het centraal station.</p>
 
 <div class="mb-4">
     <p class="font-bold text-lg mt-4">Adresgegevens</p>

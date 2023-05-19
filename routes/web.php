@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TakeawayController;
 use App\Models\Dish;
 use App\Models\News;
 use App\Models\Option;
@@ -30,24 +32,44 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/menu', function () {
-    return Inertia::render('Menu');
-});
-
 Route::get('/news', function () {
     return Inertia::render('News', [
         'news_articles' => News::all()
     ]);
 });
 
-Route::get('/menu/data/{sorting}', [MenuController::class, 'getData'])->name('menu.get-data');
-Route::post('/menu/handle-dish-cookie/{dishId}', [MenuController::class, 'handleDishCookie'])->name('menu.handle-dish-cookie');
+Route::get('/menu', function () {
+    return Inertia::render('Menu');
+});
 
 Route::get('/contact', function () {
     return Inertia::render('Contact', [
         'restaurant' => Restaurant::first()
     ]);
 });
+
+// Order
+Route::controller(OrderController::class)->group(function () {
+    // GET
+    Route::get('/cart/is-order-placed', 'isOrderPlaced')->name('cart.is-order-placed');
+    Route::get('/cart/data', 'getData')->name('cart.data');
+    // POST
+    Route::post('/cart/handle-dish-cookie/{dishId}/{amount}', 'handleDishCookie')->name('cart.handle-dish-cookie');
+    Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', 'handleDishOptionCookie')->name('cart.handle-dish-option-cookie');
+    Route::post('/cart/clear-order-cookie-data', 'clearOrderCookieData')->name('cart.clear-order-cookie-data');
+    Route::post('/cart/place-order', 'store')->name('cart.place-order');
+    Route::post('/cart/clear-order-cookie', 'clearOrderCookie')->name('cart.clear-order-cookie');
+});
+
+// Menu
+Route::controller(MenuController::class)->group(function () {
+    Route::get('/menu/data/{sorting}', 'getData')->name('menu.data');
+    Route::get('/menu/print-pdf', 'printPdf')->name('menu.print-pdf');
+    Route::post('/menu/handle-dish-cookie/{dishId}', 'handleDishCookie')->name('menu.handle-dish-cookie');
+});
+
+// Takeaway
+Route::get('/cart/get-order-qr-data', [TakeawayController::class, 'getOrderQRData'])->name('cart.get-order-qr-data');
 
 Route::get('/dashboard', function () {
     $user = auth()->user();

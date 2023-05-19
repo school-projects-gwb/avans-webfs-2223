@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('order_id')->unsigned()->constrained('orders');
-            $table->foreignId('dish_id')->unsigned()->nullable()->constrained('dishes');
+            $table->foreignId('dish_id')->unsigned()->constrained('dishes');
             $table->foreignId('option_id')->unsigned()->nullable()->constrained('options');
         });
     }

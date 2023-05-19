@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dish;
 use App\Models\Option;
 use App\Models\Restaurant;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class MenuController extends Controller
 {
@@ -75,26 +72,59 @@ class MenuController extends Controller
     }
 
     public function handleDishCookie($dishId) {
-        // Get the existing array of dish IDs from the cookie, or create a new array if the cookie doesn't exist
-        $existingDishIds = json_decode(request()->cookie('dish_ids', '[]'));
+        $key = 'dish_ids';
+        $existingDishIds = json_decode(request()->cookie($key, '[]'));
 
-        // Check if the dish ID is already in the array
         $index = array_search($dishId, $existingDishIds);
 
         if ($index !== false) {
-            // Dish ID is already in the array, so remove it
             array_splice($existingDishIds, $index, 1);
             $message = 'Dish removed from cookie';
         } else {
-            // Dish ID is not in the array, so add it
             $existingDishIds[] = $dishId;
             $message = 'Dish added to cookie';
         }
 
-        // Create a new cookie instance with the updated array of dish IDs
-        $cookie = cookie('dish_ids', json_encode($existingDishIds), 60 * 24 * 7); // Set the cookie to expire in 1 week
+        $cookie = cookie($key, json_encode($existingDishIds), 60 * 24 * 7); // Set the cookie to expire in 1 week
 
-        // Return a response with the cookie attached
         return response($message)->withCookie($cookie);
+    }
+
+    public function printPdf()
+    {
+        $dish_data = Dish::with('category', 'options')
+            ->select('dishes.*', 'categories.special_description')
+            ->join('categories', 'dishes.category_id', '=', 'categories.id')
+            ->where('categories.name', '<>', 'AANBIEDINGEN')
+            ->get()
+            ->groupBy('category.name');
+
+        $category_data = $dish_data->map(function ($dishes, $categoryName) {
+            $category = $dishes->first()->category;
+            return [
+                'name' => $categoryName,
+                'special_description' => $category->special_description,
+                'dishes' => $dishes->sortBy('menu_number')
+            ];
+        });
+
+        $dish_discount_data = Dish::with('options')
+            ->select('dishes.*')
+            ->join('categories', 'dishes.category_id', '=', 'categories.id')
+            ->where('categories.name', '=', 'AANBIEDINGEN')
+            ->orderBy('menu_number')
+            ->get();
+
+        $menu_data = [
+            'dish_data' => $category_data,
+            'option_data' => Option::whereNotNull('price')->get(),
+            'restaurant_data' => Restaurant::first(),
+            'dish_discount_data' => $dish_discount_data
+        ];
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->loadView('menu', compact('menu_data'));
+        return $pdf->download('menu.pdf');
     }
 }
