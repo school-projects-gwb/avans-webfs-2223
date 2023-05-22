@@ -12,6 +12,7 @@ export let sortable = false;
 
 let menu_data,
     cart_data,
+    errors,
     sort_order = 'none';
 
 onMount(async () => {
@@ -29,7 +30,6 @@ async function handleMenuData() {
 async function handleCartData() {
     axios.get('/cart/data').then(response => {
         cart_data = response.data;
-        console.log(cart_data);
     });
 }
 
@@ -47,10 +47,21 @@ async function handleCartDishRemoved(event) {
         });
 }
 
-function removeAllFromOrder(){
+async function removeAllFromOrder(){
     axios.post(`/cart/clear-order-cookie`, {withCredentials: true})
         .then(async response => {
             await handleCartData();
+        });
+}
+
+function handlePlaceOrder() {
+    errors = "";
+    axios.post(`/cart/place-order`, {withCredentials: true})
+        .catch(error => {
+            errors = error.response.data;
+        })
+        .then(async response => {
+            removeAllFromOrder();
         });
 }
 
@@ -78,7 +89,7 @@ function removeAllFromOrder(){
                 <p class="font-bold text-xl text-center">Bestelling</p>
                 <div class="flex flex-col gap-4 mt-4">
                     {#each cart_data.dish_data as dish}
-                    <PosCartItem dish={dish} option_data={cart_data.option_data[dish.id]} on:cartDishRemoved={handleCartDishRemoved}/>
+                    <PosCartItem dish={dish} option_data={cart_data.option_data[dish.id]} on:refreshCartData={handleCartData} on:cartDishRemoved={handleCartDishRemoved}/>
                     {/each}
                 </div>
             </div>
@@ -88,7 +99,7 @@ function removeAllFromOrder(){
 
                     <div>
                         <span class="text-2xl font-bold mr-20">€ {cart_data.total_amount}</span>
-                        <button class="bg-gray-100 p-[2px] px-3 border border-black">Afrekenen</button>
+                        <button class="bg-gray-100 p-[2px] px-3 border border-black" on:click={handlePlaceOrder}>Afrekenen</button>
                         <button class="bg-gray-100 p-[2px] px-3 border border-black" on:click={removeAllFromOrder}>Wis Bestelling</button>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
 
 <div class="flex py-[2px]">
     <div class="flex w-full gap-14">
-        <span>{dish.menu_number}.</span>
+        <span>{dish.menu_number == null ? '' : dish.menu_number}{dish.menu_addition == null ? '' : dish.menu_addition }{dish.menu_number != null || dish.menu_addition != null ? '.' : ''}</span>
         <div>
             <span>{dish.name}</span>
             {#if dish.description != null && dish.description !== ""}
