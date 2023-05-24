@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CookieHandler;
+use App\Helpers\CookieKey;
 use App\Models\Dish;
 use App\Models\Option;
 use App\Models\Order;
@@ -11,9 +13,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class OrderController extends Controller
 {
-    private string $dish_cookie_key = 'cart_dish_ids';
-    private string $order_placed_cookie_key = 'order_placed';
-
     /**
      * Get all order data (for displaying in cart)
      * @param Request $request
@@ -21,7 +20,7 @@ class OrderController extends Controller
      */
     public function getData(Request $request): array
     {
-        $cookieData = $this->getCookieData();
+        $cookieData = CookieHandler::getData(CookieKey::DISH);
 
         if ($cookieData == null) {
             $cookieData = [];
@@ -61,7 +60,7 @@ class OrderController extends Controller
         $status = 201;
         $message = "Order created";
 
-        $cookieData = $this->getCookieData();
+        $cookieData = CookieHandler::getData(CookieKey::DISH);
         // Make sure all dishes and options are valid
         // Strategy: Go through every dish and check whether the options are valid
         foreach ($cookieData as $dish_id => $dish_data) {
@@ -108,7 +107,7 @@ class OrderController extends Controller
             }
             // Return cookie containing order information
             $message = Order::with('orderLines')->find($order->id);
-            $cookie = cookie($this->order_placed_cookie_key, json_encode(['order' => $message]), 60 * 24 * 7);
+            $cookie = cookie(CookieKey::ORDER_PLACED->key(), json_encode(['order' => $message]), 60 * 24 * 7);
             return response($message, $status)->withCookie($cookie);
         }
 
@@ -116,22 +115,18 @@ class OrderController extends Controller
     }
 
     public function clearOrderCookie() {
-        $dishCookie = Cookie::forget($this->dish_cookie_key);
-        $orderPlacedCookie = Cookie::forget($this->order_placed_cookie_key);
+        $dishCookie = Cookie::forget(CookieKey::DISH->key());
+        $orderPlacedCookie = Cookie::forget(CookieKey::ORDER_PLACED->key());
 
         return response('Cookies removed')->withCookie($dishCookie)->withCookie($orderPlacedCookie);
     }
 
     public function isOrderPlaced() {
-        return json_decode(request()->cookie($this->order_placed_cookie_key), true);
-    }
-
-    private function getCookieData() {
-        return json_decode(request()->cookie($this->dish_cookie_key), true);
+        return CookieHandler::getData(CookieKey::ORDER_PLACED);
     }
 
     public function handleDishCookie($dishId, $amount) {
-        $cookieData = $this->getCookieData();
+        $cookieData = CookieHandler::getData(CookieKey::DISH);
 
         $index = $cookieData == null ? false : in_array($dishId, array_keys($cookieData));
         $cookieData = $cookieData == null ? [] : $cookieData;
@@ -147,7 +142,7 @@ class OrderController extends Controller
             }
         }
 
-        $cookie = cookie($this->dish_cookie_key, json_encode($cookieData), 60 * 24 * 7); // 1 week
+        $cookie = cookie(CookieKey::DISH->key(), json_encode($cookieData), 60 * 24 * 7); // 1 week
 
         return response("")->withCookie($cookie);
     }
@@ -194,7 +189,7 @@ class OrderController extends Controller
     }
 
     public function handleDishOptionCookie($dishId, $optionId) {
-        $cookieData = $this->getCookieData();
+        $cookieData = CookieHandler::getData(CookieKey::DISH);
         $indexCheck = in_array($dishId, array_keys($cookieData));
         $message = 'Optie succesvol toegevoegd.';
         $status = 200;
@@ -237,7 +232,7 @@ class OrderController extends Controller
             $message = 'Optie succesvol verwijderd.';
         }
 
-        $cookie = cookie($this->dish_cookie_key, json_encode($cookieData), 60 * 24 * 7); // 1 week
+        $cookie = cookie(CookieKey::DISH->key(), json_encode($cookieData), 60 * 24 * 7); // 1 week
 
         return response($message, $status)->withCookie($cookie);
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TableRegistrationController;
 use App\Http\Controllers\TakeawayController;
 use App\Models\Dish;
 use App\Models\News;
@@ -59,6 +60,15 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/cart/clear-order-cookie-data', 'clearOrderCookieData')->name('cart.clear-order-cookie-data');
     Route::post('/cart/place-order', 'store')->name('cart.place-order');
     Route::post('/cart/clear-order-cookie', 'clearOrderCookie')->name('cart.clear-order-cookie');
+});
+
+// Table orders
+Route::controller(TableRegistrationController::class)->group(function () {
+    // GET
+    Route::get('/table-registration', 'index')->name('table-registration.index');
+    Route::middleware('table-registration-valid')->get('/table-registration/show', 'show')->name('table-registration.show');
+    // POST
+    Route::post('/table-registration/start-order', 'store')->name('table-registration.start-order');
 });
 
 // Menu

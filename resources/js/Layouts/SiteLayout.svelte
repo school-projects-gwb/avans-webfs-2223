@@ -28,6 +28,7 @@
                     <h1 class="text-4xl font-semibold text-secondary">Chinees Indische Specialiteiten</h1>
                     <h1 class="text-5xl font-bold text-secondary mt-2">De Gouden Draak</h1>
                     <div class="mt-6 border border-white w-fit m-auto">
+                        <a href="/table-registration" class="text-primary text-xl px-8 bg-secondary underline font-bold">Tafelbestelling</a>
                         <a href="/menu" class="text-white text-xl px-8 bg-menu-item">Menukaart</a>
                         <a href="/news" class="text-white text-xl px-8 bg-menu-item">Nieuws</a>
                         <a href="/contact" class="text-white text-xl px-8 bg-menu-item">Contact</a>
