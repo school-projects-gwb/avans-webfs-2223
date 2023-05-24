@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\CookieHandler;
 use App\Helpers\CookieKey;
+use App\Models\Order;
 use App\Models\Table;
 use App\Models\TableRegistration;
 use Illuminate\Http\Request;
@@ -12,6 +13,11 @@ use Inertia\Inertia;
 
 class TableRegistrationController extends Controller
 {
+    private function getTableRegistration() {
+        $cookieData = CookieHandler::getData(CookieKey::TABLE_REGISTRATION);
+        return TableRegistration::with('orders', 'table')->find($cookieData['registration_id']);
+    }
+    
     public function getData() {
         $cookieData = CookieHandler::getData(CookieKey::TABLE_REGISTRATION);
         $tableRegistration = TableRegistration::with('orders', 'table')->find($cookieData['registration_id']);
@@ -23,8 +29,7 @@ class TableRegistrationController extends Controller
 
     public function getCanOrder()
     {
-        $cookieData = CookieHandler::getData(CookieKey::TABLE_REGISTRATION);
-        $tableRegistration = TableRegistration::with('orders', 'table')->find($cookieData['registration_id']);
+        $tableRegistration = $this->getTableRegistration();
 
         if ($tableRegistration) {
             $lastOrder = $tableRegistration->orders()->latest()->first();
@@ -35,7 +40,7 @@ class TableRegistrationController extends Controller
 
                 $timeDifference = $currentTime->diffInMinutes($orderTime);
 
-                if ($timeDifference >= 10 && $tableRegistration->orders->count() < 5) {
+                if ($timeDifference >= 0.1 && $tableRegistration->orders->count() < 5) {
                     return true;
                 }
             } else {
@@ -54,8 +59,13 @@ class TableRegistrationController extends Controller
         return Inertia::render('TableRegistration/Orders');
     }
 
-    public function addOrder(Request $request) {
+    public function addOrder(Request $request, $orderId) {
+        $tableRegistration = $this->getTableRegistration();
 
+        $order = Order::find($orderId);
+        $tableRegistration->orders()->attach($order);
+
+        return true;
     }
 
     public function store(Request $request) {

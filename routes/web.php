@@ -74,6 +74,7 @@ Route::controller(TableRegistrationController::class)->group(function () {
 
     // POST
     Route::post('/table-registration/start-order', 'store')->name('table-registration.start-order');
+    Route::middleware('table-registration-valid')->post('/table-registration/add-order/{orderId}', 'addOrder')->name('table-registration.add-order');
 });
 
 // Menu
