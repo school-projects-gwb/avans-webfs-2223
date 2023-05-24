@@ -15,10 +15,9 @@ class OrderController extends Controller
 {
     /**
      * Get all order data (for displaying in cart)
-     * @param Request $request
      * @return array Order data
      */
-    public function getData(Request $request): array
+    public function getData(): array
     {
         $cookieData = CookieHandler::getData(CookieKey::DISH);
 
@@ -50,7 +49,7 @@ class OrderController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request, $is_takeaway) {
         $request->validate([
             'first_name' => 'nullable|string|max:45',
             'last_name' => 'nullable|string|max:75'
@@ -88,7 +87,7 @@ class OrderController extends Controller
             $order = new Order();
             $order->first_name = $request->input('first_name');
             $order->last_name = $request->input('last_name');
-            $order->is_takeaway = true;
+            $order->is_takeaway = $is_takeaway;
             $order->save();
 
             foreach ($cookieData as $dish_id => $dish_data) {

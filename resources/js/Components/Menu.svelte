@@ -5,7 +5,7 @@
     // Indicates whether menu is sortable and supports favouriting dishes
     // This is not relevant in i.e. the employee back-end environment
     // So it is disabled by default
-    export let sortable = false;
+    export let sortable = false, addable = false;
 
     let menu_data,
         sort_order = 'none',
@@ -21,7 +21,6 @@
     async function handleMenuData() {
         axios.get('/menu/data/' + sort_order).then(response => {
             menu_data = response.data;
-            console.log(menu_data)
         });
     }
 
@@ -101,6 +100,8 @@
                                     {dish.name}
                                     {#if sortable}
                                         <input type="checkbox" class="h-3 w-3" checked={isFavourite(dish.id)} on:click={handleFavourite(dish.id)} />
+                                    {/if}
+                                    {#if addable}
                                         <input class="text-sm font-bold underline ml-1 cursor-pointer" type="button" on:click={handleCart(dish.id)} value="+ Bestelling" />
                                     {/if}
                                 </span>

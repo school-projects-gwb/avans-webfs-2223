@@ -9,9 +9,9 @@ class TableRegistration extends Model
 {
     use HasFactory;
 
-    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function orders(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsToMany(Order::class);
     }
 
     public function table(): \Illuminate\Database\Eloquent\Relations\BelongsTo

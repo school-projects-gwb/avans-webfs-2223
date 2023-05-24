@@ -58,7 +58,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/cart/handle-dish-cookie/{dishId}/{amount}', 'handleDishCookie')->name('cart.handle-dish-cookie');
     Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', 'handleDishOptionCookie')->name('cart.handle-dish-option-cookie');
     Route::post('/cart/clear-order-cookie-data', 'clearOrderCookieData')->name('cart.clear-order-cookie-data');
-    Route::post('/cart/place-order', 'store')->name('cart.place-order');
+    Route::post('/cart/place-order/{isTakeaway}', 'store')->name('cart.place-order');
     Route::post('/cart/clear-order-cookie', 'clearOrderCookie')->name('cart.clear-order-cookie');
 });
 
@@ -66,7 +66,12 @@ Route::controller(OrderController::class)->group(function () {
 Route::controller(TableRegistrationController::class)->group(function () {
     // GET
     Route::get('/table-registration', 'index')->name('table-registration.index');
-    Route::middleware('table-registration-valid')->get('/table-registration/show', 'show')->name('table-registration.show');
+    Route::middleware('table-registration-valid')->group(function () {
+        Route::get('/table-registration/data', 'getData')->name('table-registration.data');
+        Route::get('/table-registration/can-order', 'getCanOrder')->name('table-registration.can-order');
+        Route::get('/table-registration/show', 'show')->name('table-registration.show');
+    });
+
     // POST
     Route::post('/table-registration/start-order', 'store')->name('table-registration.start-order');
 });

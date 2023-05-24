@@ -13,7 +13,6 @@
     const submit = () => {
         $form.post(route("table-registration.start-order"));
     };
-
 </script>
 
 <form class="flex flex-col mt-16" on:submit|preventDefault={submit}>

@@ -62,7 +62,7 @@
             'last_name': last_name
         };
 
-        axios.post(`/cart/place-order`, requestData, {withCredentials: true})
+        axios.post('/cart/place-order/0', requestData, {withCredentials: true})
             .catch(error => {
                 errors = error.response.data;
             })
