@@ -16,7 +16,8 @@
 </script>
 
 <form class="flex flex-col mt-16" on:submit|preventDefault={submit}>
-    <h1 class="text-4xl font-bold text-primary text-left">Start hier uw tafelbestelling</h1>
+    <a href="/" class="font-bold underline">Terug naar website</a>
+    <h1 class="text-4xl font-bold text-primary text-left mt-4">Start hier uw tafelbestelling</h1>
     <label for="table-number" class="text-primary text-xl font-bold mt-8">Uw Tafelnummer</label>
     <input id="table-number" type="number" min="1" bind:value={$form.table_number}/>
     <InputError message={$form.errors.table_number} />

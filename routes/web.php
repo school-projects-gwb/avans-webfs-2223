@@ -74,7 +74,10 @@ Route::controller(TableRegistrationController::class)->group(function () {
 
     // POST
     Route::post('/table-registration/start-order', 'store')->name('table-registration.start-order');
-    Route::middleware('table-registration-valid')->post('/table-registration/add-order/{orderId}', 'addOrder')->name('table-registration.add-order');
+    Route::middleware('table-registration-valid')->group(function () {
+        Route::post('/table-registration/add-order/{orderId}', 'addOrder')->name('table-registration.add-order');
+        Route::post('/table-registration/clear-cookie', 'clearRegistrationCookie')->name('table-registration.clear-cookie');
+    });
 });
 
 // Menu

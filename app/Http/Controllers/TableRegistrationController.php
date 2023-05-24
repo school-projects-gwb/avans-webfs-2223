@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Table;
 use App\Models\TableRegistration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -17,7 +18,7 @@ class TableRegistrationController extends Controller
         $cookieData = CookieHandler::getData(CookieKey::TABLE_REGISTRATION);
         return TableRegistration::with('orders', 'table')->find($cookieData['registration_id']);
     }
-    
+
     public function getData() {
         $cookieData = CookieHandler::getData(CookieKey::TABLE_REGISTRATION);
         $tableRegistration = TableRegistration::with('orders', 'table')->find($cookieData['registration_id']);
@@ -49,6 +50,11 @@ class TableRegistrationController extends Controller
         }
 
         return false;
+    }
+
+    public function clearRegistrationCookie() {
+        $registrationCookie = Cookie::forget(CookieKey::TABLE_REGISTRATION->key());
+        return response('Cookies removed')->withCookie($registrationCookie);
     }
 
     public function index() {
