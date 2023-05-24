@@ -17,7 +17,8 @@ class TableRegistrationValid
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $cookie_value = CookieHandler::getData(CookieKey::TABLE_REGISTRATION);
+        $cookie_value = $request->cookie(CookieKey::TABLE_REGISTRATION->key());
+
         return $cookie_value ? $next($request) : redirect()->route('table-registration.index');
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('table_registrations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('table_number')->unsigned()->constrained('tables');
+            $table->foreignId('table_id')->unsigned()->constrained('tables');
             $table->timestamps();
         });
     }

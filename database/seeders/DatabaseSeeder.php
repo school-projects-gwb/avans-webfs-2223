@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RestaurantSeeder::class);
         $this->call(OpeningTimeSeeder::class);
         $this->call(NewsSeeder::class);
+        $this->call(TableSeeder::class);
         //General
         $this->call(RolePermissionSeeder::class);
         $this->call(AccountSeeder::class);

@@ -16,6 +16,6 @@ class TableRegistration extends Model
 
     public function table(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Table::class, 'table_number', 'id');
+        return $this->belongsTo(Table::class, 'table_id', 'id');
     }
 }
