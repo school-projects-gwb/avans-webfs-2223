@@ -46,6 +46,13 @@
                             >
                                 Kassa
                             </NavLink>
+
+                            <NavLink
+                                href={route("news.index")}
+                                active={route().current("news.index")}
+                            >
+                                Nieuws
+                            </NavLink>
                         </div>
                     </div>
 

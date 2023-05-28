@@ -36,7 +36,7 @@
     }
 
     async function handleStopOrder() {
-        const confirmed = confirm("Zeker weten? Dit kan niet ongedaan worden");
+        const confirmed = confirm("Zeker weten? Dit kan niet ongedaan gemaakt worden");
         if (!confirmed) return;
 
         axios.post(`/cart/clear-order-cookie`, {withCredentials: true}).then(res => {

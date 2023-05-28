@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableRegistrationController;
@@ -35,7 +36,7 @@ Route::get('/', function () {
 
 Route::get('/news', function () {
     return Inertia::render('News', [
-        'news_articles' => News::all()
+        'news_articles' => News::orderBy('created_at', 'desc')->get()
     ]);
 });
 
@@ -104,6 +105,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource('/admin/news', NewsController::class)->middleware('role:Administrator');
 
 Route::middleware('role:Administrator|Cashier')->name('pos.')->prefix('pos')->group(function (){
    Route::get('/', [PointOfSaleController::class, 'index'])->name('index');
