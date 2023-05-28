@@ -13,6 +13,11 @@ class Table extends Model
         'table_number'
     ];
 
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function tableRegistrations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TableRegistration::class);

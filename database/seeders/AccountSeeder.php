@@ -25,7 +25,16 @@ class AccountSeeder extends Seeder
         ])->assignRole('Administrator');
 
         User::create([
-            'name' => 'Money',
+            'name' => 'Hans',
+            'email' => 'klant@wfs.nl',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+        ])->assignRole('User');
+
+        // Cashiers
+        User::create([
+            'name' => 'Piet',
             'email' => 'cashier@wfs.nl',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
@@ -33,11 +42,19 @@ class AccountSeeder extends Seeder
         ])->assignRole('Cashier');
 
         User::create([
-            'name' => 'Hans',
-            'email' => 'klant@wfs.nl',
+            'name' => 'Jaap',
+            'email' => 'cashier2@wfs.nl',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
-        ])->assignRole('User');
+        ])->assignRole('Cashier');
+
+        User::create([
+            'name' => 'Tom',
+            'email' => 'cashier3@wfs.nl',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+        ])->assignRole('Cashier');
     }
 }

@@ -12,6 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        //General
+        $this->call(RolePermissionSeeder::class);
+        $this->call(AccountSeeder::class);
         // Dishes
         $this->call(CategorySeeder::class);
         $this->call(OptionSeeder::class);
@@ -21,8 +24,5 @@ class DatabaseSeeder extends Seeder
         $this->call(OpeningTimeSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(TableSeeder::class);
-        //General
-        $this->call(RolePermissionSeeder::class);
-        $this->call(AccountSeeder::class);
     }
 }

@@ -53,6 +53,13 @@
                             >
                                 Nieuws
                             </NavLink>
+
+                            <NavLink
+                                href={route("admin.planning.index")}
+                                active={route().current("admin.planning.index")}
+                            >
+                                Tafelplanning
+                            </NavLink>
                         </div>
                     </div>
 

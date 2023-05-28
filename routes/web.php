@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableRegistrationController;
@@ -104,6 +105,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Tables & Planning
+Route::middleware('role:Administrator')->controller(PlanningController::class)->name('admin.')->prefix('admin')->group(function () {
+    // GET
+    Route::get('/planning', 'index')->name('planning.index');
+    Route::get('/planning/data', 'getData')->name('planning.data');
+
+    // POST
+    Route::post('/planning/create-table', 'createTable')->name('planning.create-table');
+
+    // DELETE
+    Route::delete('/planning/destroy-table/{tableId}', 'destroyTable')->name('planning.destroy-table');
 });
 
 Route::resource('/admin/news', NewsController::class)->middleware('role:Administrator');
