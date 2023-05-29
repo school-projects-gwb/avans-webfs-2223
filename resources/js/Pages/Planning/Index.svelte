@@ -29,6 +29,16 @@
             });
     }
 
+    async function handleAssign(tableId, weekday) {
+        const userSelect = document.getElementById(`select-${tableId}-${weekday}`);
+        const userId = userSelect.value;
+
+        axios.post(`/admin/planning/assign/${tableId}/${userId}/${weekday}`, {withCredentials: true})
+            .then(async response => {
+                await handlePlanningData();
+            });
+    }
+
     async function handleCreateTable() {
         axios.post(`/admin/planning/create-table`, {withCredentials: true})
             .then(async response => {
@@ -54,7 +64,7 @@
         >
             <h1 class="text-4xl font-bold block">Tafels & Planning</h1>
             <p class="text-xl">Beheer werknemers per tafel en werkdag</p>
-            <div class="grid grid-cols-4 gap-4 w-full mt-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full mt-8">
                 {#each planning_data as table}
                     <div class="bg-gray-50 p-4 rounded-xl">
                         <h3 class="text-2xl font-bold">Tafel #<span class="text-primary">{table.table_number}</span></h3>
@@ -69,6 +79,16 @@
                                                 <span class="font-bold text-lg cursor-pointer" on:click={handleUnassign(table.id, user.id, weekday)}>x</span>
                                             </div>
                                         {/each}
+                                        {#if users.notAttached.length > 0}
+                                            <div class="inline bg-yellow-100 py-2 rounded-xl">
+                                                <select id="select-{table.id}-{weekday}" class="py-0.5 inline bg-yellow-100 border-0">
+                                                    {#each users.notAttached as user}
+                                                        <option value="{user.id}">{user.name}</option>
+                                                    {/each}
+                                                </select>
+                                                <a class="text-xl font-bold mx-2 cursor-pointer" on:click={handleAssign(table.id, weekday)}>+</a>
+                                            </div>
+                                        {/if}
                                     </div>
                                 </div>
                             {/each}

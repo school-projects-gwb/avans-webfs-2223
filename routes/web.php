@@ -116,6 +116,7 @@ Route::middleware('role:Administrator')->controller(PlanningController::class)->
     // POST
     Route::post('/planning/create-table', 'createTable')->name('planning.create-table');
     Route::post('/planning/unassign/{tableId}/{userId}/{weekday}', 'unassign')->name('planning.unassign');
+    Route::post('/planning/assign/{tableId}/{userId}/{weekday}', 'assign')->name('planning.assign');
 
     // DELETE
     Route::delete('/planning/destroy-table/{tableId}', 'destroyTable')->name('planning.destroy-table');

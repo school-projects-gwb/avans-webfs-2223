@@ -11,7 +11,9 @@ class TableUser extends Model
     protected $table = 'table_user';
 
     protected $fillable = [
-        'weekday'
+        'weekday',
+        'table_id',
+        'user_id'
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

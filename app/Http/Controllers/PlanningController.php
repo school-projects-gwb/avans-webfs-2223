@@ -80,4 +80,14 @@ class PlanningController extends Controller
             return response('Gebruiker of tafel niet gevonden.', 404);
         }
     }
+
+    public function assign(Request $request, $tableId, $userId, $weekday) {
+        TableUser::create([
+            'table_id' => $tableId,
+            'user_id' => $userId,
+            'weekday' => $weekday,
+        ]);
+
+        return response('Gebruiker toegewezen aan tafel.');
+    }
 }
