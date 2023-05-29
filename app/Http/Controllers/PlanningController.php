@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\Table;
+use App\Models\TableUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -64,5 +65,19 @@ class PlanningController extends Controller
             ->decrement('table_number');
 
         return response()->json(['message' => 'Tafel succesvol verwijderd']);
+    }
+
+    public function unassign(Request $request, $tableId, $userId, $weekday) {
+        $tableUser = TableUser::where('user_id', $userId)
+            ->where('table_id', $tableId)
+            ->where('weekday', $weekday)
+            ->first();
+
+        if ($tableUser) {
+            $tableUser->delete();
+            return response('Gebruiker verwijderd van tafel.');
+        } else {
+            return response('Gebruiker of tafel niet gevonden.', 404);
+        }
     }
 }

@@ -12,16 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('table_user', function (Blueprint $table) {
+            $table->id();
             $table->integer('weekday');
-
             $table->unsignedBigInteger('table_id');
             $table->unsignedBigInteger('user_id');
+
+            $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
-
-            $table->primary(['table_id', 'user_id', 'weekday']);
-
-            $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');;
-            $table->foreign('user_Id')->references('id')->on('users')->onDelete('cascade');;
         });
     }
 

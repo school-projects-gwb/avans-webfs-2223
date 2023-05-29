@@ -22,8 +22,11 @@
         });
     }
 
-    async function handleUnassign(tableId, userId) {
-
+    async function handleUnassign(tableId, userId, weekday) {
+        axios.post(`/admin/planning/unassign/${tableId}/${userId}/${weekday}`, {withCredentials: true})
+            .then(async response => {
+                await handlePlanningData();
+            });
     }
 
     async function handleCreateTable() {
@@ -63,7 +66,7 @@
                                         {#each users.attached as user}
                                             <div class="inline bg-red-100 p-1 rounded-xl mr-2">
                                                 {user.name}
-                                                <span class="font-bold text-lg cursor-pointer" on:click={handleUnassign(user.id, table.id)}>x</span>
+                                                <span class="font-bold text-lg cursor-pointer" on:click={handleUnassign(table.id, user.id, weekday)}>x</span>
                                             </div>
                                         {/each}
                                     </div>
