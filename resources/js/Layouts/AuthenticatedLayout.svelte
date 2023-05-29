@@ -6,8 +6,23 @@
     import DropdownLink from "../Components/DropdownLink.svelte";
     import ApplicationLogo from "../Components/ApplicationLogo.svelte";
     import ResponsiveNavLink from "../Components/ResponsiveNavLink.svelte";
+    import {onMount} from "svelte";
+    import axios from "axios";
 
     let showingNavigationDropdown = false;
+    let authUserRoles;
+    let isAdmin;
+
+    onMount(async () => {
+        axios.get('/auth-user-roles').then(response => {
+            authUserRoles = response.data;
+            setRoles();
+        });
+    });
+
+    function setRoles() {
+        isAdmin = authUserRoles.some(role => role.name === 'Administrator');
+    }
 </script>
 
 <div>
@@ -47,19 +62,21 @@
                                 Kassa
                             </NavLink>
 
-                            <NavLink
-                                href={route("news.index")}
-                                active={route().current("news.index")}
-                            >
-                                Nieuws
-                            </NavLink>
+                            {#if isAdmin}
+                                <NavLink
+                                    href={route("news.index")}
+                                    active={route().current("news.index")}
+                                >
+                                    Nieuws
+                                </NavLink>
 
-                            <NavLink
-                                href={route("admin.planning.index")}
-                                active={route().current("admin.planning.index")}
-                            >
-                                Tafelplanning
-                            </NavLink>
+                                <NavLink
+                                    href={route("admin.planning.index")}
+                                    active={route().current("admin.planning.index")}
+                                >
+                                    Tafelplanning
+                                </NavLink>
+                            {/if}
                         </div>
                     </div>
 

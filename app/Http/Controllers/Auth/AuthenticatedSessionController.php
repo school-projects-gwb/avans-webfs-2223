@@ -57,4 +57,9 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    public function getAuthUserRoles(Request $request) {
+        $user = Auth::user();
+        return $user->roles;
+    }
 }
