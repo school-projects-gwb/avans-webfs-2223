@@ -10,14 +10,15 @@ class Dish extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
+        'description',
         'menu_number',
         'menu_addition',
         'price',
-        'description',
-        'name',
         'is_discount',
         'option_required',
-        'option_amount'
+        'option_amount',
+        'category_id'
     ];
 
     public function options()

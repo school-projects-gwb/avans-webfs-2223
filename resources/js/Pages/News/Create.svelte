@@ -5,6 +5,10 @@
 <script>
     import {useForm} from "@inertiajs/svelte";
     import InputError from "@/Components/InputError.svelte";
+    import TextInput from "@/Components/TextInput.svelte";
+    import InputLabel from "@/Components/InputLabel.svelte";
+    import TextArea from "@/Components/TextArea.svelte";
+    import PrimaryButton from "@/Components/PrimaryButton.svelte";
 
     const createForm = useForm({
         title: "",
@@ -28,16 +32,22 @@
             <a class="underline" href="{route('news.index')}">Terug naar overzicht</a>
             <h1 class="text-4xl font-bold mt-4">Nieuwsartikel aanmaken</h1>
 
-            <form class="flex flex-col mt-4" on:submit|preventDefault={submitCreate}>
-                <label for="title">Titel</label>
-                <input id="title" type="text" bind:value={$createForm.title}/>
-                <InputError message={$createForm.errors.title} />
+            <form class="max-w-xl flex flex-col mt-4" on:submit|preventDefault={submitCreate}>
+                <div>
+                    <InputLabel for="title" value="Titel" />
+                    <TextInput id="title" type="text" bind:value={$createForm.title} required />
+                    <InputError message={$createForm.errors.title} />
+                </div>
 
-                <label for="content">Inhoud</label>
-                <textarea id="content" class="mt-4" bind:value={$createForm.content}></textarea>
-                <InputError message={$createForm.errors.content} />
+                <div class="mt-4">
+                    <InputLabel for="content" value="Inhoud" />
+                    <TextArea id="content" type="text" bind:value={$createForm.content} required />
+                    <InputError message={$createForm.errors.content} />
+                </div>
 
-                <input type="submit" class="bg-primary text-white mt-4 w-fit text-xl text-center py-2 px-8 uppercase cursor-pointer" value="Opslaan">
+                <PrimaryButton disabled={$createForm.processing} classes="mt-4">
+                    Nieuwsbericht aanmaken
+                </PrimaryButton>
             </form>
         </div>
     </div>

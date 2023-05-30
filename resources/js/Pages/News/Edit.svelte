@@ -7,6 +7,8 @@
     import InputError from "@/Components/InputError.svelte";
     import InputLabel from "@/Components/InputLabel.svelte";
     import TextInput from "@/Components/TextInput.svelte";
+    import PrimaryButton from "@/Components/PrimaryButton.svelte";
+    import TextArea from "@/Components/TextArea.svelte";
 
     export let news_article;
 
@@ -45,15 +47,21 @@
             <h1 class="text-4xl font-bold mt-4">Nieuwsartikel bewerken</h1>
 
             <form class="flex flex-col mt-4" on:submit|preventDefault={submitEdit}>
-                <label for="title">Titel</label>
-                <input id="title" type="text" bind:value={$editForm.title}/>
-                <InputError message={$editForm.errors.title} />
+                <div>
+                    <InputLabel for="title" value="Titel" />
+                    <TextInput id="title" type="text" bind:value={$editForm.title} required />
+                    <InputError message={$editForm.errors.title} />
+                </div>
 
-                <label for="content">Inhoud</label>
-                <textarea id="content" class="mt-4" bind:value={$editForm.content}></textarea>
-                <InputError message={$editForm.errors.content} />
+                <div class="mt-4">
+                    <InputLabel for="content" value="Inhoud" />
+                    <TextArea id="content" type="text" bind:value={$editForm.content} required />
+                    <InputError message={$editForm.errors.content} />
+                </div>
 
-                <input type="submit" class="bg-primary text-white mt-4 w-fit text-xl text-center py-2 px-8 uppercase cursor-pointer" value="Opslaan">
+                <PrimaryButton disabled={$editForm.processing} classes="mt-4">
+                    Nieuwsbericht opslaan
+                </PrimaryButton>
             </form>
             <form class="mt-4" on:submit|preventDefault={submitDelete}>
                 <input type="submit" class="border border-primary text-primary mt-4 w-fit text-md text-center py-2 px-8 uppercase cursor-pointer" value="Verwijderen">
