@@ -24,14 +24,6 @@ class AccountSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole('Administrator');
 
-        User::create([
-            'name' => 'Hans',
-            'email' => 'klant@wfs.nl',
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-        ])->assignRole('User');
-
         // Cashiers
         User::create([
             'name' => 'Piet',

@@ -20,9 +20,5 @@ class RolePermissionSeeder extends Seeder
         $cashierRole = Role::create([
            'name' => 'Cashier'
         ]);
-
-        $userRole = Role::create([
-            'name' => 'User'
-        ]);
     }
 }
