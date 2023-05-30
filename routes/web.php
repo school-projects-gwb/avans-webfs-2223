@@ -125,7 +125,7 @@ Route::controller(HelpRequestController::class)->group(function () {
         Route::delete('/help-requests/destroy/{helpRequestId}', 'destroy')->name('help-requests.destroy');
     });
 
-    Route::get('/help-requests/get', 'show')->name('help-requests.get');
+    Route::get('/help-requests/get/{tableId}', 'show')->name('help-requests.get');
     Route::post('/help-requests/create/{tableId}', 'create')->name('help-requests.create');
 });
 

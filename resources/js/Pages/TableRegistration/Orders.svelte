@@ -7,6 +7,7 @@
     import Menu from "@/Components/Menu.svelte";
     import axios from "axios";
     import {onMount} from "svelte";
+    import HelpRequest from "@/Components/HelpRequest.svelte";
 
     let registration_data, can_order = false;
     let cartDishAdded, orderCookieCleared;
@@ -62,6 +63,7 @@
 {#if registration_data}
 <div class="flex flex-col w-full relative p-4">
     <button on:click={handleStopOrder} class="border border-primary py-2 text-md uppercase font-bold px-4 mt-8 w-fit">Bestellen beëindigen</button>
+    <HelpRequest table_id="{registration_data['table']['id']}"/>
     <div class="mt-4">
         <h2 class="text-2xl font-bold text-left">Tafelnummer: {registration_data['table']['table_number']}</h2>
         <h1 class="text-4xl font-bold text-primary text-left">Bestellingen: {registration_data['orders'].length}</h1>
@@ -75,14 +77,14 @@
             <p class="font-bold text-lg mt-4">U heeft nog geen bestellingen geplaatst.</p>
         {/if}
     </div>
-    <div class="w-full flex mt-8">
+    <div class="w-full flex flex-col mt-8">
         {#if can_order}
-        <div class="w-1/2">
-            <Menu addable={true} on:cartDishAdded={onCartDishAdded} />
-        </div>
-        <div class="w-1/2 p-4">
-            <OrderCart on:orderPlaced={onOrderPlaced} bind:handleOrderCookieCleared={orderCookieCleared} bind:handleCartDishAdded={cartDishAdded} is_takeaway={false} />
-        </div>
+            <div class="w-full p-4">
+                <OrderCart on:orderPlaced={onOrderPlaced} bind:handleOrderCookieCleared={orderCookieCleared} bind:handleCartDishAdded={cartDishAdded} is_takeaway={false} />
+            </div>
+            <div class="w-full">
+                <Menu addable={true} on:cartDishAdded={onCartDishAdded} />
+            </div>
         {:else}
             <div class="flex flex-col justify-start">
                 <p class="font-bold text-lg mt-4 text-primary text-left">Je kan momenteel geen nieuwe bestellingen plaatsen!</p>

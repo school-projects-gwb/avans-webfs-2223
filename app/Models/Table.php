@@ -22,4 +22,9 @@ class Table extends Model
     {
         return $this->hasMany(TableRegistration::class);
     }
+
+    public function helpRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(HelpRequest::class);
+    }
 }
