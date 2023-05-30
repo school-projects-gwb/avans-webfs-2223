@@ -11,7 +11,7 @@
 
     let showingNavigationDropdown = false;
     let authUserRoles;
-    let isAdmin;
+    let isAdmin, isEmployee;
 
     onMount(async () => {
         axios.get('/auth-user-roles').then(response => {
@@ -21,6 +21,7 @@
     });
 
     function setRoles() {
+        isEmployee = authUserRoles.some(role => role.name === 'Cashier');
         isAdmin = authUserRoles.some(role => role.name === 'Administrator');
     }
 </script>
@@ -55,26 +56,35 @@
                                 Dashboard
                             </NavLink>
 
-                            <NavLink
-                                href={route("pos.index")}
-                                active={route().current("pos.index")}
-                            >
-                                Kassa
-                            </NavLink>
+                            {#if isEmployee }
+                                <NavLink
+                                    href={route("pos.index")}
+                                    active={route().current("pos.index")}
+                                >
+                                    Kassa
+                                </NavLink>
 
-                            <NavLink
-                                href={route("help-requests.index")}
-                                active={route().current("help-requests.index")}
-                            >
-                                Hulpaanvragen
-                            </NavLink>
+                                <NavLink
+                                    href={route("help-requests.index")}
+                                    active={route().current("help-requests.index")}
+                                >
+                                    Hulpaanvragen
+                                </NavLink>
+
+                                <NavLink
+                                    href={route("admin.dishes.menu")}
+                                    active={route().current("admin.dishes.menu")}
+                                >
+                                    Menu
+                                </NavLink>
+                            {/if}
 
                             {#if isAdmin}
                                 <NavLink
                                     href={route("news.index")}
                                     active={route().current("news.index")}
                                 >
-                                    Nieuws
+                                    Nieuwsberichten
                                 </NavLink>
 
                                 <NavLink
@@ -82,6 +92,13 @@
                                     active={route().current("admin.planning.index")}
                                 >
                                     Tafelplanning
+                                </NavLink>
+
+                                <NavLink
+                                    href={route("admin.dishes.index")}
+                                    active={route().current("admin.dishes.index")}
+                                >
+                                    Gerechtbeheer
                                 </NavLink>
                             {/if}
                         </div>

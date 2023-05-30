@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DishController;
 use App\Http\Controllers\HelpRequestController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\NewsController;
@@ -117,6 +118,13 @@ Route::middleware('role:Administrator')->controller(PlanningController::class)->
     Route::post('/planning/unassign/{tableId}/{userId}/{weekday}', 'unassign')->name('planning.unassign');
     Route::post('/planning/assign/{tableId}/{userId}/{weekday}', 'assign')->name('planning.assign');
     Route::delete('/planning/destroy-table/{tableId}', 'destroyTable')->name('planning.destroy-table');
+});
+
+// Dishes
+Route::get('/admin/dishes/menu', [DishController::class, 'menu'])->name('admin.dishes.menu')->middleware('role:Cashier');
+
+Route::middleware('role:Administrator')->controller(DishController::class)->name('admin.')->prefix('admin')->group(function () {
+    Route::get('/dishes', 'index')->name('dishes.index');
 });
 
 // Help Requests
