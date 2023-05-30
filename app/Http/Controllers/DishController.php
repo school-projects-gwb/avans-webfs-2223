@@ -19,4 +19,24 @@ class DishController extends Controller
             'dishes' => $dishes
         ]);
     }
+
+    public function create(Request $request) {
+
+    }
+
+    public function store(Request $request) {
+
+    }
+
+    public function edit(Request $request, $dishId) {
+
+    }
+
+    public function update(Request $request, Dish $dish) {
+
+    }
+
+    public function destroy(Request $request, Dish $dish) {
+
+    }
 }

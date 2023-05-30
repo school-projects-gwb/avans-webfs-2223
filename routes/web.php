@@ -125,6 +125,11 @@ Route::get('/admin/dishes/menu', [DishController::class, 'menu'])->name('admin.d
 
 Route::middleware('role:Administrator')->controller(DishController::class)->name('admin.')->prefix('admin')->group(function () {
     Route::get('/dishes', 'index')->name('dishes.index');
+    Route::get('/dishes/create', 'create')->name('dishes.create');
+    Route::post('/dishes/store', 'store')->name('dishes.store');
+    Route::post('/dishes/edit/{dishId}', 'edit')->name('dishes.edit');
+    Route::put('/dishes/update/{dishId}', 'update')->name('dishes.update');
+    Route::delete('/dishes/destroy/{dishId}', 'destroy')->name('dishes.destroy');
 });
 
 // Help Requests

@@ -3,9 +3,9 @@
 </script>
 
 <script>
-    export let dish;
+
 </script>
 
 <svelte:head>
-    <title>Gerecht bewerken</title>
+    <title>Gerecht aanmaken</title>
 </svelte:head>

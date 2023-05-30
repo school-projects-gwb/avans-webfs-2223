@@ -13,6 +13,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Gerechten</title>
+</svelte:head>
+
 <div class="p-8">
     <Menu addable={true} addedText="Beheren" on:cartDishAdded={onCartDishAdded} />
 </div>
