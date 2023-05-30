@@ -27,7 +27,7 @@
 </script>
 
 <div>
-    <div class="flex flex-col h-screen bg-gray-100">
+    <div class="flex flex-col min-h-screen bg-gray-100">
         <nav
             class="bg-white border-b border-gray-100"
         >

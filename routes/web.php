@@ -129,7 +129,7 @@ Route::middleware('role:Administrator')->controller(DishController::class)->name
     Route::post('/dishes/store', 'store')->name('dishes.store');
     Route::get('/dishes/edit/{dishId}', 'edit')->name('dishes.edit');
     Route::put('/dishes/update/{dishId}', 'update')->name('dishes.update');
-    Route::delete('/dishes/destroy/{dishId}', 'destroy')->name('dishes.destroy');
+    Route::delete('/dishes/destroy/{dish}', 'destroy')->name('dishes.destroy');
 });
 
 // Help Requests

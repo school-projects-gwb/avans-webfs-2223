@@ -75,6 +75,7 @@ class DishController extends Controller
     }
 
     public function destroy(Request $request, Dish $dish) {
-
+        $dish->delete();
+        return redirect::Route('admin.dishes.index');
     }
 }
