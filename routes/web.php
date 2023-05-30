@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HelpRequestController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlanningController;
@@ -51,7 +52,7 @@ Route::get('/contact', function () {
     ]);
 });
 
-// Order
+// Orders
 Route::controller(OrderController::class)->group(function () {
     // GET
     Route::get('/cart/is-order-placed', 'isOrderPlaced')->name('cart.is-order-placed');
@@ -109,17 +110,17 @@ Route::middleware('auth')->group(function () {
 
 // Tables & Planning
 Route::middleware('role:Administrator')->controller(PlanningController::class)->name('admin.')->prefix('admin')->group(function () {
-    // GET
     Route::get('/planning', 'index')->name('planning.index');
     Route::get('/planning/data', 'getData')->name('planning.data');
-
-    // POST
     Route::post('/planning/create-table', 'createTable')->name('planning.create-table');
     Route::post('/planning/unassign/{tableId}/{userId}/{weekday}', 'unassign')->name('planning.unassign');
     Route::post('/planning/assign/{tableId}/{userId}/{weekday}', 'assign')->name('planning.assign');
-
-    // DELETE
     Route::delete('/planning/destroy-table/{tableId}', 'destroyTable')->name('planning.destroy-table');
+});
+
+// Help Requests
+Route::controller(HelpRequestController::class)->group(function () {
+
 });
 
 Route::resource('/admin/news', NewsController::class)->middleware('role:Administrator');

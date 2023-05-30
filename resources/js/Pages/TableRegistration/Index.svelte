@@ -21,5 +21,5 @@
     <label for="table-number" class="text-primary text-xl font-bold mt-8">Uw Tafelnummer</label>
     <input id="table-number" type="number" min="1" bind:value={$form.table_number}/>
     <InputError message={$form.errors.table_number} />
-    <input type="submit" class="bg-primary text-white py-2 text-xl uppercase border-none font-bold px-4 mt-8" value="Start bestelling">
+    <input type="submit" class="bg-primary text-white py-2 text-xl uppercase border-none font-bold px-4 mt-8 cursor-pointer" value="Start bestelling">
 </form>
