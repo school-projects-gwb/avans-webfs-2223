@@ -5,7 +5,7 @@
     // Indicates whether menu is sortable and supports favouriting dishes
     // This is not relevant in i.e. the employee back-end environment
     // So it is disabled by default
-    export let sortable = false, addable = false;
+    export let sortable = false, addable = false, addedText = "+ Bestelling";
 
     let menu_data,
         sort_order = 'none',
@@ -102,7 +102,7 @@
                                         <input type="checkbox" class="h-3 w-3" checked={isFavourite(dish.id)} on:click={handleFavourite(dish.id)} />
                                     {/if}
                                     {#if addable}
-                                        <input class="text-sm font-bold underline ml-1 cursor-pointer" type="button" on:click={handleCart(dish.id)} value="+ Bestelling" />
+                                        <input class="text-sm font-bold underline ml-1 cursor-pointer" type="button" on:click={handleCart(dish.id)} value={addedText} />
                                     {/if}
                                 </span>
                                 <span class="w-0 flex-1 border-b-2 border-black border-dotted mb-1.5 mx-1"></span>
