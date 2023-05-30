@@ -15,6 +15,10 @@
     };
 </script>
 
+<svelte:head>
+    <title>Tafelreservatie</title>
+</svelte:head>
+
 <form class="flex flex-col mt-16" on:submit|preventDefault={submit}>
     <a href="/" class="font-bold underline">Terug naar website</a>
     <h1 class="text-4xl font-bold text-primary text-left mt-4">Start hier uw tafelbestelling</h1>

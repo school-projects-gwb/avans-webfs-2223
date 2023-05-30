@@ -120,8 +120,9 @@ Route::middleware('role:Administrator')->controller(PlanningController::class)->
 
 // Help Requests
 Route::controller(HelpRequestController::class)->group(function () {
-    Route::middleware('role:Cashier')->name('admin.')->prefix('admin')->group(function () {
+    Route::middleware('role:Cashier')->group(function () {
         Route::get('/help-requests', 'index')->name('help-requests.index');
+        Route::get('/help-requests/data', 'getData')->name('help-requests.data');
         Route::delete('/help-requests/destroy/{helpRequestId}', 'destroy')->name('help-requests.destroy');
     });
 

@@ -57,6 +57,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Planning</title>
+</svelte:head>
+
 <div class="py-12">
     <div class="mx-auto sm:px-6 lg:px-8">
         <div

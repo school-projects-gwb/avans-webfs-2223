@@ -12,4 +12,9 @@ class HelpRequest extends Model
     protected $fillable = [
         'table_id'
     ];
+
+    public function table(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Table::class, 'table_id', 'id');
+    }
 }

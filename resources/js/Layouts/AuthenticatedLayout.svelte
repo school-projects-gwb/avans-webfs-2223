@@ -62,6 +62,13 @@
                                 Kassa
                             </NavLink>
 
+                            <NavLink
+                                href={route("help-requests.index")}
+                                active={route().current("help-requests.index")}
+                            >
+                                Hulpaanvragen
+                            </NavLink>
+
                             {#if isAdmin}
                                 <NavLink
                                     href={route("news.index")}

@@ -60,6 +60,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Bestellingen</title>
+</svelte:head>
+
 {#if registration_data}
 <div class="flex flex-col w-full relative p-4">
     <button on:click={handleStopOrder} class="border border-primary py-2 text-md uppercase font-bold px-4 mt-8 w-fit">Bestellen beëindigen</button>
