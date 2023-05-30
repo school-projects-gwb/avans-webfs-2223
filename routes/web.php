@@ -80,6 +80,7 @@ Route::controller(TableRegistrationController::class)->group(function () {
     Route::middleware('table-registration-valid')->group(function () {
         Route::post('/table-registration/add-order/{orderId}', 'addOrder')->name('table-registration.add-order');
         Route::post('/table-registration/clear-cookie', 'clearRegistrationCookie')->name('table-registration.clear-cookie');
+        Route::post('/table-registration/repeat-order/{orderId}', 'setOrderCookie')->name('table-registration.repeat-order');
     });
 });
 

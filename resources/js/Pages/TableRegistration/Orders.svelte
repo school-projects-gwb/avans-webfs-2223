@@ -49,7 +49,7 @@
 
     async function handleCanOrder() {
         axios.get('/table-registration/can-order/').then(response => {
-            can_order = response.data;
+            can_order = response.data === 1;
             if (can_order) {
                 axios.post(`/cart/clear-order-cookie`, {withCredentials: true})
                     .then(async response => {
@@ -57,6 +57,13 @@
                     });
             }
         });
+    }
+
+    async function handleRepeatOrder(orderId) {
+        axios.post(`/table-registration/repeat-order/${orderId}`, {withCredentials: true})
+            .then(async response => {
+                if (can_order) orderCookieCleared();
+            });
     }
 </script>
 
@@ -74,7 +81,12 @@
         {#if registration_data['orders'].length > 0}
             <div class="grid grid-cols-2 bg-white mt-4">
                 {#each registration_data['orders'] as order}
-                    <p class="text-lg">Bestelnummer: {order['id']}</p>
+                    <p class="text-lg">
+                        Bestelling #{order['id']}
+                        {#if can_order}
+                            <a class="text-sm underline cursor-pointer" on:click={handleRepeatOrder(order['id'])}>Opnieuw bestellen</a>
+                        {/if}
+                    </p>
                 {/each}
             </div>
         {:else}

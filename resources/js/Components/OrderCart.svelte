@@ -14,6 +14,7 @@
         axios.get('/cart/is-order-placed').then(response => {
             orderPlaced = response.data['order'] != null;
         });
+
         await handleCartData();
     });
 

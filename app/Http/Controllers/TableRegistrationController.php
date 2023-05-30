@@ -41,7 +41,7 @@ class TableRegistrationController extends Controller
 
                 $timeDifference = $currentTime->diffInMinutes($orderTime);
 
-                if ($timeDifference >= 0.1 && $tableRegistration->orders->count() < 5) {
+                if ($timeDifference >= 5 && $tableRegistration->orders->count() < 5) {
                     return true;
                 }
             } else {
@@ -96,5 +96,30 @@ class TableRegistrationController extends Controller
 
         $cookie = cookie(CookieKey::TABLE_REGISTRATION->key(), json_encode(['registration_id' => $tableRegistration->id]), 60 * 24 * 7);
         return redirect('/table-registration/show')->withCookie($cookie);
+    }
+
+    public function setOrderCookie(Request $request, $orderId) {
+        $order = Order::with('orderLines')->find($orderId);
+        $cookieData = [];
+
+        foreach ($order->orderlines as $orderLine) {
+            $dishId = $orderLine->dish_id;
+            $optionId = $orderLine->option_id;
+
+            if (!key_exists($dishId, $cookieData)) {
+                $cookieData[$dishId] = [
+                    'amount' => $optionId ? 1 : $orderLine->amount,
+                    'options' => []
+                ];
+            }
+
+            if ($optionId != null) {
+                $cookieData[$dishId]['amount'] = 1;
+                $cookieData[$dishId]['options'][] = str($optionId);
+            }
+        }
+
+        $cookie = cookie(CookieKey::DISH->key(), json_encode($cookieData), 60 * 24 * 7); // 1 week
+        return response("")->withCookie($cookie);
     }
 }
