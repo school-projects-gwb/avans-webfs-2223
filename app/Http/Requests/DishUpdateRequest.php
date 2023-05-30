@@ -5,19 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class DishCreateRequest extends FormRequest
+class DishUpdateRequest extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(): array
     {
         return [
             'name' => 'required|max:75|string',
             'description' => 'required|string',
-            'price' => 'required|decimal',
+            'price' => 'required|numeric',
             'is_discount' => 'required|boolean',
             'option_required' => 'required|boolean',
             'option_ids' => [
@@ -40,7 +35,7 @@ class DishCreateRequest extends FormRequest
             'description.string' => 'Omschrijving moet uit tekst bestaan.',
 
             'price.required' => 'Prijs is verplicht.',
-            'price.price' => 'Prijs moet een getal zijn.',
+            'price.numeric' => 'Prijs moet een getal zijn.',
 
             'is_discount.required' => 'Korting is verplicht.',
             'is_discount.boolean' => 'Korting moet ja/nee zijn.',

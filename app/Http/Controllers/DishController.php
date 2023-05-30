@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DishCreateRequest;
+use App\Http\Requests\DishUpdateRequest;
 use App\Models\Category;
 use App\Models\Dish;
 use App\Models\Option;
@@ -26,12 +27,9 @@ class DishController extends Controller
     }
 
     public function create(Request $request) {
-        $options = Option::all();
-        $categories = Category::all();
-
         return Inertia::render('Dish/Create', [
-            'options' => $options,
-            'categories' => $categories
+            'options' => Option::all(),
+            'categories' => Category::all()
         ]);
     }
 
@@ -62,12 +60,18 @@ class DishController extends Controller
         $dish = Dish::with('options')->find($dishId);
 
         return Inertia::render('Dish/Edit', [
-            'dish' => $dish
+            'dish' => $dish,
+            'options' => Option::all(),
+            'categories' => Category::all()
         ]);
     }
 
-    public function update(Request $request, Dish $dish) {
+    public function update(DishUpdateRequest $request, $dishId) {
+        $dish = Dish::find($dishId);
+        $dish->update($request->only(['name', 'description', 'price', 'is_discount', 'option_required', 'option_amount', 'category_id']));
+        $dish->options()->sync($request->option_ids);
 
+        return redirect::Route('admin.dishes.index');
     }
 
     public function destroy(Request $request, Dish $dish) {

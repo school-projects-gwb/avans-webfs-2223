@@ -24,6 +24,8 @@ return new class extends Migration
             $table->boolean('is_discount')->nullable();
             $table->boolean('option_required')->nullable();
             $table->integer('option_amount')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

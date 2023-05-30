@@ -3,8 +3,41 @@
 </script>
 
 <script>
-    export let dish;
-    console.log(dish);
+    import {useForm} from "@inertiajs/svelte";
+    import TextInput from "@/Components/TextInput.svelte";
+    import InputLabel from "@/Components/InputLabel.svelte";
+    import InputError from "@/Components/InputError.svelte";
+    import TextArea from "@/Components/TextArea.svelte";
+    import Checkbox from "@/Components/Checkbox.svelte";
+    import PrimaryButton from "@/Components/PrimaryButton.svelte";
+
+    export let options, categories, dish;
+
+    const deleteForm = useForm({
+        id: dish.id
+    });
+
+    const form = useForm({
+        name: dish.name,
+        description: dish.description,
+        price: dish.price,
+        is_discount: dish.is_discount,
+        option_required: dish.option_required,
+        option_amount: dish.option_amount,
+        category_id: dish.category_id,
+        option_ids: dish.options.map(option => option.id)
+    });
+
+    const submit = () => {
+        $form.put(route("admin.dishes.update", {dishId: dish.id}));
+    };
+
+    const submitDelete = () => {
+        const confirmed = confirm("Zeker weten? Dit kan niet ongedaan gemaakt worden");
+        if (!confirmed) return;
+
+        $deleteForm.delete(route("admin.dishes.destroy", {dish: dish.id}));
+    };
 </script>
 
 <svelte:head>
@@ -18,6 +51,79 @@
         >
             <a class="underline" href="{route('admin.dishes.index')}">Terug naar overzicht</a>
             <h1 class="text-4xl font-bold mt-4">Gerecht bewerken</h1>
+
+            <form class="flex flex-col mt-4 max-w-xl" on:submit|preventDefault={submit}>
+                <div>
+                    <InputLabel for="name" value="Naam *" />
+                    <TextInput id="name" type="text" bind:value={$form.name} required />
+                    <InputError message={$form.errors.name} />
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel for="description" value="Omschrijving *" />
+                    <TextArea id="description" bind:value={$form.description} required />
+                    <InputError message={$form.errors.description} />
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel for="price" value="Prijs *" />
+                    <TextInput id="price" type="number" bind:value={$form.price} required />
+                    <InputError message={$form.errors.price} />
+                </div>
+
+                <div class="mt-4">
+                    <label class="flex items-center">
+                        <Checkbox name="is_discount" bind:checked={$form.is_discount} />
+                        <span class="ml-2 text-sm text-gray-600">Aanbieding</span>
+                    </label>
+                    <InputError message={$form.errors.is_discount} />
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel for="category" value="Categorie *" />
+                    <select bind:value={$form.category_id} name="category_id" id="category" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
+                        {#each categories as category}
+                            <option value="{category.id}">{category.name}</option>
+                        {/each}
+                    </select>
+                    <InputError message={$form.errors.category_id} />
+                </div>
+
+                <h2 class="font-bold text-2xl mt-4">Extra's</h2>
+
+                <div class="mt-4">
+                    <label class="flex items-center">
+                        <Checkbox name="option_required" bind:checked={$form.option_required} />
+                        <span class="ml-2 text-sm text-gray-600">Extra's verplicht</span>
+                    </label>
+                    <InputError message={$form.errors.option_required} />
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel for="option_amount" value="Max. aantal extra's" />
+                    <TextInput id="option_amount" type="number" bind:value={$form.option_amount} />
+                    <InputError message={$form.errors.option_amount} />
+                </div>
+
+                <div class="mt-4">
+                    {#each options as option}
+                        <div>
+                            <input type="checkbox" name="option_ids[]" bind:group={$form.option_ids} value="{option.id}" />
+                            <span>{option.name} - {option.price == null ? '(Verplichte optie)' : '(Optionele optie)'}</span>
+                        </div>
+                    {/each}
+                    <InputError message={$form.errors.option_ids} />
+                </div>
+
+                <PrimaryButton disabled={$form.processing} classes="mt-4">
+                    Gerecht opslaan
+                </PrimaryButton>
+
+                <span class="font-bold mt-2">* : Verplichte velden</span>
+            </form>
+            <form class="mt-4" on:submit|preventDefault={submitDelete}>
+                <input type="submit" class="border border-primary text-primary mt-4 w-fit text-md text-center py-2 px-8 uppercase cursor-pointer" value="Verwijderen">
+            </form>
         </div>
     </div>
 </div>
