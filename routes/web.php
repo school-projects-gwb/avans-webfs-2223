@@ -120,7 +120,13 @@ Route::middleware('role:Administrator')->controller(PlanningController::class)->
 
 // Help Requests
 Route::controller(HelpRequestController::class)->group(function () {
+    Route::middleware('role:Cashier')->name('admin.')->prefix('admin')->group(function () {
+        Route::get('/help-requests', 'index')->name('help-requests.index');
+        Route::delete('/help-requests/destroy/{helpRequestId}', 'destroy')->name('help-requests.destroy');
+    });
 
+    Route::get('/help-requests/get', 'show')->name('help-requests.get');
+    Route::post('/help-requests/create/{tableId}', 'create')->name('help-requests.create');
 });
 
 Route::resource('/admin/news', NewsController::class)->middleware('role:Administrator');

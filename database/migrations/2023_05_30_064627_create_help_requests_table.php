@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('help_requests', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_fulfilled');
             $table->timestamps();
 
             $table->foreignId('table_id')->unsigned()->constrained('tables');
