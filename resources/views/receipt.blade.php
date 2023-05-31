@@ -50,6 +50,10 @@
             </td>
         </tr>
     </table>
+
+    <h1 style="font-size: 1.25rem;">Vergeet niet om een review achter te laten!</h1>
+    <h2 style="font-size: .9rem;">Scan de onderstaande QR-code om naar het review formulier te gaan</h2>
+    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('/review/create/' . $tableRegistration['order_id'])) !!} ">
 </body>
 
 <style>

@@ -27,10 +27,13 @@ class TableRegistrationController extends Controller
             ->where('id', $tableRegistrationId)
             ->first();
 
+        if (!$tableRegistration) return false;
+
         $tableRegistration->formatted_created_at = $tableRegistration->created_at->format('d-m-Y');
 
         $orderLinesByDish = [];
         $tableRegistration->order_totals = 0;
+        $tableRegistration->order_id = $tableRegistration->orders[0]['id'];
 
         foreach ($tableRegistration->orders as $order) {
             foreach ($order->orderLines as $orderLine) {
@@ -64,7 +67,13 @@ class TableRegistrationController extends Controller
         $pdf->getDomPDF()->set_option("enable_php", true);
         $pdf->loadView('receipt', compact('tableRegistration'));
 
-        return $pdf->download('menu.pdf');
+        return $pdf->stream(
+            'file.pdf',
+            array(
+                'Attachment' => 0
+            )
+        );
+//        return $pdf->download('receipt.pdf');
     }
 
     public function index() {

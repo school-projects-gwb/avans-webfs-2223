@@ -4,7 +4,6 @@
 
 <script>
     export let reviews;
-    console.log(reviews);
 </script>
 
 <svelte:head>
