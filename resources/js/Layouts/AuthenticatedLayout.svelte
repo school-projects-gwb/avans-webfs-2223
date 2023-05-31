@@ -91,7 +91,7 @@
                                     href={route("news.index")}
                                     active={route().current("news.index")}
                                 >
-                                    Nieuwsberichten
+                                    Nieuws
                                 </NavLink>
 
                                 <NavLink
@@ -106,6 +106,13 @@
                                     active={route().current("admin.dishes.index")}
                                 >
                                     Gerechtbeheer
+                                </NavLink>
+
+                                <NavLink
+                                    href={route("admin.reviews.index")}
+                                    active={route().current("admin.reviews.index")}
+                                >
+                                    Reviews
                                 </NavLink>
                             {/if}
                         </div>

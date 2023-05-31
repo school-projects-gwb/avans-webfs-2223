@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-    <title>Nieuwsberichten</title>
+    <title>Nieuws</title>
 </svelte:head>
 
 <div class="py-12">
