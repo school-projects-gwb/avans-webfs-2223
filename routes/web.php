@@ -7,6 +7,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TableRegistrationController;
 use App\Http\Controllers\TakeawayController;
 use App\Models\Dish;
@@ -132,6 +133,11 @@ Route::middleware('role:Administrator')->controller(DishController::class)->name
     Route::get('/dishes/edit/{dishId}', 'edit')->name('dishes.edit');
     Route::put('/dishes/update/{dishId}', 'update')->name('dishes.update');
     Route::delete('/dishes/destroy/{dish}', 'destroy')->name('dishes.destroy');
+});
+
+// Reviews
+Route::controller(ReviewController::class)->group(function () {
+    Route::get('/admin/reviews', 'index')->name('admin.reviews.index')->middleware('role:Administrator');;
 });
 
 // Help Requests

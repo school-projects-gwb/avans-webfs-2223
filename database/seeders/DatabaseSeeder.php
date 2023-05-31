@@ -24,5 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(OpeningTimeSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(TableSeeder::class);
+        $this->call(OrderSeeder::class);
+        $this->call(QuestionSeeder::class);
+        $this->call(ReviewSeeder::class);
     }
 }

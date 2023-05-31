@@ -1,0 +1,32 @@
+<script context="module">
+    export { default as layout } from "../../Layouts/AuthenticatedLayout.svelte";
+</script>
+
+<script>
+    export let reviews;
+</script>
+
+<svelte:head>
+    <title>Reviews</title>
+</svelte:head>
+
+<div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div
+            class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8 block"
+        >
+            <h1 class="text-4xl font-bold block">Reviews</h1>
+
+            <div class="flex flex-col">
+                {#each reviews as review}
+                    <div class="border border-2 mt-4 p-4">
+<!--                        <h2 class="text-xl font-bold">{news_article.title}</h2>-->
+<!--                        <span class="text-xs"><b>Gemaakt op</b> {news_article.created_at}</span>-->
+<!--                        <p class="text-lg">{news_article.content}</p>-->
+<!--                        <a class="font-bold underline mt-4" href={route("news.edit", news_article.id)}>Beheren</a>-->
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </div>
+</div>
