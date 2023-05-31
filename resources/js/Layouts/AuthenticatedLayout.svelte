@@ -21,7 +21,7 @@
     });
 
     function setRoles() {
-        isEmployee = authUserRoles.some(role => role.name === 'Cashier');
+        isEmployee = authUserRoles.some(role => role.name == 'Cashier');
         isAdmin = authUserRoles.some(role => role.name === 'Administrator');
     }
 </script>
@@ -76,6 +76,13 @@
                                     active={route().current("admin.dishes.menu")}
                                 >
                                     Menu
+                                </NavLink>
+
+                                <NavLink
+                                    href={route("table-registration.cashier-index")}
+                                    active={route().current("table-registration.cashier-index")}
+                                >
+                                    Tafelbestellingen
                                 </NavLink>
                             {/if}
 

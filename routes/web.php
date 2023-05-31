@@ -70,19 +70,21 @@ Route::controller(OrderController::class)->group(function () {
 Route::controller(TableRegistrationController::class)->group(function () {
     // GET
     Route::get('/table-registration', 'index')->name('table-registration.index');
+    Route::get('/table-registration/cashier-index', 'cashierIndex')->name('table-registration.cashier-index')->middleware('role:Cashier');
+    Route::get('/table-registration/get-receipt-pdf', 'getReceiptPdf')->name('table-registration.get-receipt-pdf')->middleware('role:Cashier');
+
     Route::middleware('table-registration-valid')->group(function () {
         Route::get('/table-registration/data', 'getData')->name('table-registration.data');
         Route::get('/table-registration/can-order', 'getCanOrder')->name('table-registration.can-order');
         Route::get('/table-registration/show', 'show')->name('table-registration.show');
-    });
 
-    // POST
-    Route::post('/table-registration/start-order', 'store')->name('table-registration.start-order');
-    Route::middleware('table-registration-valid')->group(function () {
         Route::post('/table-registration/add-order/{orderId}', 'addOrder')->name('table-registration.add-order');
         Route::post('/table-registration/clear-cookie', 'clearRegistrationCookie')->name('table-registration.clear-cookie');
         Route::post('/table-registration/repeat-order/{orderId}', 'setOrderCookie')->name('table-registration.repeat-order');
     });
+
+    // POST
+    Route::post('/table-registration/start-order', 'store')->name('table-registration.start-order');
 });
 
 // Menu
