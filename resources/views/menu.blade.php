@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Users Report</title>
+    <title>Menukaart</title>
 </head>
 <body style="background: #fefebe;">
     <table style="border-collapse: collapse; background: #fefebe;">

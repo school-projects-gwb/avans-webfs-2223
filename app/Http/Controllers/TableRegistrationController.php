@@ -22,8 +22,49 @@ class TableRegistrationController extends Controller
         ]);
     }
 
-    public function getReceiptPdf() {
+    public function getReceiptPdf($tableRegistrationId) {
+        $tableRegistration = TableRegistration::with(['orders.orderLines.dish', 'orders.orderLines.option'])
+            ->where('id', $tableRegistrationId)
+            ->first();
 
+        $tableRegistration->formatted_created_at = $tableRegistration->created_at->format('d-m-Y');
+
+        $orderLinesByDish = [];
+        $tableRegistration->order_totals = 0;
+
+        foreach ($tableRegistration->orders as $order) {
+            foreach ($order->orderLines as $orderLine) {
+                $dishId = $orderLine->dish_id;
+                $optionId = $orderLine->option_id;
+
+                if (!isset($orderLinesByDish[$dishId])) {
+                    $orderLinesByDish[$dishId] = [
+                        'dish_name' => $orderLine->dish->name,
+                        'amount' => $orderLine->amount,
+                        'combined_price' => $orderLine->dish->price,
+                        'option_names' => "",
+                    ];
+
+                    $tableRegistration->order_totals += $orderLine->dish->price;
+                }
+
+                if ($optionId != null) {
+                    $orderLinesByDish[$dishId]['option_names'] .= ($orderLinesByDish[$dishId]['option_names'] == "" ? '' : ', ') . $orderLine->option->name;
+                    $orderLinesByDish[$dishId]['combined_price'] += $orderLine->option->price;
+                    $tableRegistration->order_totals += $orderLine->option->price;
+                }
+            }
+        }
+
+        $tableRegistration->orderLines = array_values($orderLinesByDish);
+
+        unset($tableRegistration->orders);
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->loadView('receipt', compact('tableRegistration'));
+
+        return $pdf->download('menu.pdf');
     }
 
     public function index() {

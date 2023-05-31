@@ -71,7 +71,7 @@ Route::controller(TableRegistrationController::class)->group(function () {
     // GET
     Route::get('/table-registration', 'index')->name('table-registration.index');
     Route::get('/table-registration/cashier-index', 'cashierIndex')->name('table-registration.cashier-index')->middleware('role:Cashier');
-    Route::get('/table-registration/get-receipt-pdf', 'getReceiptPdf')->name('table-registration.get-receipt-pdf')->middleware('role:Cashier');
+    Route::get('/table-registration/get-receipt-pdf/{tableRegistrationId}', 'getReceiptPdf')->name('table-registration.get-receipt-pdf')->middleware('role:Cashier');
 
     Route::middleware('table-registration-valid')->group(function () {
         Route::get('/table-registration/data', 'getData')->name('table-registration.data');
