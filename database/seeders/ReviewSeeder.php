@@ -24,7 +24,6 @@ class ReviewSeeder extends Seeder
 
         foreach ($questionIds as $questionId) {
             $reviewQuestion = new ReviewQuestion();
-//            $reviewQuestion->review_id = 1;
             $reviewQuestion->answer = random_int(3, 5);
             $reviewQuestion->question_id = $questionId;
             $review->reviewQuestions()->save($reviewQuestion);

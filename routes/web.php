@@ -138,6 +138,9 @@ Route::middleware('role:Administrator')->controller(DishController::class)->name
 // Reviews
 Route::controller(ReviewController::class)->group(function () {
     Route::get('/admin/reviews', 'index')->name('admin.reviews.index')->middleware('role:Administrator');;
+    Route::get('/reviews/create/{orderId}', 'create')->name('reviews.create');
+    Route::get('/reviews/success', 'success')->name('reviews.success');
+    Route::post('/reviews/store/{orderId}', 'store')->name('reviews.store');
 });
 
 // Help Requests

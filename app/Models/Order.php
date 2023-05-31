@@ -19,4 +19,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderLine::class);
     }
+
+    public function review(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Review::class);
+    }
 }
