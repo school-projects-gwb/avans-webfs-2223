@@ -97,9 +97,14 @@ function handlePlaceOrder() {
             <div class="h-[85%] border border-blue-500 rounded py-6 overflow-y-scroll">
                 <p class="font-bold text-xl text-center">Bestelling</p>
                 <div class="flex flex-col gap-4 mt-4">
-                    {#each cart_data.dish_data as dish}
-                    <PosCartItem dish={dish} option_data={cart_data.option_data[dish.id]} on:refreshCartData={handleCartData} on:cartDishRemoved={handleCartDishRemoved}/>
-                    {/each}
+                    {#if cart_data.dish_data.length > 0}
+                        {#each cart_data.dish_data as dish}
+                            <PosCartItem dish={dish} option_data={cart_data.option_data[dish.id]} on:refreshCartData={handleCartData} on:cartDishRemoved={handleCartDishRemoved}/>
+                        {/each}
+                    {:else}
+                        <p class="text-center font-semibold mt-4">Er zijn nog geen gerechten toegevoegd aan de bestelling</p>
+                    {/if}
+
                 </div>
             </div>
             <div class="h-[15%] border border-blue-500 rounded flex items-center justify-center p-6">
