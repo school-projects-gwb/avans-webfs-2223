@@ -36,13 +36,13 @@
 
 <div class="w-full p-6 rounded-t-md bg-white">
     <div class="w-1/2">
-        <input class="w-2/6" type="text" bind:value={searchQuery} placeholder="Voer gerechtnaam of gerechtnummer in">
-        <select  class="w-2/6" bind:value={filterOption}>
+        <input class="w-2/6 shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" bind:value={searchQuery} placeholder="Voer gerechtnaam of gerechtnummer in">
+        <select  class="w-2/6 shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={filterOption}>
             <option value="">Alle categorieën</option>
             {#each categories as category}
                 <option value="{ category }">{ capitalizeFirstLetter(category) }</option>
             {/each}
         </select>
-        <button class="w-1/6 bg-gray-100 py-2 px-3 border border-black" on:click={handleSearch}>Zoeken</button>
+        <button class="w-1/6 bg-gray-100 py-1.5 px-3 border border-black" on:click={handleSearch}>Zoeken</button>
     </div>
 </div>

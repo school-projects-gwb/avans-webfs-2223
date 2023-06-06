@@ -78,7 +78,7 @@ function handlePlaceOrder() {
 {#if menu_data && cart_data}
 <div class="p-12 h-full overflow-hidden">
     <DishSearchBar bind:menu_data={menu_data}></DishSearchBar>
-    <div class="grid grid-cols-2 gap-4 p-6 min-h-fit rounded-b-md bg-white">
+    <div class="grid grid-cols-2 gap-4 px-6 pb-6 min-h-fit rounded-b-md bg-white">
         <div class="max-h-[calc(100vh-13.111rem)] min-h-[25rem] p-4 overflow-y-scroll border border-blue-500 rounded">
             {#each Object.values(menu_data.dish_data) as category_data}
                 {#each category_data.dishes as dish}
