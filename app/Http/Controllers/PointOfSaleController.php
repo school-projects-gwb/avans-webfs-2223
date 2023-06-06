@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Dish;
@@ -13,3 +14,4 @@ class PointOfSaleController extends Controller
         return Inertia::render('PointOfSale/Index');
     }
 }
+

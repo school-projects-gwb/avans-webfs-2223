@@ -7,6 +7,7 @@ import axios from "axios";
 import {onMount} from "svelte";
 import PosMenuItem from "@/Components/PosMenuItem.svelte";
 import PosCartItem from "@/Components/PosCartItem.svelte";
+import DishSearchBar from "@/Components/DishSearchBar.svelte";
 
 export let sortable = false;
 
@@ -62,6 +63,7 @@ function handlePlaceOrder() {
         })
         .then(async response => {
             removeAllFromOrder();
+            alert("Bestelling is doorgevoerd en doorgegeven aan de keuken!");
         });
 }
 
@@ -75,14 +77,21 @@ function handlePlaceOrder() {
 
 {#if menu_data && cart_data}
 <div class="p-12 h-full overflow-hidden">
-    <div class="grid grid-cols-2 gap-4 p-6 rounded-md bg-white">
-        <div class="max-h-[calc(100vh-13.111rem)] p-4 overflow-y-scroll border border-blue-500 rounded">
-            {#each Object.entries(menu_data.dish_data) as [category, dish_data]}
-                <p class="font-bold text-xl text-center">{category}</p>
-                {#each dish_data.dishes as dish}
+    <DishSearchBar bind:menu_data={menu_data}></DishSearchBar>
+    <div class="grid grid-cols-2 gap-4 p-6 min-h-fit rounded-b-md bg-white">
+        <div class="max-h-[calc(100vh-13.111rem)] min-h-[25rem] p-4 overflow-y-scroll border border-blue-500 rounded">
+            {#each Object.values(menu_data.dish_data) as category_data}
+                {#each category_data.dishes as dish}
                     <PosMenuItem dish={dish} on:cartDishAdded={handleCartDishAdded}/>
                 {/each}
             {/each}
+
+            {#if Object.values(menu_data.dish_data).every(category => category.dishes.length === 0)}
+                <div class="h-full flex justify-center items-center">
+                    <p class="text-center font-semibold">Er zijn geen gerechten gevonden</p>
+                </div>
+
+            {/if}
         </div>
         <div class="overflow-hidden">
             <div class="h-[85%] border border-blue-500 rounded py-6 overflow-y-scroll">
