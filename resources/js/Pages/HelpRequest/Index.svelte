@@ -37,13 +37,18 @@
             <h1 class="text-4xl font-bold block">Hulpaanvragen</h1>
 
             <div class="flex flex-col">
-                {#each help_requests as help_request}
-                    <div class="border border-2 mt-4 p-4">
-                        <h2 class="text-xl font-bold">Tafelnummer: {help_request.table.table_number}</h2>
-                        <span class="text-xs"><b>Gemaakt op</b> {help_request.created_at}</span>
-                        <a class="font-bold underline mt-4 block cursor-pointer" on:click={handleDeleteRequest(help_request.id)}>Oplossen</a>
-                    </div>
-                {/each}
+                {#if help_requests.length > 0}
+                    {#each help_requests as help_request}
+                        <div class="border border-2 mt-4 p-4">
+                            <h2 class="text-xl font-bold">Tafelnummer: {help_request.table.table_number}</h2>
+                            <span class="text-xs"><b>Gemaakt op</b> {help_request.created_at}</span>
+                            <a class="font-bold underline mt-4 block cursor-pointer" on:click={handleDeleteRequest(help_request.id)}>Oplossen</a>
+                        </div>
+                    {/each}
+                {:else}
+                    <p class="font-semibold mt-4">Er zijn geen hulpaanvragen gevonden</p>
+                {/if}
+
             </div>
         </div>
     </div>
