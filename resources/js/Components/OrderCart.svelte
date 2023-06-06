@@ -92,7 +92,7 @@
                                 </p>
                                 <div class="flex">
                                     <p class="text-lg font-bold">€ {dish.price}</p>
-                                    <input id="amount-{dish.id}" class="inline w-20 h-6 ml-2 mt-0.5" type="number" min="0" value="{cart_data.option_data[dish.id]['amount']}" on:change={handleCartDishRemoved(dish.id)}/>
+                                    <input id="amount-{dish.id}" class="inline w-20 h-6 ml-2 mt-0.5" type="number" min="0" value="{cart_data.option_data[dish.id]['amount']}" on:change|preventDefault={handleCartDishRemoved(dish.id)}/>
                                 </div>
                             </div>
                             {#if dish.description != null}
