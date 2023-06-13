@@ -25,6 +25,7 @@ onMount(async () => {
 async function handleMenuData() {
     axios.get('/menu/data/' + sort_order).then(response => {
         menu_data = response.data;
+        console.log(response.data)
     });
 }
 
@@ -81,6 +82,9 @@ function handlePlaceOrder() {
     <div class="grid grid-cols-2 gap-4 px-6 pb-6 min-h-fit rounded-b-md bg-white">
         <div class="max-h-[calc(100vh-13.111rem)] min-h-[25rem] p-4 overflow-y-scroll border border-blue-500 rounded">
             {#each Object.values(menu_data.dish_data) as category_data}
+                {#if category_data.dishes.length > 0}
+                <p class="text-center text-xl font-semibold">{ category_data.name }</p>
+                {/if}
                 {#each category_data.dishes as dish}
                     <PosMenuItem dish={dish} on:cartDishAdded={handleCartDishAdded}/>
                 {/each}
