@@ -62,6 +62,7 @@ Route::controller(OrderController::class)->group(function () {
     // POST
     Route::post('/cart/handle-dish-cookie/{dishId}/{amount}', 'handleDishCookie')->name('cart.handle-dish-cookie');
     Route::post('/cart/handle-dish-option-cookie/{dishId}/{optionId}', 'handleDishOptionCookie')->name('cart.handle-dish-option-cookie');
+    Route::post('/cart/handle-dish-comment-cookie/{dishId}/{comment?}', 'handleDishCommentCookie')->name('cart.handle-dish-comment-cookie');
     Route::post('/cart/clear-order-cookie-data', 'clearOrderCookieData')->name('cart.clear-order-cookie-data');
     Route::post('/cart/place-order/{isTakeaway}', 'store')->name('cart.place-order');
     Route::post('/cart/clear-order-cookie', 'clearOrderCookie')->name('cart.clear-order-cookie');

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
             $table->integer('amount');
+            $table->string('comment')->nullable();
             $table->timestamps();
 
             $table->foreignId('order_id')->unsigned()->constrained('orders');

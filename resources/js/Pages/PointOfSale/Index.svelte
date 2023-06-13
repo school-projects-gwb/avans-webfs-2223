@@ -58,7 +58,7 @@ async function removeAllFromOrder(){
 
 function handlePlaceOrder() {
     errors = "";
-    axios.post(`/cart/place-order`, {withCredentials: true})
+    axios.post(`/cart/place-order/0`, {withCredentials: true})
         .catch(error => {
             errors = error.response.data;
         })

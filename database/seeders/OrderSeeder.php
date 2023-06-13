@@ -23,6 +23,7 @@ class OrderSeeder extends Seeder
         $orderLine = new OrderLine();
         $orderLine->dish_id = 1;
         $orderLine->amount = 1;
+        $orderLine->comment = 'Soep goed verwarmen';
         $order->orderLines()->save($orderLine);
     }
 }

@@ -94,6 +94,9 @@ class OrderController extends Controller
                 $orderLine = new OrderLine();
                 $orderLine->dish_id = $dish_id;
                 $orderLine->amount = $dish_data['amount'];
+                if(isset($dish_data['comment'])){
+                    $orderLine->comment = $dish_data['comment'];
+                }
                 $order->orderLines()->save($orderLine);
 
                 foreach ($dish_data['options'] as $option_id) {
@@ -187,6 +190,21 @@ class OrderController extends Controller
         return $result;
     }
 
+    public function handleDishCommentCookie($dishId, $comment = ""){
+        $cookieData = CookieHandler::getData(CookieKey::DISH);
+        $indexCheck = in_array($dishId, array_keys($cookieData));
+        $message = 'Comment succesvol toegevoegd.';
+        $status = 200;
+
+        if($indexCheck === false){
+            $message = 'Gerecht niet gevonden.';
+            $status = 304;
+        } else {
+            $cookieData[$dishId]['comment'] = $comment;
+        }
+        $cookie = cookie(CookieKey::DISH->key(), json_encode($cookieData), 60 * 24 * 7); // 1 week
+        return response($message, $status)->withCookie($cookie);
+    }
     public function handleDishOptionCookie($dishId, $optionId) {
         $cookieData = CookieHandler::getData(CookieKey::DISH);
         $indexCheck = in_array($dishId, array_keys($cookieData));

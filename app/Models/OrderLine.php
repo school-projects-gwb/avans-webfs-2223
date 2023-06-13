@@ -10,7 +10,8 @@ class OrderLine extends Model
     use HasFactory;
 
     protected $fillable = [
-        'amount'
+        'amount',
+        'comment',
     ];
 
     public function dish(): \Illuminate\Database\Eloquent\Relations\BelongsTo
