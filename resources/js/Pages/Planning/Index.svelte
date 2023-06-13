@@ -55,6 +55,16 @@
                 await handlePlanningData();
             });
     }
+
+    function getStartEndDate() {
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + 6);
+        const formattedStartDate = startDate.toLocaleDateString('en-GB');
+        const formattedEndDate = endDate.toLocaleDateString('en-GB');
+        return `${formattedStartDate} - ${formattedEndDate}`.toString();
+    }
 </script>
 
 <svelte:head>
@@ -67,6 +77,7 @@
             class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8 block"
         >
             <h1 class="text-4xl font-bold block">Tafels & Planning</h1>
+            <h2 class="font-bold text-xl">Rooster voor {getStartEndDate()}</h2>
             <p class="text-xl">Beheer werknemers per tafel en werkdag</p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full mt-8">
                 {#each planning_data as table}
