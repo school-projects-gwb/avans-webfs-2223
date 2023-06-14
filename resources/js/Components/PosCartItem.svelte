@@ -53,7 +53,7 @@
                    bind:value={option_data.amount}
                    on:change={handleAmountRemoval(dish.id)}>
 
-            <input type="text" placeholder='Add Comment' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            <input type="text" placeholder='Opmerking..' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                    on:input={handleComment} data-dish-id="{dish.id}" value="{option_data.comment || ''}">
             <p class="">€{dish.price}</p>
 
