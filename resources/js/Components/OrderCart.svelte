@@ -138,11 +138,11 @@
 
             <div class="flex flex-col text-left mt-8">
                 {#if is_takeaway}
-                    <h1 class="text-2xl font-bold text-left">Stap 2: Uw gegevens (optioneel)</h1>
+                    <h1 class="text-2xl font-bold text-left">Stap 2: Uw gegevens</h1>
                     <label for="first_name">Voornaam</label>
-                    <input id="first_name" class="mb-4" type="text" bind:value={first_name}/>
+                    <input id="first_name" class="mb-4" type="text" bind:value={first_name} required/>
                     <label for="last_name">Achternaam</label>
-                    <input id="last_name" type="text" bind:value={last_name}/>
+                    <input id="last_name" type="text" bind:value={last_name} required/>
                 {/if}
                 <span class="text-primary mt-8 font-bold text-lg">{errors}</span>
                 <button class="bg-primary text-white py-2 text-xl uppercase border-none font-bold" on:click={handlePlaceOrder}>Plaats bestelling</button>

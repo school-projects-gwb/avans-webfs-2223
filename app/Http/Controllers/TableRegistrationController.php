@@ -73,7 +73,6 @@ class TableRegistrationController extends Controller
                 'Attachment' => 0
             )
         );
-//        return $pdf->download('receipt.pdf');
     }
 
     public function index() {

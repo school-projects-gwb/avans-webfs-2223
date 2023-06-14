@@ -127,6 +127,14 @@ class OrderController extends Controller
         return CookieHandler::getData(CookieKey::ORDER_PLACED);
     }
 
+    public function printQrCodePdf() {
+        $menu_data = json_encode($this->isOrderPlaced());
+        $pdf = app('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->loadView('qr_takeaway', compact('menu_data'));
+        return $pdf->download('qr_takeaway.pdf');
+    }
+
     public function handleDishCookie($dishId, $amount) {
         $cookieData = CookieHandler::getData(CookieKey::DISH);
 

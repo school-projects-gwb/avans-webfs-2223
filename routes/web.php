@@ -66,6 +66,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/cart/clear-order-cookie-data', 'clearOrderCookieData')->name('cart.clear-order-cookie-data');
     Route::post('/cart/place-order/{isTakeaway}', 'store')->name('cart.place-order');
     Route::post('/cart/clear-order-cookie', 'clearOrderCookie')->name('cart.clear-order-cookie');
+    Route::get('/cart/print-order-qr', 'printQrCodePdf')->name('cart.print-order-qr');
 });
 
 // Table orders
@@ -95,9 +96,6 @@ Route::controller(MenuController::class)->group(function () {
     Route::get('/menu/print-pdf', 'printPdf')->name('menu.print-pdf');
     Route::post('/menu/handle-dish-cookie/{dishId}', 'handleDishCookie')->name('menu.handle-dish-cookie');
 });
-
-// Takeaway
-Route::get('/cart/get-order-qr-data', [TakeawayController::class, 'getOrderQRData'])->name('cart.get-order-qr-data');
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
