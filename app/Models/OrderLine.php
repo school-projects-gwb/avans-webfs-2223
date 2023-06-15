@@ -12,6 +12,7 @@ class OrderLine extends Model
     protected $fillable = [
         'amount',
         'comment',
+        'created_at'
     ];
 
     public function dish(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -12,7 +12,8 @@ class Order extends Model
     protected $fillable = [
         'first_name',
         'last_name',
-        'is_takeaway'
+        'is_takeaway',
+        'created_at',
     ];
 
     public function orderLines(): \Illuminate\Database\Eloquent\Relations\HasMany
