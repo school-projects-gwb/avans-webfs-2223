@@ -27,7 +27,7 @@ class TableRegistrationController extends Controller
             ->where('id', $tableRegistrationId)
             ->first();
 
-        if (!$tableRegistration) return false;
+        if (!$tableRegistration || count($tableRegistration->orders) == 0) return false;
 
         $tableRegistration->formatted_created_at = $tableRegistration->created_at->format('d-m-Y');
 
