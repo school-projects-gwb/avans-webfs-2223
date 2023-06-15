@@ -25,7 +25,7 @@
     }
 </script>
 
-<div>
+<div class="auth-layout">
     <div class="flex flex-col min-h-screen bg-white">
         <nav
             class="bg-white border-b-2 border-blue-600"

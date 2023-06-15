@@ -11,4 +11,8 @@ class SalesController extends Controller
     public function index(Request $request) {
         return Inertia::render('Sales/Index');
     }
+    
+    public function getData(Request $request) {
+
+    }
 }

@@ -20,8 +20,12 @@
     }
 }
 
-* {
-    font-family: "Times New Roman"
+.site-layout {
+    font-family: "Times New Roman";
+}
+
+.auth-layout {
+    font-family: "Arial";
 }
 
 .bg-menu-item {
