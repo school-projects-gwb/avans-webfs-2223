@@ -38,7 +38,7 @@ class OrderSeeder extends Seeder
 
             $orderLine = new OrderLine();
             $orderLine->dish_id = $record['itemId'];
-            $orderLine->amount = $record['amount'];
+            $orderLine->amount = $record['amount'] + 1;
             $orderLine->created_at = $record['saleDate'];
             $order->orderLines()->save($orderLine);
         }

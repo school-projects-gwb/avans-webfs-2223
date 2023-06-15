@@ -84,9 +84,9 @@ async function handleGetOverview() {
                             {order_line['dish_name']}
                             <span class="italic text-sm">{order_line['option_names']}</span>
                         </td>
-                        <td>€ {(order_line['combined_price'] / order_line['amount']).toPrecision(3)}</td>
+                        <td>€ {(order_line['combined_price'] / order_line['amount']).toFixed(2)}</td>
                         <td>{order_line['amount']}</td>
-                        <td>€ {order_line['combined_price']}</td>
+                        <td>€ {order_line['combined_price'].toFixed(2)}</td>
                     </tr>
                 {/each}
             {/if}

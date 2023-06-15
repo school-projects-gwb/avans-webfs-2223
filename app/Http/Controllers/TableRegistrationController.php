@@ -44,7 +44,7 @@ class TableRegistrationController extends Controller
                     $orderLinesByDish[$dishId] = [
                         'dish_name' => $orderLine->dish->name,
                         'amount' => $orderLine->amount,
-                        'combined_price' => $orderLine->dish->price,
+                        'combined_price' => $orderLine->dish->price * $orderLine->amount,
                         'option_names' => "",
                     ];
 
@@ -53,7 +53,7 @@ class TableRegistrationController extends Controller
 
                 if ($optionId != null) {
                     $orderLinesByDish[$dishId]['option_names'] .= ($orderLinesByDish[$dishId]['option_names'] == "" ? '' : ', ') . $orderLine->option->name;
-                    $orderLinesByDish[$dishId]['combined_price'] += $orderLine->option->price;
+                    $orderLinesByDish[$dishId]['combined_price'] += $orderLine->option->price * $orderLine->amount;
                     $tableRegistration->order_totals += $orderLine->option->price;
                 }
             }

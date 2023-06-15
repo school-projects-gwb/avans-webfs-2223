@@ -38,16 +38,16 @@ class SalesController extends Controller
                     'created_at' => Carbon::parse($orderLine->created_at)->format('d-m-Y'),
                     'dish_name' => $orderLine->dish->name,
                     'amount' => $orderLine->amount,
-                    'combined_price' => $orderLine->dish->price,
+                    'combined_price' => $orderLine->dish->price * $orderLine->amount,
                     'option_names' => "",
                 ];
 
-                $salesData['total_gross'] += $orderLine->dish->price;
+                $salesData['total_gross'] += $orderLine->dish->price * $orderLine->amount;
             }
 
             if ($optionId != null) {
                 $orderLinesByDish[$dishId]['option_names'] .= ($orderLinesByDish[$dishId]['option_names'] == "" ? '' : ', ') . $orderLine->option->name;
-                $orderLinesByDish[$dishId]['combined_price'] += $orderLine->option->price;
+                $orderLinesByDish[$dishId]['combined_price'] += $orderLine->option->price * $orderLine->amount;
                 $salesData['total_gross'] += $orderLine->option->price;
             }
         }
