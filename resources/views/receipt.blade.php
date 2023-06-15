@@ -30,7 +30,7 @@
         @foreach($tableRegistration['orderLines'] as $orderLine):
         <tr>
             <td style="padding-top: .5rem;">{{$orderLine['dish_name']}} (x{{$orderLine['amount']}})</td>
-            <td style="text-align: right; padding-right: .5rem;"><b>€ {{$orderLine['combined_price']}}</b></td>
+            <td style="text-align: right; padding-right: .5rem;"><b>€ {{ number_format(floatval($orderLine['combined_price']), 2, ',', '.')}}</b></td>
         </tr>
         @if($orderLine['option_names'] != "")
             <tr>

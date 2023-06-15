@@ -63,12 +63,13 @@ class TableRegistrationController extends Controller
 
         unset($tableRegistration->orders);
 
+        $tableRegistration->order_totals = number_format(floatval($tableRegistration->order_totals), 2, ',', '.');
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
         $pdf->loadView('receipt', compact('tableRegistration'));
 
         return $pdf->stream(
-            'file.pdf',
+            'kassabon-orderId' . $tableRegistration->order_id . '.pdf',
             array(
                 'Attachment' => 0
             )
