@@ -50,8 +50,10 @@ class DishController extends Controller
 
         // Attach the options
         $optionIds = $request->input('option_ids', []);
-        $options = Option::whereIn('id', $optionIds)->get();
-        $dish->options()->attach($options);
+        if ($optionIds) {
+            $options = Option::whereIn('id', $optionIds)->get();
+            $dish->options()->attach($options);
+        }
 
         return redirect::Route('admin.dishes.index');
     }

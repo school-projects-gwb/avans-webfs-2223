@@ -13,9 +13,10 @@ class DishUpdateRequest extends FormRequest
             'name' => 'required|max:75|string',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
-            'is_discount' => 'required|boolean',
-            'option_required' => 'required|boolean',
+            'is_discount' => 'nullable|boolean',
+            'option_required' => 'nullable|boolean',
             'option_ids' => [
+                'nullable',
                 'array',
                 Rule::exists('options', 'id'),
             ],
@@ -36,10 +37,8 @@ class DishUpdateRequest extends FormRequest
             'price.required' => 'Prijs is verplicht.',
             'price.numeric' => 'Prijs moet een getal zijn.',
 
-            'is_discount.required' => 'Korting is verplicht.',
             'is_discount.boolean' => 'Korting moet ja/nee zijn.',
 
-            'option_required.required' => 'Extra\'s is verplicht.',
             'option_required.boolean' => 'Extra\'s moet ja/nee zijn.',
 
             'option_ids.array' => 'Opties zijn niet valide.',

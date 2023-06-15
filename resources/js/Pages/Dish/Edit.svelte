@@ -67,7 +67,7 @@
 
                 <div class="mt-4">
                     <InputLabel for="price" value="Prijs *" />
-                    <TextInput id="price" type="number" bind:value={$form.price} required />
+                    <TextInput step=".01" id="price" type="number" bind:value={$form.price} required />
                     <InputError message={$form.errors.price} />
                 </div>
 
