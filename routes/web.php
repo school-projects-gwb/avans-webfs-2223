@@ -158,7 +158,7 @@ Route::controller(HelpRequestController::class)->group(function () {
 // Sales overview
 Route::middleware('role:Administrator')->controller(SalesController::class)->name('admin.')->prefix('admin')->group(function () {
     Route::get('/sales', 'index')->name('sales.index');
-    Route::get('/data', 'getData')->name('sales.data');
+    Route::post('/sales/data', 'getData')->name('sales.data');
 });
 
 Route::resource('/admin/news', NewsController::class)->middleware('role:Administrator');
