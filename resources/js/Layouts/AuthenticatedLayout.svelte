@@ -26,9 +26,9 @@
 </script>
 
 <div>
-    <div class="flex flex-col min-h-screen bg-gray-100">
+    <div class="flex flex-col min-h-screen bg-white">
         <nav
-            class="bg-white border-b border-gray-100"
+            class="bg-white border-b-2 border-blue-600"
         >
             <div class="mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col lg:flex-row justify-between items-center py-2">
