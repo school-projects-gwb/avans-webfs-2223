@@ -52,9 +52,10 @@ class SalesController extends Controller
             }
         }
 
-        $salesData['total_gross'] = round($salesData['total_gross'], 2);
+        $totalGrossFormatted = number_format(floatval($salesData['total_gross']), 2, ',', '.');
         $salesData['total_net'] = round(($salesData['total_gross'] / 106) * 100, 2);
         $salesData['total_vat'] = round($salesData['total_gross'] - $salesData['total_net'], 2);
+        $salesData['total_gross'] = $totalGrossFormatted;
         $salesData['orderLines'] = $orderLinesByDish;
 
         return $salesData;
