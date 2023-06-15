@@ -8,6 +8,7 @@ use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\TableRegistrationController;
 use App\Http\Controllers\TakeawayController;
 use App\Models\Dish;
@@ -152,6 +153,11 @@ Route::controller(HelpRequestController::class)->group(function () {
 
     Route::get('/help-requests/get/{tableId}', 'show')->name('help-requests.get');
     Route::post('/help-requests/create/{tableId}', 'create')->name('help-requests.create');
+});
+
+// Sales overview
+Route::middleware('role:Administrator')->controller(SalesController::class)->name('admin.')->prefix('admin')->group(function () {
+    Route::get('/sales', 'index')->name('sales.index');
 });
 
 Route::resource('/admin/news', NewsController::class)->middleware('role:Administrator');

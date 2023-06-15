@@ -88,6 +88,13 @@
 
                             {#if isAdmin}
                                 <NavLink
+                                    href={route("admin.sales.index")}
+                                    active={route().current("admin.sales.index")}
+                                >
+                                    Verkoopoverzicht
+                                </NavLink>
+                                
+                                <NavLink
                                     href={route("news.index")}
                                     active={route().current("news.index")}
                                 >
