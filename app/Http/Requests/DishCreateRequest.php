@@ -16,7 +16,7 @@ class DishCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|max:75|string',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'price' => 'required|decimal',
             'is_discount' => 'required|boolean',
             'option_required' => 'required|boolean',
@@ -35,7 +35,6 @@ class DishCreateRequest extends FormRequest
             'name.max' => 'Naam mag niet langer zijn dan :max karakters.',
             'name.string' => 'Naam moet uit tekst bestaan.',
 
-            'description.required' => 'Omschrijving is verplicht.',
             'description.max' => 'Omschrijving mag niet langer zijn dan :max karakters.',
             'description.string' => 'Omschrijving moet uit tekst bestaan.',
 

@@ -60,8 +60,8 @@
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel for="description" value="Omschrijving *" />
-                    <TextArea id="description" bind:value={$form.description} required />
+                    <InputLabel for="description" value="Omschrijving" />
+                    <TextArea id="description" bind:value={$form.description} />
                     <InputError message={$form.errors.description} />
                 </div>
 
