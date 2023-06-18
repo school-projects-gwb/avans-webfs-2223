@@ -10,8 +10,8 @@ let showModal = false,
     modalContent = "",
     salesData = null;
 
-const defaultStartDate = new Date('2020/04/11').toISOString().split('T')[0];
-const defaultEndDate = new Date('2020/04/13').toISOString().split('T')[0];
+const defaultStartDate = new Date();
+const defaultEndDate = new Date();
 
 let start_date = defaultStartDate,
     end_date = defaultEndDate;
@@ -89,6 +89,10 @@ async function handleGetOverview() {
                         <td>€ {order_line['combined_price'].toFixed(2)}</td>
                     </tr>
                 {/each}
+            {:else}
+                <tr colspan="5">
+                    <td colspan="5" class="underline">Geen verkoopdata gevonden voor deze periode.</td>
+                </tr>
             {/if}
             </tbody>
         </table>
