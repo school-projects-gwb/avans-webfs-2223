@@ -29,7 +29,7 @@ class DailyResumeMail extends Mailable
     public function build(){
         return $this->subject('Dagelijkse omzet overzicht')
             ->view('mail.daily_resume')
-            ->attachData($this->attatchment, 'overzicht.pdf', ['mime' => 'application/pdf']);
+            ->attach($this->attatchment, ['as' => 'counts.xlsx']);
     }
 
 }

@@ -10,6 +10,9 @@ use Dompdf\Dompdf;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class DailyResumeCron extends Command
 {
     /**
@@ -50,11 +53,48 @@ class DailyResumeCron extends Command
             ->with('option')
             ->get();
 
-        $pdf = new Dompdf();
-        $html = view('pdf.daily-resume', compact('dishCounts', 'optionCounts'));
-        $pdf->loadHtml($html);
-        $pdf->setPaper('A4', 'portrait');
-        $pdf->render();
-        Mail::to(env('MAIL_ADMIN_ADDRESS'))->send(new DailyResumeMail($pdf->output()));
+        Mail::to(env('MAIL_ADMIN_ADDRESS'))->send(new DailyResumeMail($this->buildCsv($dishCounts, $optionCounts)));
     }
+
+    private function buildCsv($dishCounts, $optionCounts)
+    {
+        $tempFilePath = storage_path('app/counts.xlsx');
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->setTitle('Daily Resume');
+
+        $worksheet->setCellValue('A1', 'Product');
+        $worksheet->setCellValue('B1', 'Hoeveelheid');
+        $worksheet->setCellValue('C1', 'Prijs');
+
+        $row = 2;
+        $totalPrice = 0;
+
+        foreach ($dishCounts as $dishCount) {
+            $price = $dishCount->dish->price * $dishCount->count;
+            $worksheet->setCellValue('A' . $row, $dishCount->dish->name);
+            $worksheet->setCellValue('B' . $row, $dishCount->count);
+            $worksheet->setCellValue('C' . $row, $dishCount->dish->price * $dishCount->count);
+            $row++;
+            $totalPrice += $price;
+        }
+
+        foreach ($optionCounts as $optionCount) {
+            $price = $optionCount->option->price * $optionCount->count;
+            $worksheet->setCellValue('A' . $row, $optionCount->option->name);
+            $worksheet->setCellValue('B' . $row, $optionCount->count);
+            $worksheet->setCellValue('C' . $row, $optionCount->option->price * $optionCount->count);
+            $row++;
+            $totalPrice += $price;
+        }
+
+        $worksheet->setCellValue('A' . $row += 1, "Totale Omzet: €" . $totalPrice . ",-");
+        $worksheet->setCellValue('A' . $row += 1, "Omzet overzicht van: " . Carbon::yesterday()->format('d-m-Y'));
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($tempFilePath);
+
+        return $tempFilePath;
+    }
+
 }
