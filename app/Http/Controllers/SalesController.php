@@ -26,6 +26,8 @@ class SalesController extends Controller
             $cleanedFileNames[] = $cleanedFileName;
         }
 
+        rsort($cleanedFileNames);
+
         return $cleanedFileNames;
     }
 
