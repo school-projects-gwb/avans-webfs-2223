@@ -98,7 +98,7 @@ Route::controller(MenuController::class)->group(function () {
     Route::post('/menu/handle-dish-cookie/{dishId}', 'handleDishCookie')->name('menu.handle-dish-cookie');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/kassa', function () {
     $user = auth()->user();
     if($user->hasRole('Cashier')){
         return redirect()->route('pos.index');
