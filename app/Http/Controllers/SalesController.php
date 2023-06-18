@@ -15,7 +15,7 @@ class SalesController extends Controller
         return Inertia::render('Sales/Index');
     }
 
-    public function getData(SalesGetRequest $request) {
+    public static function getData(SalesGetRequest $request) {
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 
