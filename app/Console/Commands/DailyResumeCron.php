@@ -17,7 +17,7 @@ class DailyResumeCron extends Command
 
     public function handle()
     {
-        $yesterday = Carbon::today();
+        $yesterday = Carbon::yesterday();
 
         $startDate = $yesterday->copy()->startOfDay();
         $endDate = $yesterday->copy()->endOfDay();

@@ -25,7 +25,6 @@ onMount(async () => {
 async function handleMenuData() {
     axios.get('/menu/data/' + sort_order).then(response => {
         menu_data = response.data;
-        console.log(response.data)
     });
 }
 
