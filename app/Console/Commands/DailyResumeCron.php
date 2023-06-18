@@ -6,7 +6,6 @@ use App\Http\Controllers\SalesController;
 use App\Http\Requests\SalesGetRequest;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -35,7 +34,7 @@ class DailyResumeCron extends Command
 
     private function buildExcel($salesData, $date)
     {
-        $tempFilePath = storage_path('app/sales_exports' . $date . '_sales.xlsx');
+        $tempFilePath = storage_path('app/sales_exports/' . $date . '_sales.xlsx');
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheet->setTitle('Daily Resume');

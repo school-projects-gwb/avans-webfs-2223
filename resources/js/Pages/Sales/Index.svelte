@@ -3,18 +3,25 @@
 </script>
 
 <script>
-import {useForm} from "@inertiajs/svelte";
 import axios from "axios";
+import {onMount} from "svelte";
 
 let showModal = false,
     modalContent = "",
-    salesData = null;
+    salesData = null,
+    exportData;
 
 const defaultStartDate = new Date();
 const defaultEndDate = new Date();
 
 let start_date = defaultStartDate,
     end_date = defaultEndDate;
+
+onMount(async () => {
+    await axios.get('/admin/sales/export-data').then(response => {
+        console.log(response);
+    });
+});
 
 async function handleGetOverview() {
     const requestData = {
@@ -25,7 +32,6 @@ async function handleGetOverview() {
     axios.post('/admin/sales/data', requestData, { withCredentials: true })
         .then(response => {
             if (!response.data) return;
-            console.log(response.data);
             salesData = response.data;
         })
         .catch(error => {
@@ -66,7 +72,11 @@ async function handleGetOverview() {
         </div>
     </div>
 
-    <div class="flex p-4 border border-blue-600 mx-6 rounded-md justify-center">
+    <div class="flex p-4 mx-2 rounded-md justify-center">
+        <div class="w-1/2 2xl:w-4/12 mr-4 border border-blue-600 p-4 rounded-md flex flex-row items-center">
+
+        </div>
+        <div class="w-1/2 2xl:w-8/12 border border-blue-600 p-4 rounded-md flex justify-between font-bold">
         <table class="w-1/2">
             <thead class="border-b-2 border-blue-600">
                 <th class="w-1/12 border-l border-r border-blue-600">Datum</th>
@@ -96,6 +106,7 @@ async function handleGetOverview() {
             {/if}
             </tbody>
         </table>
+            </div>
     </div>
 </div>
 

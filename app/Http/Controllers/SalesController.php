@@ -15,6 +15,14 @@ class SalesController extends Controller
         return Inertia::render('Sales/Index');
     }
 
+    public function getExportData(Request $request) {
+        $directory = storage_path('app/sales_exports');
+        $fileNames = scandir($directory);
+// Exclude '.' and '..' directories
+        $fileNames = array_diff($fileNames, ['.', '..']);
+        return $fileNames;
+    }
+
     public static function getData(SalesGetRequest $request) {
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
