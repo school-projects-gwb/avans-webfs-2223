@@ -104,6 +104,10 @@ Route::get('/dashboard', function () {
         return redirect()->route('pos.index');
     }
 
+    if ($user->hasRole('Administrator')) {
+        return redirect()->route('admin.sales.index');
+    }
+
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
