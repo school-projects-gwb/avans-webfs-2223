@@ -4,13 +4,8 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\SalesController;
 use App\Http\Requests\SalesGetRequest;
-use App\Mail\DailyResumeMail;
-use App\Models\OrderLine;
-use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
-use Dompdf\Dompdf;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
