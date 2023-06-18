@@ -29,7 +29,7 @@ class DailyResumeCron extends Command
         ]);
 
         $salesData = SalesController::getData($request);
-        $this->buildExcel($salesData, $yesterday);
+        $this->buildExcel($salesData, $yesterday->format('d-m-Y'));
     }
 
     private function buildExcel($salesData, $date)
@@ -55,7 +55,7 @@ class DailyResumeCron extends Command
         $worksheet->setCellValue('A' . $row += 1, "Totale Omzet: €" . $salesData['total_gross'] . ",-");
         $worksheet->setCellValue('A' . $row += 1, "BTW: €" . $salesData['total_vat'] . ",-");
         $worksheet->setCellValue('A' . $row += 1, "Excl. BTW: €" . $salesData['total_net'] . ",-");
-        $worksheet->setCellValue('A' . $row += 1, "Omzet overzicht van: " . Carbon::yesterday()->format('d-m-Y'));
+        $worksheet->setCellValue('A' . $row + 1, "Omzet overzicht van: " . Carbon::yesterday()->format('d-m-Y'));
 
         $writer = new Xlsx($spreadsheet);
         $writer->save($tempFilePath);

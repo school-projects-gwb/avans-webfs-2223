@@ -19,7 +19,7 @@ let start_date = defaultStartDate,
 
 onMount(async () => {
     await axios.get('/admin/sales/export-data').then(response => {
-        console.log(response);
+        exportData = response.data;
     });
 });
 
@@ -73,8 +73,13 @@ async function handleGetOverview() {
     </div>
 
     <div class="flex p-4 mx-2 rounded-md justify-center">
-        <div class="w-1/2 2xl:w-4/12 mr-4 border border-blue-600 p-4 rounded-md flex flex-row items-center">
-
+        <div class="w-1/2 2xl:w-4/12 mr-4 border border-blue-600 p-4 rounded-md flex flex-col items-center">
+            {#if exportData}
+                <p class="text-lg font-bold">Verkoop overzichten</p>
+                {#each Object.entries(exportData) as [index, export_record]}
+                    <p>{export_record} <a class="ml-2 underline" href="{`/download/${export_record}`}">Download</a></p>
+                {/each}
+            {/if}
         </div>
         <div class="w-1/2 2xl:w-8/12 border border-blue-600 p-4 rounded-md flex justify-between font-bold">
         <table class="w-1/2">

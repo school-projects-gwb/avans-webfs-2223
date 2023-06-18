@@ -139,11 +139,6 @@ Route::middleware('role:Administrator')->controller(DishController::class)->name
     Route::delete('/dishes/destroy/{dish}', 'destroy')->name('dishes.destroy');
 });
 
-Route::middleware('role:Administrator')->get('/download/{fileName}', function ($fileName) {
-    $filePath = storage_path('app/sales_exports/' . $fileName);
-    return response()->download($filePath);
-});
-
 // Reviews
 Route::controller(ReviewController::class)->group(function () {
     Route::get('/admin/reviews', 'index')->name('admin.reviews.index')->middleware('role:Administrator');;
@@ -169,6 +164,11 @@ Route::middleware('role:Administrator')->controller(SalesController::class)->nam
     Route::get('/sales', 'index')->name('sales.index');
     Route::post('/sales/data', 'getData')->name('sales.data');
     Route::get('/sales/export-data', 'getExportData')->name('sales.export-data');
+});
+
+Route::middleware('role:Administrator')->get('/download/{fileName}', function ($fileName) {
+    $filePath = storage_path('app/sales_exports/' . $fileName . '.xlsx');
+    return response()->download($filePath);
 });
 
 Route::resource('/admin/news', NewsController::class)->middleware('role:Administrator');

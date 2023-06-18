@@ -18,9 +18,15 @@ class SalesController extends Controller
     public function getExportData(Request $request) {
         $directory = storage_path('app/sales_exports');
         $fileNames = scandir($directory);
-// Exclude '.' and '..' directories
         $fileNames = array_diff($fileNames, ['.', '..']);
-        return $fileNames;
+
+        $cleanedFileNames = [];
+        foreach ($fileNames as $fileName) {
+            $cleanedFileName = pathinfo($fileName, PATHINFO_FILENAME);
+            $cleanedFileNames[] = $cleanedFileName;
+        }
+
+        return $cleanedFileNames;
     }
 
     public static function getData(SalesGetRequest $request) {
